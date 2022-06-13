@@ -46,16 +46,6 @@ static uint16_t layer_lock_timer = 0;
          dprintf("Layer Lock Timer All Off Function: %d\n", layer_lock_timer);
      }
 
-//  bool process_layer_lock_timer(uint16_t keycode, keyrecord_t* record) {
-//             const uint8_t layer = get_highest_layer(layer_state);
-//             if (is_layer_locked(layer)) {
-//                 if (record->event.pressed) {
-//                     layer_lock_timer = timer_read(); }
-//                     return true;
-//                     }
-//                     return true;
-//                     }
-
 #endif // End of layer lock idle timeout functions
 
 bool process_layer_lock(uint16_t keycode, keyrecord_t* record,
@@ -63,6 +53,7 @@ bool process_layer_lock(uint16_t keycode, keyrecord_t* record,
 
     #if LAYER_LOCK_IDLE_TIMEOUT > 0
       layer_lock_timer = timer_read();
+      dprintf("Layer Lock Timer Update PLL: %d\n", layer_lock_timer);
     #endif
 
   // The intention is that locked layers remain on. If something outside of
