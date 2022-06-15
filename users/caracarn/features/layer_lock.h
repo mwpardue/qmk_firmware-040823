@@ -82,7 +82,7 @@ void layer_lock_invert(uint8_t layer);
 //   }
 void layer_lock_set_user(layer_state_t locked_layers);
 
-#if LAYER_LOCK_IDLE_TIMEOUT > 0 //Layer Lock Timer
+#if LAYER_LOCK_IDLE_TIMEOUT > 0 // Layer Lock Timer
 
 // If you want to automatically disable layer lock if no keys are pressed after a
 // configurable timeout, define LAYER_LOCK_IDLE_TIMEOUT in your config.h file.
