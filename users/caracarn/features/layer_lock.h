@@ -41,6 +41,7 @@
 #pragma once
 
 #include "quantum.h"
+#include "../definitions/keycodes.h"
 
 #ifdef __cplusplus
 extern "C" {

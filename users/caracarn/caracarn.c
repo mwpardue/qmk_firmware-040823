@@ -39,7 +39,7 @@ void matrix_scan_user(void) {
 #endif
 
 #if LAYER_LOCK_IDLE_TIMEOUT > 0
-    layer_lock_timer_task();
+    layer_lock_task();
 #endif
 
 #ifdef CAPSWORD_ENABLE
@@ -90,6 +90,7 @@ void matrix_scan_user(void) {
      case BSP_SYM:
      case SPCSFT:
      case ENT_FUN:
+     case NAV_LL:
        return 0;  // Bypass Achordion for these keys.
    }
 

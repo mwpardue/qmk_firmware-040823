@@ -9,9 +9,9 @@ extern led_config_t g_led_config;
 
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_min, uint8_t led_max) {
     HSV hsv = {hue, sat, val};
-    if (hsv.v > rgb_matrix_get_val()) {
-        hsv.v = rgb_matrix_get_val();
-    }
+    // if (hsv.v > rgb_matrix_get_val()) {
+    //     hsv.v = rgb_matrix_get_val();
+    // }
 
             RGB rgb = hsv_to_rgb(hsv);
             for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
@@ -42,13 +42,16 @@ void                       rgb_matrix_indicators_advanced_user(uint8_t led_min, 
     {
         switch (get_highest_layer(layer_state | default_layer_state)) {
             case _BASE:
-                rgb_matrix_layer_helper(HSV_CYAN, led_min, led_max);
+                rgb_matrix_layer_helper(HSV_AQUA, led_min, led_max);
                 break;
             case _NUMPAD:
-                rgb_matrix_layer_helper(HSV_GREEN, led_min, led_max);
+                rgb_matrix_layer_helper(HSV_CYAN, led_min, led_max);
+                break;
+            case _NAVIGATION:
+                rgb_matrix_layer_helper(HSV_ORANGE, led_min, led_max);
                 break;
             case _MACROS:
-                rgb_matrix_layer_helper(HSV_CORAL, led_min, led_max);
+                rgb_matrix_layer_helper(HSV_AZURE, led_min, led_max);
                 break;
             case _SYMBOL:
                 rgb_matrix_layer_helper(HSV_YELLOW, led_min, led_max);

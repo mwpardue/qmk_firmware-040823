@@ -2,9 +2,10 @@
 
 typedef enum {
   _BASE,
-  _FUNCTION,
+  _HEX,
   _NUMPAD,
-  _MACROS,
+  _NAVIGATION,
   _SYMBOL,
-  _HEX
+  _MACROS,
+  _FUNCTION
 } layers_t;

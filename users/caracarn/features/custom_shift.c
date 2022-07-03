@@ -2,27 +2,27 @@
 
 #include "custom_shift.h"
 
-//extern os_t os;
+extern os_t os;
 static bool custom_shifting = false;
 
-#ifndef DEFAULT_MOD_KEY_ENABLE
-    #ifndef CUSTOM_ONESHOT_MODS_ENABLE
-        void clear_locked_and_oneshot_mods(void) {
-            uint8_t oneshot_locked_mods = get_oneshot_locked_mods();
-            uint8_t oneshot_mods = get_oneshot_mods();
-            if (oneshot_locked_mods || oneshot_mods) {
-                clear_oneshot_mods();
-                clear_oneshot_locked_mods();
-                unregister_mods(MOD_LSFT);
-                unregister_mods(MOD_LCTL);
-                unregister_mods(MOD_LALT);
-                unregister_mods(MOD_RALT);
-                unregister_mods(MOD_LGUI);
-            }
-        //    dyn_macro_reset();
-        }
-    #endif
-#endif
+// #ifndef DEFAULT_MOD_KEY_ENABLE
+//     #ifndef CUSTOM_ONESHOT_MODS_ENABLE
+//         void clear_locked_and_oneshot_mods(void) {
+//             uint8_t oneshot_locked_mods = get_oneshot_locked_mods();
+//             uint8_t oneshot_mods = get_oneshot_mods();
+//             if (oneshot_locked_mods || oneshot_mods) {
+//                 clear_oneshot_mods();
+//                 clear_oneshot_locked_mods();
+//                 unregister_mods(MOD_LSFT);
+//                 unregister_mods(MOD_LCTL);
+//                 unregister_mods(MOD_LALT);
+//                 unregister_mods(MOD_RALT);
+//                 unregister_mods(MOD_LGUI);
+//             }
+//         //    dyn_macro_reset();
+//         }
+//     #endif
+// #endif
 
 process_record_result_t process_custom_shift(uint16_t keycode, keyrecord_t *record) {
 

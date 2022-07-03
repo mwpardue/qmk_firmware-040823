@@ -56,11 +56,38 @@ bool process_layer_lock(uint16_t keycode, keyrecord_t* record,
     layer_lock_set_user(locked_layers &= layer_state);
   }
 
-  if (keycode == lock_keycode) {
-    if (record->event.pressed) {  // The layer lock key was pressed.
-      layer_lock_invert(get_highest_layer(layer_state));
+  if (keycode == lock_keycode || ((extract_base_tapping_keycode(keycode)) == (lock_keycode & 0xff))) {
+    switch (keycode) {
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX: {
+            if (record->tap.count == 0 && !record->event.pressed &&
+                is_layer_locked((keycode >> 8) & 15)) {
+                // Release event on a held layer-tap key where the layer is locked.
+                dprintf("Ignoring LT Key Release Top Case\n");
+                return false;  // Skip default handling so that layer stays on.
+            }
+            else if (record->tap.count == 0) {
+                // Normal handling of layer tap key if held
+                dprintf("Normal Handling of Key\n");
+                return true;
+            }
+            else if (record->tap.count > 0 && record->event.pressed) {  // The layer lock key was pressed.
+                dprintf("Current Layer Pre-LT: %d\n", get_highest_layer(layer_state));
+                layer_lock_invert(get_highest_layer(layer_state));
+                dprintf("Layer Lock Invert LT\n");
+                dprintf("Current Layer Post-LT: %d\n", get_highest_layer(layer_state));
+                return false;
+            }
+        } break;
+        default:
+            if (record->event.pressed) {
+                dprintf("Current Layer Pre-DEF: %d\n", get_highest_layer(layer_state));
+                layer_lock_invert(get_highest_layer(layer_state));
+                dprintf("Layer Lock Invert DEF\n");
+                dprintf("Current Layer Post-DEF: %d\n", get_highest_layer(layer_state));
+                return false;
+            }
+            break;
     }
-    return false;
   }
 
   switch (keycode) {
@@ -69,8 +96,9 @@ bool process_layer_lock(uint16_t keycode, keyrecord_t* record,
       const uint8_t layer = keycode & 255;
       if (is_layer_locked(layer)) {
         // Event on `MO` or `TT` key where layer is locked.
-        if (record->event.pressed) {  // On press, unlock the layer.
+        if (!record->event.pressed) {  // On press, unlock the layer.
           layer_lock_invert(layer);
+          dprintf("Layer Lock Invert Momentary and LTT\n");
         }
         return false;  // Skip default handling.
       }
@@ -81,6 +109,7 @@ bool process_layer_lock(uint16_t keycode, keyrecord_t* record,
       if (record->tap.count == 0 && !record->event.pressed &&
           is_layer_locked((keycode >> 8) & 15)) {
         // Release event on a held layer-tap key where the layer is locked.
+        dprintf("Ignoring LT Key Release Bottom Case\n");
         return false;  // Skip default handling so that layer stays on.
       }
       break;
@@ -115,11 +144,15 @@ void layer_lock_invert(uint8_t layer) {
 
 // Implement layer_lock_on/off by deferring to layer_lock_invert.
 void layer_lock_on(uint8_t layer) {
-  if (!is_layer_locked(layer)) { layer_lock_invert(layer); }
+    dprintf("Current Layer Pre-LON: %d\n", layer);
+  if (!is_layer_locked(layer)) { layer_lock_invert(layer);
+  dprintf("Current Layer Post-LON: %d\n", layer); }
 }
 
 void layer_lock_off(uint8_t layer) {
-  if (is_layer_locked(layer)) { layer_lock_invert(layer); }
+    dprintf("Current Layer Pre-LOFF: %d\n", layer);
+  if (is_layer_locked(layer)) { layer_lock_invert(layer);
+  dprintf("Current Layer Post-LOFF: %d\n", layer); }
 }
 
 __attribute__((weak)) void layer_lock_set_user(layer_state_t locked_layers) {}

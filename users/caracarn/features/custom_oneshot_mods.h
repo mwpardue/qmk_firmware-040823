@@ -5,7 +5,7 @@
 #include "../definitions/keycodes.h"
 #include "process_record_result.h"
 #include "os_toggle.h"
-#include "dynamic_macro.h"
+//#include "dynamic_macro.h"
 
 typedef struct {
     uint16_t timer;

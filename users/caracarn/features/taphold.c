@@ -99,15 +99,16 @@ bool get_hold_on_other_key_press_result(uint16_t keycode) {
 bool get_permissive_hold_result(uint16_t keycode) {
     switch (keycode) {
         //case GUI_Z:
-        //case CTL_S:
-        //case ALT_D:
-        //case GUI_F:
-        //case CTL_L:
-        //case ALT_K:
-        //case GUI_J:
+        // case CTL_S:
+        // case ALT_D:
+        // case GUI_F:
+        // case CTL_L:
+        // case ALT_K:
+        // case GUI_J:
         case GUI_4:
         case ALT_5:
         case CTL_6:
+        // case KC0_NAV:
         case SPCSFT:
             // Immediately select the hold action when another key is tapped.
             return true;

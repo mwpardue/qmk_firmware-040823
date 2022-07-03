@@ -174,18 +174,52 @@ void render_layer_state(void) {
         0xb4, 0x48, 0x45, 0x58, 0xb8, 0};
     static const char PROGMEM function_layer[] = {
         0xb4, 0x46, 0x55, 0x4e, 0xb8, 0};
-    if(layer_state_is(_NUMPAD)) {
-        oled_write_P(numpad_layer, false);
-    } else if(layer_state_is(_MACROS)) {
-        oled_write_P(macro_layer, false);
-    } else if(layer_state_is(_SYMBOL)) {
-        oled_write_P(symbol_layer, false);
-    } else if(layer_state_is(_HEX)) {
-        oled_write_P(hex_layer, false);
-    } else if(layer_state_is(_FUNCTION)) {
-        oled_write_P(function_layer, false);
+    static const char PROGMEM navigation_layer[] = {
+        0xb4, 0x4e, 0x41, 0x56, 0xb8, 0};
+    switch (get_highest_layer(layer_state | default_layer_state)) {
+        case _NUMPAD:
+            oled_write_P(numpad_layer, false);
+            break;
+        case _MACROS:
+            oled_write_P(macro_layer, false);
+            break;
+        case _SYMBOL:
+            oled_write_P(symbol_layer, false);
+            break;
+        case _HEX:
+            oled_write_P(hex_layer, false);
+            break;
+        case _FUNCTION:
+            oled_write_P(function_layer, false);
+            break;
+        case _NAVIGATION:
+            oled_write_P(navigation_layer, false);
+            break;
+        case _BASE:
+            oled_write_P(base_layer, false);
+            break;
+    }
+}
+
+void render_smart_case(void) {
+    if (has_smart_case(CAMEL_CASE) && has_smart_case(WORD_CASE)) {
+        oled_write_P(PSTR(" Pas "), false);
+    } else if (has_smart_case(SNAKE_CASE) && has_smart_case(WORD_CASE)) {
+        oled_write_P(PSTR("_SNK_"), false);
+    } else if (has_smart_case(KEBAB_CASE) && has_smart_case(WORD_CASE)) {
+        oled_write_P(PSTR("-KBB-"), false);
+    } else if (has_smart_case(CAMEL_CASE) && !has_smart_case(WORD_CASE)) {
+        oled_write_P(PSTR(" cam "), false);
+    } else if (has_smart_case(SNAKE_CASE) && !has_smart_case(WORD_CASE)) {
+        oled_write_P(PSTR("_snk_"), false);
+    } else if (has_smart_case(KEBAB_CASE) && !has_smart_case(WORD_CASE)) {
+        oled_write_P(PSTR("-kbb-"), false);
+    } else if (has_smart_case(CAPS_LOCK)) {
+        oled_write_P(PSTR("CPSLK"), false);
+    } else if (has_smart_case(WORD_CASE)) {
+        oled_write_P(PSTR("CPSWD"), false);
     } else {
-        oled_write_P(base_layer, false);
+        oled_write_P(PSTR("     "), false);
     }
 }
 
@@ -199,5 +233,7 @@ bool oled_task_user(void) {
     render_layer_box_top();
     render_layer_state();
     render_layer_box_bottom();
+    render_space();
+    render_smart_case();
     return false;
 }

@@ -48,7 +48,7 @@ enum {
 #endif
 
 #ifdef SMART_THUMB_KEYS_ENABLE
-    CAP_KEY, SP_CAP,
+    CAP_KEY, SP_CAP, SP_MOD, DEF_MOD,
 #endif
 
 #ifdef SMART_CASE_ENABLE
@@ -60,11 +60,11 @@ enum {
 #endif
 
 #ifdef SELECT_WORD_ENABLE
-    SS_SELW,
+    MC_SELW,
 #endif
 
 #ifdef WINDOW_SWAPPER_ENABLE
-    SS_SWIN,
+    MC_SWLE, MC_SWRI, MC_SWAP,
 #endif
 
 #ifdef LAYER_LOCK_ENABLE
@@ -104,15 +104,21 @@ enum {
 
 // Layer-taps
 
-//#define MOD_MAC LT(_MACROS, SP_MOD)
+#define MOD_KEY LGUI_T(SP_MOD)
 #define MOD_CTL LCTL_T(SP_MOD)
 //#define TAB_HYP HYPR_T(KC_TAB)
 #define SPC_MAC LT(_MACROS, KC_SPC)
 #define BSP_SYM LT(_SYMBOL, KC_BSPC)
+#define ESC_MAC LT(_MACROS, KC_ESC)
 //#define SYMENT LT(_SYMBOL, KC_ENT)
 #define TAB_NUM LT(_NUMPAD, KC_TAB)
 #define ENT_FUN LT(_FUNCTION, KC_ENT)
+//#define ENT_NAV LT(_NAVIGATION, KC_ENT)
+#define KC0_NAV LT(_NAVIGATION, KC_0)
+//#define LLOCK KC_F24
+#define NAV_LL LT(_NAVIGATION, LLOCK)
 #define CAP_KEY LSFT_T(SP_CAP)
+#define MC_SWAP LGUI(KC_GRV)
 
 // Layer transitions
 
@@ -151,6 +157,10 @@ enum {
 //#define ESCSHFT LSFT_T(KC_ESC)
 #define ESC_CTL LCTL_T(KC_ESC)
 #define GUI_ENT LGUI_T(KC_ENT)
+#define HOME LGUI(KC_UP)
+#define END LGUI(KC_DOWN)
+#define WORD_LE LALT(KC_LEFT)
+#define WORD_RI LALT(KC_RIGHT)
 //#define TABCTRL LCTL_T(KC_TAB)
 #define SPCSFT LSFT_T(KC_SPC)
 #define MACSLEP LSFT(LCTL(KC_POWER))
@@ -174,6 +184,6 @@ enum {
 
 uint16_t extract_base_tapping_keycode(uint16_t keycode);
 
-#ifdef SMART_CASE_ENABLE
+//#ifdef SMART_CASE_ENABLE
     bool is_key_on_tap(uint16_t keycode);
-#endif
+//#endif
