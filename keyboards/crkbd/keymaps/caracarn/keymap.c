@@ -6,10 +6,15 @@
 #    include "oled.c"
 #endif
 
-#ifdef RGB_MATRIX_ENABLE
-    #include "rgb.c"
-#endif
+// #ifdef RGB_MATRIX_ENABLE
+//     #ifdef RGB_MATRIX_LEDMAPS_ENABLED
+//             #include "rgb_matrix_ledmaps.c"
+//         #else
+//             #include "rgb.c"
+//     #endif //RGB_MATRIX_LEDMAPS_ENABLED
+// #endif
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BASE] = LAYOUT_split_3x6_3(
@@ -63,3 +68,75 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 };
+
+#ifdef RGB_MATRIX_LEDMAPS_ENABLED
+
+#undef _______
+#define _______ {0, 0, 0}
+
+const ledmap PROGMEM ledmaps[] = {
+  [_NUMPAD] = RGB_MATRIX_LAYOUT_LEDMAP(
+  _______, BLUE,    SPRING,  BLUE,    SPRING,  PURPLE,                       YELLOW,  CYAN,    CYAN,    CYAN,    YELLOW,  _______,
+           NUM_UGL,          NUM_UGL,          NUM_UGL,                      NUM_UGL,          NUM_UGL,          NUM_UGL,
+  _______, AQUA,    BLUE,    BLUE,    BLUE,    PINK,                         YELLOW,  CYAN,    CYAN,    CYAN,    YELLOW,  _______,
+           NUM_UGL,                                                    NUM_UGL,
+  _______, ORANGE,  ORANGE,  PURPLE,  ORANGE,  GREEN,                        YELLOW,  CYAN,    CYAN,    CYAN,    GREEN,   _______,
+                             NUM_UGL,          NUM_UGL,                      NUM_UGL,          NUM_UGL,
+                                      _______, _______, _______,    BLUE,    CYAN,    PURPLE
+  ),
+
+  [_NAVIGATION] = RGB_MATRIX_LAYOUT_LEDMAP(
+  _______, PURPLE,  SPRING,  BLUE,    SPRING,  PINK,                         YELLOW,  CYAN,    CYAN,    CYAN,    YELLOW,  _______,
+           NAV_UGL,          NAV_UGL,          NAV_UGL,                      NAV_UGL,          NAV_UGL,          NAV_UGL,
+  _______, AQUA,    SPRING,  BLUE,    SPRING,  PINK,                         YELLOW,  CYAN,    CYAN,    CYAN,    YELLOW,  _______,
+           NAV_UGL,                NAV_UGL,
+  _______, _______, SPRING,  SPRING,  SPRING,  _______,                      YELLOW,  CYAN,    CYAN,    CYAN,    GREEN,   _______,
+                             NAV_UGL, NAV_UGL, NAV_UGL, NAV_UGL,
+                                      PURPLE,  _______, _______,    BLUE,    CYAN,    _______
+  ),
+
+  [_HEX] = RGB_MATRIX_LAYOUT_LEDMAP(
+  _______, BLUE,    _______, _______, _______, YELLOW,                       YELLOW,  CYAN,    CYAN,    CYAN,    YELLOW,  _______,
+           HEX_UGL,          HEX_UGL,          HEX_UGL,                      HEX_UGL,          HEX_UGL,          HEX_UGL,
+  _______, _______, YELLOW,  _______, _______, YELLOW,                       YELLOW,  CYAN,    CYAN,    CYAN,    YELLOW,  _______,
+           HEX_UGL,                  HEX_UGL,
+  _______, _______, YELLOW,  _______, YELLOW,  _______,                      YELLOW,  CYAN,    CYAN,    CYAN,    GREEN,   _______,
+  HEX_UGL, HEX_UGL, HEX_UGL, HEX_UGL,
+                                      _______, _______, BLUE,       AQUA,    CYAN,    PURPLE
+  ),
+
+  [_SYMBOL] = RGB_MATRIX_LAYOUT_LEDMAP(
+  _______, PURPLE,  YELLOW,  YELLOW,  YELLOW,  ORANGE,                       YELLOW,  YELLOW,  YELLOW,  YELLOW,  YELLOW,  _______,
+           SYM_UGL,          SYM_UGL,          SYM_UGL,                      SYM_UGL,          SYM_UGL,          SYM_UGL,
+  _______, YELLOW,  YELLOW,  YELLOW,  YELLOW,  _______,                      YELLOW,  YELLOW,  YELLOW,  YELLOW,  YELLOW,  _______,
+           SYM_UGL,                   SYM_UGL,
+  _______, ORANGE,  ORANGE,  ORANGE,  ORANGE,  _______,                      YELLOW,  YELLOW,  YELLOW,  YELLOW,  GREEN,   _______,
+  SYM_UGL, SYM_UGL, SYM_UGL, SYM_UGL,
+                                      PURPLE,  _______, BLUE,       _______, YELLOW,  _______
+  ),
+
+  [_MACROS] = RGB_MATRIX_LAYOUT_LEDMAP(
+  _______, PURPLE,  PURPLE,  _______, _______, CYAN,                         PURPLE,  PURPLE,  PURPLE,  PURPLE,  CYAN,    _______,
+           MAC_UGL,          MAC_UGL,          MAC_UGL,                      MAC_UGL,          MAC_UGL,          MAC_UGL,
+  _______, CYAN,    CYAN,    _______, PURPLE,  _______,                      _______, CYAN,    _______, CYAN,    _______, _______,
+           MAC_UGL,                  MAC_UGL,
+  _______, _______, SPRING,  SPRING,  SPRING,  _______,                      CYAN,    CYAN,    _______, _______, GREEN,   _______,
+  MAC_UGL, MAC_UGL, MAC_UGL, MAC_UGL,
+                                      PURPLE,  _______, BLUE,       _______, _______, _______
+  ),
+
+  [_FUNCTION] = RGB_MATRIX_LAYOUT_LEDMAP(
+  GOLD,    GOLD,    GOLD,    GOLD,    GOLD,    GOLD,                         GOLD,    GOLD,    GOLD,    GOLD,    GOLD,    GOLD,
+           FUN_UGL,          FUN_UGL,          FUN_UGL,                      FUN_UGL,          FUN_UGL,          FUN_UGL,
+  _______, GREEN,   PURPLE,  ORANGE,  YELLOW,  YELLOW,                       _______, RED,     GREEN,   AZURE,   ORANGE,  AQUA,
+           FUN_UGL,                 FUN_UGL,
+  _______, GREEN,   BLUE,    BLUE,    BLUE,    YELLOW,                       _______, BLUE,    GREEN,   AZURE,   ORANGE,  AQUA,
+FUN_UGL, FUN_UGL, FUN_UGL, FUN_UGL,
+                                      PURPLE,  CYAN,   _______,     YELLOW,  AZURE,   AQUA
+  ),
+};
+
+#undef _______
+#define _______ KC_TRNS
+#endif // RGB_MATRIX_LEDMAPS_ENABLED
+// clang-format on
