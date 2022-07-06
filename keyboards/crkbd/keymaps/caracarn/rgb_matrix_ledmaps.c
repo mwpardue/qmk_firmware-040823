@@ -41,7 +41,6 @@ void set_layer_rgb(uint8_t led_min, uint8_t led_max, int layer) {
             }
         }
     } else {
-
         for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
             HSV hsv = {
                 .h = (*l)[i][0],
@@ -52,10 +51,28 @@ void set_layer_rgb(uint8_t led_min, uint8_t led_max, int layer) {
             if (hsv.h || hsv.s) {
                 RGB rgb = hsv_to_rgb(hsv);
                 RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
+                // if (i == 0) {
+                //     dprintf("Beginning LED Loop\n");
+                // }
+                // if (rgb.r > 0 || rgb.g > 0 || rgb.b > 0) {
+                // dprintf("LED being lit: %d - (%d, %d, %d)\n", i, hsv.h, hsv.s, hsv.v);
+                };
             }
         }
-    }
+        // for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+        //     HSV hsv = {
+        //         .h = (*l)[i][0],
+        //         .s = (*l)[i][1],
+        //         .v = val,
+        //     };
+
+        //     if (hsv.h || hsv.s) {
+        //         RGB rgb = hsv_to_rgb(hsv);
+        //         RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
+        //     }
+        // }
 }
+// }
 
 void rgb_matrix_layers_enable() {
     dprintf("ledmaps are enabled\n");

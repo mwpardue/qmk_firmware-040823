@@ -74,6 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #undef _______
 #define _______ {0, 0, 0}
 
+//const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
 const ledmap PROGMEM ledmaps[] = {
   [_NUMPAD] = RGB_MATRIX_LAYOUT_LEDMAP(
   _______, BLUE,    SPRING,  BLUE,    SPRING,  PURPLE,                       YELLOW,  CYAN,    CYAN,    CYAN,    YELLOW,  _______,
@@ -96,13 +97,13 @@ const ledmap PROGMEM ledmaps[] = {
   ),
 
   [_HEX] = RGB_MATRIX_LAYOUT_LEDMAP(
-  _______, BLUE,    _______, _______, _______, YELLOW,                       YELLOW,  CYAN,    CYAN,    CYAN,    YELLOW,  _______,
-           HEX_UGL,          HEX_UGL,          HEX_UGL,                      HEX_UGL,          HEX_UGL,          HEX_UGL,
-  _______, _______, YELLOW,  _______, _______, YELLOW,                       YELLOW,  CYAN,    CYAN,    CYAN,    YELLOW,  _______,
-           HEX_UGL,                  HEX_UGL,
-  _______, _______, YELLOW,  _______, YELLOW,  _______,                      YELLOW,  CYAN,    CYAN,    CYAN,    GREEN,   _______,
-  HEX_UGL, HEX_UGL, HEX_UGL, HEX_UGL,
-                                      _______, _______, BLUE,       AQUA,    CYAN,    PURPLE
+  BLUE,   ORANGE, BLUE,   ORANGE, BLUE,   ORANGE,                          YELLOW, GREEN,  YELLOW, GREEN,  YELLOW, GREEN,
+           RED,          RED,          RED,                       PURPLE,          PURPLE,          PURPLE,
+  ORANGE, BLUE,   ORANGE, BLUE,   ORANGE, BLUE,                            GREEN,  YELLOW, GREEN,  YELLOW, GREEN,  YELLOW,
+           RED,                                                                                      PURPLE,
+  BLUE,   ORANGE, BLUE,   ORANGE, BLUE,   ORANGE,                          YELLOW, GREEN,  YELLOW, GREEN,  YELLOW, GREEN,
+                             RED, RED,                                PURPLE, PURPLE,
+                                      ORANGE, BLUE, ORANGE,       YELLOW, GREEN, YELLOW
   ),
 
   [_SYMBOL] = RGB_MATRIX_LAYOUT_LEDMAP(

@@ -9,27 +9,28 @@
 
 // clang-format off
 #define RGB_MATRIX_LAYOUT_LEDMAP( \
-  L00, L01, L02, L03, L04, L05,           R00, R01, R02, R03, R04, R05, \
+  L30, L25, L20, L15, L04, L03,           R03, R04, R15, R20, R25, R30, \
        UL2,      UL1,      UL0,           UR0,      UR1,      UR2, \
-  L10, L11, L12, L13, L14, L15,           R10, R11, R12, R13, R14, R15, \
+  L31, L24, L21, L14, L05, L02,           R02, R05, R14, R21, R24, R31, \
        UL3,                                                   UR3, \
-  L20, L21, L22, L23, L24, L25,           R20, R21, R22, R23, R24, R25, \
+  L32, L23, L22, L13, L10, L01,           R01, R10, R13, R22, R23, R32, \
                  UL4,      UL5,           UR5,      UR4, \
-                      L30, L31, L32, R30, R31, R32 \
+                      L12, L11, L00, R00, R11, R12 \
   ) \
   { \
-    UL0, UL1, UL2, UL3, UL4, UL5, \
+    UL5, UL4, UL3, UL2, UL1, UL0, \
     L00, L01, L02, L03, L04, L05, \
     L10, L11, L12, L13, L14, L15, \
     L20, L21, L22, L23, L24, L25, \
     L30, L31, L32, \
     UR5, UR4, UR3, UR2, UR1, UR0, \
-    R05, R04, R03, R02, R01, R00, \
-    R15, R14, R13, R12, R11, R10, \
-    R25, R24, R23, R22, R21, R20, \
-    R32, R31, R30 \
+    R00, R01, R02, R03, R04, R05, \
+    R10, R11, R12, R13, R14, R15, \
+    R20, R21, R22, R23, R24, R25, \
+    R30, R31, R32 \
   }
 // clang-format on
+//extern uint8_t ledmap[DRIVER_LED_TOTAL][3];
 typedef uint8_t ledmap[DRIVER_LED_TOTAL][3];
 extern const ledmap ledmaps[];
 
