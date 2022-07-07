@@ -173,6 +173,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     };
 #endif
 
+#ifdef RGB_MATRIX_ENABLED
+    // Process RGB Toggle Key
+    switch (process_rgb_matrix_keys(keycode, record)) {
+        case PROCESS_RECORD_RETURN_TRUE:
+            return true;
+        case PROCESS_RECORD_RETURN_FALSE:
+            return false;
+        default:
+            break;
+    };
+#endif
+
 #ifdef CUSTOM_SHIFT_ENABLE
     // Process custom_shift
    switch (process_custom_shift(keycode, record)) {

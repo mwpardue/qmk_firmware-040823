@@ -71,6 +71,10 @@ enum {
     LLOCK,
 #endif
 
+#ifdef RGB_MATRIX_ENABLED
+    RGB_SPP, RGB_SPM, RGB_ALP, RGB_ALM,
+#endif
+
     CUSTOM_KEYCODE_END
 };
 

@@ -127,6 +127,12 @@ ifeq ($(strip $(LAYER_LOCK_ENABLE)), yes)
     OPT_DEFS += -DLAYER_LOCK_ENABLE
 endif
 
+RGB_MATRIX_ENABLE ?= no
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+	SRC += $(USER_PATH)/features/rgb_matrix_keys.c
+	OPT_DEFS += -DRGB_MATRIX_ENABLED
+endif
+
 RGB_MATRIX_LEDMAPS ?= no
 ifeq ($(strip $(RGB_MATRIX_LEDMAPS)), yes)
 	SRC += rgb_matrix_ledmaps.c

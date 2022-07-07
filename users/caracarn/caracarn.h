@@ -83,6 +83,10 @@
     #include "features/layer_lock.h"
 #endif
 
+#ifdef RGB_MATRIX_ENABLED
+    #include "features/rgb_matrix_keys.h"
+#endif
+
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED
     #include "rgb_matrix_ledmaps.h"
 #endif
