@@ -2,6 +2,7 @@
 
 #include "tapdance.h"
 #include "secrets.h"
+#include "smart_case.h"
 
 //extern os_t os;
 
@@ -111,83 +112,6 @@ void td_angle_brackets(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// void td_minus_colon(qk_tap_dance_state_t *state, void *user_data) {
-//     tap_state.state = dance_state(state);
-//     switch (tap_state.state) {
-//         case TD_SINGLE_TAP:
-//             tap_code16(KC_COLN);
-//             break;
-//         case TD_DOUBLE_TAP:
-//             tap_code16(KC_MINS);
-//             break;
-//         default: break;
-//     }
-// }
-
-// Semicolon at the end
-
-// void td_semicolon(qk_tap_dance_state_t *state, void *user_data) {
-//     tap_state.state = dance_state(state);
-//     switch (tap_state.state) {
-//         case TD_SINGLE_TAP:
-//             tap_code(KC_SCLN);
-//             break;
-//         case TD_SINGLE_HOLD:
-//             tap_code16(KC_END);
-//             tap_code(KC_SCLN);
-//             break;
-//         default: break;
-//     }
-// }
-
-// Comma leader
-
-// void td_comma_hyper(qk_tap_dance_state_t *state, void *user_data) {
-//     tap_state.state = dance_state(state);
-//     bool isShifted = get_mods() & MOD_MASK_SHIFT ||
-//             get_oneshot_mods() & MOD_MASK_SHIFT ||
-//             get_oneshot_locked_mods() & MOD_MASK_SHIFT;
-//     switch (tap_state.state) {
-//         case TD_SINGLE_TAP:
-//             tap_code(KC_COMM);
-//             break;
-//         case TD_DOUBLE_TAP:
-//             if (!isShifted) {
-//                 set_oneshot_mods(MOD_HYPR);
-//             } else {
-//                 tap_code(KC_COMM);
-//             }
-//             break;
-//         default: break;
-//     }
-// }
-
-// Dot dot new sentence
-
-/* void td_dot_dot(qk_tap_dance_state_t *state, void *user_data) {
-    tap_state.state = dance_state(state);
-    switch (tap_state.state) {
-        case TD_SINGLE_TAP:
-            tap_code(KC_DOT);
-            break;
-        case TD_DOUBLE_SINGLE_TAP:
-            tap_code(KC_DOT);
-            tap_code(KC_DOT);
-            break;
-        case TD_DOUBLE_TAP:
-            tap_code(KC_DOT);
-            tap_code(KC_SPC);
-            add_oneshot_mods(MOD_LSFT);
-            break;
-        case TD_SINGLE_HOLD:
-            tap_code16(KC_END);
-            tap_code(KC_DOT);
-            break;
-        default: break;
-    }
-} */
-
-
 // Quotes
 
 void td_quotes(qk_tap_dance_state_t *state, void *user_data) {
@@ -258,68 +182,112 @@ void td_secret310(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-/* void td_caps_key_finished(qk_tap_dance_state_t *state, void *user_data) {
+void td_kebab(qk_tap_dance_state_t *state, void *user_data) {
     tap_state.state = dance_state(state);
-    bool isOneShotShift = get_oneshot_mods() & MOD_MASK_SHIFT || get_oneshot_locked_mods() & MOD_MASK_SHIFT;
-    bool isCapsLocked = host_keyboard_led_state().caps_lock;
     switch (tap_state.state) {
         case TD_SINGLE_TAP:
-                    if (isCapsLocked) {
-                        tap_code(KC_CAPS); // Disable capslock
-                    } else if (!isOneShotShift) {
-                            add_oneshot_mods(MOD_BIT(KC_LSFT));
-                        } else {
-                            del_oneshot_mods(MOD_BIT(KC_LSFT));
-                            unregister_mods(MOD_BIT(KC_LSFT));
-					}
-			break;
+            set_smart_case(KEBAB_CASE);
+            break;
         case TD_DOUBLE_TAP:
-                    if (isCapsLocked) {
-                        tap_code(KC_CAPS); // Disable capslock
-                    } else if (isOneShotShift) {
-                            del_oneshot_mods(MOD_BIT(KC_LSFT));
-                            unregister_mods(MOD_BIT(KC_LSFT));
-                    } else {
-                            caps_word_set(true);
-					}
+            set_smart_case(KEBAB_CASE);
+            set_smart_case(WORD_CASE);
             break;
-        case TD_TRIPLE_TAP:
-                    if (isCapsLocked) {
-                        tap_code(KC_CAPS); // Disable capslock
-                    } else if (isOneShotShift) {
-                            del_oneshot_mods(MOD_BIT(KC_LSFT));
-                            unregister_mods(MOD_BIT(KC_LSFT));
-                    } else {
-                            tap_code(KC_CAPS); //Enable Capslock
-					}
-            break;
-        case TD_SINGLE_HOLD:
-                    register_code(KC_LSFT);
-                    break;
         default: break;
     }
 }
 
-void td_caps_key_reset(qk_tap_dance_state_t *state, void *user_data) {
+void td_snake(qk_tap_dance_state_t *state, void *user_data) {
+    tap_state.state = dance_state(state);
     switch (tap_state.state) {
-        case TD_SINGLE_TAP: break;
-        case TD_SINGLE_HOLD: unregister_code(KC_LSFT); break;
-        case TD_DOUBLE_TAP: break;
-        case TD_DOUBLE_HOLD: break;
-        case TD_DOUBLE_SINGLE_TAP: break;
-        case TD_TRIPLE_TAP: break;
-        case TD_TRIPLE_HOLD: break;
-        case TD_NONE: break;
-        case TD_UNKNOWN: break;
+        case TD_SINGLE_TAP:
+            set_smart_case(SNAKE_CASE);
+            break;
+        case TD_DOUBLE_TAP:
+            set_smart_case(SNAKE_CASE);
+            set_smart_case(WORD_CASE);
+            break;
+        default: break;
     }
-    tap_state.state = TD_NONE;
-} */
+}
+
+void td_camel(qk_tap_dance_state_t *state, void *user_data) {
+    tap_state.state = dance_state(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+            set_smart_case(CAMEL_CASE);
+            break;
+        case TD_DOUBLE_TAP:
+            set_smart_case(CAMEL_CASE);
+            add_oneshot_mods(MOD_LSFT);
+            break;
+        default: break;
+    }
+}
+
+void td_screenshot_full(qk_tap_dance_state_t *state, void *user_data) {
+    tap_state.state = dance_state(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+            tap_code16(LGUI(LSFT(LCTL(KC_3))));
+            break;
+        case TD_DOUBLE_TAP:
+            tap_code16(LGUI(LSFT(KC_3)));
+            break;
+        default: break;
+    }
+}
+
+void td_sssnippet_finished (qk_tap_dance_state_t *state, void *user_data) {
+  tap_state.state = dance_state(state);
+  switch (tap_state.state) {
+    case TD_SINGLE_TAP:
+        register_code(KC_LGUI);
+        register_code(KC_LSFT);
+        register_code(KC_LCTL);
+        register_code(KC_4);
+        break;
+    case TD_SINGLE_HOLD:
+        register_code(KC_LGUI);
+        register_code(KC_LSFT);
+        register_code(KC_4);
+        register_code(KC_SPC);
+        break;
+    case TD_DOUBLE_TAP:
+        register_code(KC_LGUI);
+        register_code(KC_LSFT);
+        register_code(KC_4);
+        break;
+    default: break;
+  }
+}
+
+void td_sssnippet_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (tap_state.state) {
+    case TD_SINGLE_TAP:
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+        unregister_code(KC_4);
+        break;
+    case TD_SINGLE_HOLD:
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_4);
+        unregister_code(KC_SPC);
+        break;
+    case TD_DOUBLE_TAP:
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_4);
+        break;
+    default: break;
+  }
+  tap_state.state = 0;
+}
 
 // Tap dance declarations
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-    //[COM_HYP] = ACTION_TAP_DANCE_FN(td_comma_hyper),
-    //[SCL_END] = ACTION_TAP_DANCE_FN(td_semicolon),
     [SEC1_5] = ACTION_TAP_DANCE_FN(td_secret15),
     [SEC7_8] = ACTION_TAP_DANCE_FN(td_secret78),
     [SEC11_9] = ACTION_TAP_DANCE_FN(td_secret119),
@@ -328,8 +296,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [BRT_SQR] = ACTION_TAP_DANCE_FN(td_square_brackets),
     [BRT_PAR] = ACTION_TAP_DANCE_FN(td_parentesis),
     [BRT_ANG] = ACTION_TAP_DANCE_FN(td_angle_brackets),
-    // [DOT_DOT] = ACTION_TAP_DANCE_FN(td_dot_dot),
-    // [CAP_KEY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_caps_key_finished, td_caps_key_reset),
-    [SDB_QUO] = ACTION_TAP_DANCE_FN(td_quotes)
-    //[MIN_CLN] = ACTION_TAP_DANCE_FN(td_minus_colon)
+    [SDB_QUO] = ACTION_TAP_DANCE_FN(td_quotes),
+    [KEBAB] = ACTION_TAP_DANCE_FN(td_kebab),
+    [SNAKE] = ACTION_TAP_DANCE_FN(td_snake),
+    [CAMEL] = ACTION_TAP_DANCE_FN(td_camel),
+    [SS_FULL] = ACTION_TAP_DANCE_FN(td_screenshot_full),
+    [SS_SNIP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,td_sssnippet_finished, td_sssnippet_reset)
 };

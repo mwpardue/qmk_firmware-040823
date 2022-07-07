@@ -4,13 +4,12 @@
 
 #include "../definitions/keycodes.h"
 #include "caps_word.h"
+#include "smart_case.h"
 //#include "os_toggle.h"
 //#include "default_mod_key.h"
 //#include "dynamic_macro.h"
 
 enum {
-    //COM_HYP,
-    //SCL_END,
     SEC1_5,
     SEC7_8,
     SEC11_9,
@@ -19,14 +18,14 @@ enum {
     BRT_SQR,
     BRT_PAR,
     BRT_ANG,
-    // DOT_DOT,
-    // CAP_KEY,
     SDB_QUO,
-    //MIN_CLN
+    KEBAB,
+    SNAKE,
+    CAMEL,
+    SS_FULL,
+    SS_SNIP
 };
 
-//#define TD_COMH TD(COM_HYP)
-//#define TD_SCLE TD(SCL_END)
 #define TD_S15 TD(SEC1_5)
 #define TD_S78 TD(SEC7_8)
 #define TD_S119 TD(SEC11_9)
@@ -35,11 +34,12 @@ enum {
 #define TD_SQRB TD(BRT_SQR)
 #define TD_PARB TD(BRT_PAR)
 #define TD_ANGB TD(BRT_ANG)
-// #define TD_DOTD TD(DOT_DOT)
-// #define TD_CAPK TD(CAP_KEY)
 #define TD_QUOT TD(SDB_QUO)
-//#define TD_MCLN TD(MIN_CLN)
-
+#define TD_KBAB TD(KEBAB)
+#define TD_SNAK TD(SNAKE)
+#define TD_CAML TD(CAMEL)
+#define TD_SSFL TD(SS_FULL)
+#define TD_SNIP TD(SS_SNIP)
 typedef enum {
     TD_NONE,
     TD_UNKNOWN,

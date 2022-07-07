@@ -7,7 +7,7 @@ uint16_t extract_base_tapping_keycode(uint16_t keycode) {
     return keycode &= 0xff;
 }
 
-#ifdef SMART_CASE_ENABLE
+//#ifdef SMART_CASE_ENABLE
 bool is_key_on_tap(uint16_t keycode) {
     switch (keycode) {
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
@@ -24,4 +24,4 @@ bool is_key_on_tap(uint16_t keycode) {
     return false;
 }
 
-#endif
+//#endif

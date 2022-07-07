@@ -39,7 +39,7 @@ void matrix_scan_user(void) {
 #endif
 
 #if LAYER_LOCK_IDLE_TIMEOUT > 0
-    layer_lock_timer_task();
+    layer_lock_task();
 #endif
 
 #ifdef CAPSWORD_ENABLE
@@ -90,6 +90,7 @@ void matrix_scan_user(void) {
      case BSP_SYM:
      case SPCSFT:
      case ENT_FUN:
+     case NAV_LL:
        return 0;  // Bypass Achordion for these keys.
    }
 
@@ -163,6 +164,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef WINDOW_SWAPPER_ENABLE
     // Process window swapper
     switch (process_window_swapper(keycode, record)) {
+        case PROCESS_RECORD_RETURN_TRUE:
+            return true;
+        case PROCESS_RECORD_RETURN_FALSE:
+            return false;
+        default:
+            break;
+    };
+#endif
+
+#ifdef RGB_MATRIX_ENABLED
+    // Process RGB Toggle Key
+    switch (process_rgb_matrix_keys(keycode, record)) {
         case PROCESS_RECORD_RETURN_TRUE:
             return true;
         case PROCESS_RECORD_RETURN_FALSE:

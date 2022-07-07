@@ -4,7 +4,7 @@
 #include "../definitions/keycodes.h"
 #include "process_record_result.h"
 #include "os_toggle.h"
-#include "default_mod_key.h"
+#include "smart_thumb_keys.h"
 
 #ifndef DEFAULT_MOD_ENABLE
         bool should_send_ctrl(bool isWindowsOrLinux, bool isOneShotShift);
