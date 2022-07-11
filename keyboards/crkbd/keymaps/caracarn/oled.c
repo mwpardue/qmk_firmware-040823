@@ -176,6 +176,10 @@ void render_layer_state(void) {
         0xb4, 0x46, 0x55, 0x4e, 0xb8, 0};
     static const char PROGMEM navigation_layer[] = {
         0xb4, 0x4e, 0x41, 0x56, 0xb8, 0};
+    // static const char PROGMEM colemak_layer[] = {
+    //     0xb4, 0x43, 0x4d, 0x4b, 0xb8, 0};
+    // static const char PROGMEM adjust_layer[] = {
+    //     0xb4, 0x41, 0x44, 0x4a, 0xb8, 0};
     switch (get_highest_layer(layer_state | default_layer_state)) {
         case _NUMPAD:
             oled_write_P(numpad_layer, false);
@@ -198,6 +202,12 @@ void render_layer_state(void) {
         case _BASE:
             oled_write_P(base_layer, false);
             break;
+        // case _COLEMAK_DH:
+        //     oled_write_P(colemak_layer, false);
+        //     break;
+        // case _ADJUST:
+        //     oled_write_P(adjust_layer, false);
+        //     break;
     }
 }
 

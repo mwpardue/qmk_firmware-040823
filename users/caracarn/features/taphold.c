@@ -56,11 +56,22 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         case ALT_5:
         case CTL_6:
             return TAPPING_TERM + 115;
-        // case TD_ANGB:
-        // case TD_PARB:
-        // case TD_CURB:
-        // case TD_SQRB:
-        //     return TAPPING_TERM + 100;
+        case TD_ANGB:
+        case TD_PARB:
+        case TD_CURB:
+        case TD_SQRB:
+        case TD_S15:
+        case TD_S78:
+        case TD_S119:
+        case TD_S310:
+        case TD_QUOT:
+        case TD_KBAB:
+        case TD_SNAK:
+        case TD_CAML:
+        case TD_SSFL:
+        case TD_SNIP:
+        case CAP_KEY:
+            return TAPPING_TERM + 100;
         default:
             return TAPPING_TERM;
     }

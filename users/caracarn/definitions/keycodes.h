@@ -56,7 +56,7 @@ enum {
 #endif
 
 #ifdef SHORTCUTS_ENABLE
-    SS_MODP, SS_MODM,
+    SS_MODP, SS_MODM, QWERTY,
 #endif
 
 #ifdef SELECT_WORD_ENABLE
@@ -72,7 +72,7 @@ enum {
 #endif
 
 #ifdef RGB_MATRIX_ENABLED
-    RGB_SPP, RGB_SPM, RGB_ALP, RGB_ALM,
+    RGB_SPP, RGB_SPM, RGB_ALP, RGB_ALM, RGB_CHG,
 #endif
 
     CUSTOM_KEYCODE_END
@@ -97,11 +97,17 @@ enum {
 #define CTL_S LCTL_T(KC_S)
 #define ALT_D LALT_T(KC_D)
 #define GUI_F LGUI_T(KC_F)
+// #define CTL_R LCTL_T(KC_R)
+// #define ALT_S LALT_T(KC_S)
+// #define GUI_KCT LGUI_T(KC_T)
 
 // // Right-hand home row mods
 #define GUI_J RGUI_T(KC_J)
 #define ALT_K RALT_T(KC_K)
 #define CTL_L RCTL_T(KC_L)
+// #define CTL_I RCTL_T(KC_I)
+// #define ALT_E RALT_T(KC_E)
+// #define GUI_N RGUI_T(KC_N)
 #define GUI_4 RGUI_T(KC_4)
 #define ALT_5 RALT_T(KC_5)
 #define CTL_6 RCTL_T(KC_6)
@@ -136,6 +142,8 @@ enum {
 #define TOMAC TO(_MACROS)
 #define TOHEX TO(_HEX)
 #define TOFUN TO(_FUNCTION)
+//#define TOADJ TO(_ADJUST)
+//#define TOCMK TO(_COLEMAK_DH)
 
 // Custom Shortcuts
 

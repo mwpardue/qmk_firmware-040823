@@ -64,10 +64,6 @@ void matrix_scan_user(void) {
   // Exceptionally consider the following chords as holds, even though they
   // are on the same hand in Dvorak.
   switch (tap_hold_keycode) {
-    case GUI_Z:  // A + C.
-      if (other_keycode == KC_C || other_keycode == KC_V) { return true; }
-      break;
-
     case GUI_F: //F   + W, Q
       if (other_keycode == KC_W || other_keycode == KC_Q) {return true;}
       break;
@@ -80,6 +76,7 @@ void matrix_scan_user(void) {
   #endif
   // Otherwise, follow the opposite hands rule.
   return achordion_opposite_hands(tap_hold_record, other_record);
+  dprintf("Achordion opposite hands\n");
 }
 
   uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
@@ -92,9 +89,11 @@ void matrix_scan_user(void) {
      case ENT_FUN:
      case NAV_LL:
        return 0;  // Bypass Achordion for these keys.
+       dprintf("Bypassing achordion for timeout\n");
    }
 
    return 800;  // Otherwise use a timeout of 800 ms.
+   dprintf("Using achordion 800ms timeout\n");
  }
 #endif
 

@@ -38,6 +38,20 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
             }
             return PROCESS_RECORD_RETURN_FALSE;
 
+        case QWERTY:
+            if (record->event.pressed) {
+                dprintf("Base layer changed to QWERTY\n");
+                set_single_persistent_default_layer(_BASE);
+            }
+            return PROCESS_RECORD_RETURN_FALSE;
+
+        // case COLEMAK:
+        //     if (record->event.pressed) {
+        //         set_single_persistent_default_layer(_COLEMAK_DH);
+        //         dprintf("Base layer changed to COLEMAK\n");
+        //     }
+        //     return PROCESS_RECORD_RETURN_FALSE;
+
     }
 
     return PROCESS_RECORD_CONTINUE;

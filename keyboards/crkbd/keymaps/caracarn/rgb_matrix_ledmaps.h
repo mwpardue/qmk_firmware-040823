@@ -18,12 +18,12 @@
                       L12, L11, L00, R00, R11, R12 \
   ) \
   { \
-    UL5, UL4, UL3, UL2, UL1, UL0, \
+    UL0, UL1, UL2, UL3, UL4, UL5, \
     L00, L01, L02, L03, L04, L05, \
     L10, L11, L12, L13, L14, L15, \
     L20, L21, L22, L23, L24, L25, \
     L30, L31, L32, \
-    UR5, UR4, UR3, UR2, UR1, UR0, \
+    UR0, UR1, UR2, UR3, UR4, UR5, \
     R00, R01, R02, R03, R04, R05, \
     R10, R11, R12, R13, R14, R15, \
     R20, R21, R22, R23, R24, R25, \
@@ -34,7 +34,7 @@
 typedef uint8_t ledmap[DRIVER_LED_TOTAL][3];
 extern const ledmap ledmaps[];
 
-void set_layer_rgb(uint8_t led_min, uint8_t led_max, int layer);
+void set_layer_rgb(uint8_t led_min, uint8_t led_max, int layer, int led_type);
 
 void rgb_matrix_layers_enable(void);
 void rgb_matrix_layers_disable(void);
@@ -92,6 +92,10 @@ void rgb_matrix_layers_disable(void);
         { FUNCTION_UNDERGLOW }
 #    define SYM_UGL \
         { SYMBOL_UNDERGLOW }
+// #    define CMK_UGL
+//         { COLEMAK_DH_UNDERGLOW }
+// #    define ADJ_UGL
+//         { ADJUST_UNDERGLOW }
 
 #endif //RGB_MATRIX_LEDMAPS_ENABLED
 
