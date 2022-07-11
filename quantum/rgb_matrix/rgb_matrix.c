@@ -25,6 +25,17 @@
 
 #include <lib/lib8tion/lib8tion.h>
 
+uint8_t rgb_matrix_typing_heatmap_spread = 40;
+uint8_t rgb_matrix_typing_heatmap_area_limit = 16;
+
+uint8_t rgb_matrix_get_heatmap_spread(void) {
+    return rgb_matrix_typing_heatmap_spread;
+}
+
+uint8_t rgb_matrix_get_area_limit(void) {
+    return rgb_matrix_typing_heatmap_area_limit;
+}
+
 #ifndef RGB_MATRIX_CENTER
 const led_point_t k_rgb_matrix_center = {112, 32};
 #else
