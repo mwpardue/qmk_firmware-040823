@@ -44,18 +44,19 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         case SPC_MAC:
         case ENT_FUN:
         case BSP_SYM:
-            return TAPPING_TERM + 40;
+        case NAV_LL:
+            return g_tapping_term + 40;
         //case GUI_Z:
-        case CTL_S:
-        case ALT_D:
-        case GUI_F:
-        case CTL_L:
-        case ALT_K:
-        case GUI_J:
+        // case CTL_S:
+        // case ALT_D:
+        // case GUI_F:
+        // case CTL_L:
+        // case ALT_K:
+        // case GUI_J:
         case GUI_4:
         case ALT_5:
         case CTL_6:
-            return TAPPING_TERM + 115;
+            return g_tapping_term + 115;
         case TD_ANGB:
         case TD_PARB:
         case TD_CURB:
@@ -71,9 +72,22 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         case TD_SSFL:
         case TD_SNIP:
         case CAP_KEY:
-            return TAPPING_TERM + 100;
+            return g_tapping_term + 100;
+        case CTL_S:
+        case ALT_D:
+        case GUI_F:
+        case CTL_L:
+        case ALT_K:
+        case GUI_J:
+        case CTL_R:
+        case ALT_S:
+        case GUI_KCT:
+        case GUI_N:
+        case ALT_E:
+        case CTL_I:
+            return g_tapping_term + 50;
         default:
-            return TAPPING_TERM;
+            return g_tapping_term;
     }
 }
 

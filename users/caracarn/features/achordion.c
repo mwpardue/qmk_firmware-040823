@@ -209,8 +209,8 @@ __attribute__((weak)) bool achordion_eager_mod(uint8_t mod) {
   switch (mod) {
     case MOD_LSFT:
     case MOD_RSFT:
-    case MOD_LCTL:
-    case MOD_RCTL:
+    // case MOD_LCTL:
+    // case MOD_RCTL:
       return true;
 
     default:
