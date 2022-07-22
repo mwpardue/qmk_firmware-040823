@@ -9,5 +9,6 @@ typedef enum {
   _SYMBOL,
   _MACROS,
   _FUNCTION,
+  _MEDIA,
   _ADJUST
 } layers_t;

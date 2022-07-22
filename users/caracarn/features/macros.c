@@ -28,7 +28,7 @@ process_record_result_t process_macros(uint16_t keycode, keyrecord_t *record) {
                 //tap_code(KC_ENT);
                 return PROCESS_RECORD_RETURN_FALSE;
 
-            case VIMQ:
+            case MVIMQ:
                 tap_code(KC_ESC);
                 SEND_STRING(":q!");
                 //tap_code(KC_ENT);

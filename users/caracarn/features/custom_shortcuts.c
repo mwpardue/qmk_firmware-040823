@@ -52,6 +52,40 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
             }
             return PROCESS_RECORD_RETURN_FALSE;
 
+        case TG_KBAB:
+            if (record->event.pressed) {
+                if (has_smart_case(KEBAB_CASE) && has_smart_case(WORD_CASE)) {
+                    disable_smart_case();
+                } else if (has_smart_case(KEBAB_CASE)) {
+                    set_smart_case(WORD_CASE);
+                } else {
+                    set_smart_case(KEBAB_CASE);
+                }
+            }
+            return PROCESS_RECORD_RETURN_FALSE;
+
+        case TG_SNAK:
+            if (record->event.pressed) {
+                if (has_smart_case(SNAKE_CASE) && has_smart_case(WORD_CASE)) {
+                    disable_smart_case();
+                } else if (has_smart_case(SNAKE_CASE)) {
+                    set_smart_case(WORD_CASE);
+                } else {
+                    set_smart_case(SNAKE_CASE);
+                }
+            }
+            return PROCESS_RECORD_RETURN_FALSE;
+
+        case TG_CAML:
+            if (record->event.pressed) {
+                if (has_smart_case(CAMEL_CASE)) {
+                    disable_smart_case();
+                } else {
+                    set_smart_case(CAMEL_CASE);
+                }
+            }
+            return PROCESS_RECORD_RETURN_FALSE;
+
     }
 
     return PROCESS_RECORD_CONTINUE;

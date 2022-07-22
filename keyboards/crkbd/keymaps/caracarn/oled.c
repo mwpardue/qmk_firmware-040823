@@ -178,6 +178,8 @@ void render_layer_state(void) {
         0xb4, 0x4e, 0x41, 0x56, 0xb8, 0};
     static const char PROGMEM colemak_layer[] = {
         0xb4, 0x43, 0x4d, 0x4b, 0xb8, 0};
+    static const char PROGMEM media_layer[] = {
+        0xb4, 0x4d, 0x45, 0x44, 0xb8, 0};
     static const char PROGMEM adjust_layer[] = {
         0xb4, 0x41, 0x44, 0x4a, 0xb8, 0};
     switch (get_highest_layer(layer_state | default_layer_state)) {
@@ -204,6 +206,9 @@ void render_layer_state(void) {
             break;
         case _COLEMAK_DH:
             oled_write_P(colemak_layer, false);
+            break;
+        case _MEDIA:
+            oled_write_P(media_layer, false);
             break;
         case _ADJUST:
             oled_write_P(adjust_layer, false);

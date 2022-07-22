@@ -94,6 +94,8 @@ void rgb_matrix_layers_disable(void);
         { SYMBOL_UNDERGLOW }
 #    define CMK_UGL \
         { COLEMAK_DH_UNDERGLOW }
+#    define MED_UGL \
+        { MEDIA_UNDERGLOW }
 #    define ADJ_UGL \
         { ADJUST_UNDERGLOW }
 

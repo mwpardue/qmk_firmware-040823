@@ -42,9 +42,11 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
     switch (keycode) {
         case TAB_NUM:
         case SPC_MAC:
-        case ENT_FUN:
+        // case ENT_FUN:
         case BSP_SYM:
-        case NAV_LL:
+        case ESC_FUN:
+        case ENT_MED:
+        // case NAV_LL:
             return g_tapping_term + 40;
         //case GUI_Z:
         // case CTL_S:
@@ -56,6 +58,9 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         case GUI_4:
         case ALT_5:
         case CTL_6:
+        case SFT_5:
+        case ALT_4:
+        case GUI_1:
             return g_tapping_term + 115;
         case TD_ANGB:
         case TD_PARB:
@@ -66,25 +71,34 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         case TD_S119:
         case TD_S310:
         case TD_QUOT:
-        case TD_KBAB:
-        case TD_SNAK:
-        case TD_CAML:
+        // case TD_KBAB:
+        // case TD_SNAK:
+        // case TD_CAML:
         case TD_SSFL:
         case TD_SNIP:
-        case CAP_KEY:
+        // case CAP_KEY:
+        case CAP_NAV:
             return g_tapping_term + 100;
-        case CTL_S:
+        case SFT_S:
         case ALT_D:
-        case GUI_F:
-        case CTL_L:
+        case CTL_F:
+        case GUI_V:
+        case SFT_L:
         case ALT_K:
-        case GUI_J:
+        case CTL_J:
+        case GUI_M:
         case CTL_R:
         case ALT_S:
         case GUI_KCT:
         case GUI_N:
         case ALT_E:
         case CTL_I:
+        case CTL_S:
+        case SFT_D:
+        case ALT_F:
+        case CTL_L:
+        case SFT_K:
+        case ALT_J:
             return g_tapping_term + 50;
         default:
             return g_tapping_term;
@@ -96,7 +110,9 @@ bool get_tapping_force_hold_result(uint16_t keycode) {
         case BSP_SYM:
         case SPC_MAC:
         case TAB_NUM:
-        case ENT_FUN:
+        // case ENT_FUN:
+        case ENT_MED:
+        case ESC_FUN:
             return false;
     }
     switch (keycode) {
@@ -112,8 +128,11 @@ bool get_tapping_force_hold_result(uint16_t keycode) {
 bool get_hold_on_other_key_press_result(uint16_t keycode) {
     switch (keycode) {
         case TAB_NUM:
-        case ENT_FUN:
+        // case ENT_FUN:
         case BSP_SYM:
+        // case CAP_NAV:
+        case ESC_FUN:
+        case ENT_MED:
         // case TD_CAPK:
             return true;
         default:
@@ -133,6 +152,9 @@ bool get_permissive_hold_result(uint16_t keycode) {
         case GUI_4:
         case ALT_5:
         case CTL_6:
+        case SFT_5:
+        case ALT_4:
+        case GUI_1:
         // case KC0_NAV:
         case SPCSFT:
             // Immediately select the hold action when another key is tapped.

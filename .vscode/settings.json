@@ -27,5 +27,6 @@
     "[json]": {
 	    "editor.formatOnSave": false
     },
-    "editor.acceptSuggestionOnEnter": "off"
+    "editor.acceptSuggestionOnEnter": "off",
+    "cmake.configureOnOpen": false
 }
