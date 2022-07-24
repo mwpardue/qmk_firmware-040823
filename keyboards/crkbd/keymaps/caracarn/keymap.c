@@ -26,8 +26,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BASE] = LAYOUT_split_3x6_3(
   LLOCK,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    OSMLGUI,
-  OSMLCTL, KC_A,   CTL_S,   SFT_D,   ALT_F,   KC_G,                         KC_H,    ALT_J,   SFT_K,   CTL_L,   TD_QUOT, OSMRALT,
-  OSMLALT, KC_Z,   KC_X,    KC_C,    GUI_V,   KC_B,                         KC_N,    GUI_M,   KC_COMM, KC_DOT,  KC_SLSH, OSMRCTL,
+  OSMLCTL, KC_A,   SFT_S,   CTL_D,   GUI_F,   KC_G,                         KC_H,    GUI_J,   CTL_K,   SFT_L,   TD_QUOT, OSMRALT,
+  OSMLALT, KC_Z,   KC_X,    KC_C,    ALT_V,   KC_B,                         KC_N,    ALT_M,   KC_COMM, KC_DOT,  KC_SLSH, OSMRCTL,
                                      ESC_FUN, TAB_NUM, CAP_NAV,    BSP_SYM, SPC_MAC, ENT_MED
 ),
 
@@ -47,8 +47,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_NUMPAD] = LAYOUT_split_3x6_3(
   _______, KC_TAB,  PRVTAB,  KC_UP,   NXTTAB,  _______,                      KC_MINS, KC_7,    KC_8,    KC_9,    KC_PSLS, _______,
-  _______, KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, _______,                      KC_COLN, ALT_4,   SFT_5,   CTL_6,   KC_PLUS, _______,
-  _______, LLOCK,   MC_SWLE, MC_SWAP, MC_SWRI, _______,                      KC_EQL,  GUI_1,   KC_2,    KC_3,    KC_DOT,  _______,
+  _______, KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, _______,                      KC_COLN, GUI_4,   CTL_5,   SFT_6,   KC_PLUS, _______,
+  _______, LLOCK,   MC_SWLE, MC_SWAP, MC_SWRI, _______,                      KC_EQL,  ALT_1,   KC_2,    KC_3,    KC_DOT,  _______,
                                       _______, _______, _______,    SPCSFT,  KC_0,    KC_ENT
 ),
 
@@ -61,8 +61,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_NAVIGATION] = LAYOUT_split_3x6_3(
   _______, _______, CUT,     COPY,    PASTE,   _______,                      _______, KC_WH_U, KC_MS_U, KC_WH_D, TOBAS,   _______,
-  _______, SELALL,  KC_LCTL, KC_LSFT, KC_LALT, _______,                      KC_WH_L, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_R, _______,
-  _______, LLOCK,   _______, _______, KC_LGUI, TOSYM,                        _______, _______, _______, _______, _______, _______,
+  _______, SELALL,  KC_LSFT, KC_LCTL, KC_LGUI, _______,                      KC_WH_L, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_R, _______,
+  _______, LLOCK,   _______, _______, KC_LALT, TOSYM,                        _______, _______, _______, _______, _______, _______,
                                       _______, _______, _______,    KC_BTN2, KC_BTN1, KC_BTN3
 ),
 
@@ -82,8 +82,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_SYMBOL] = LAYOUT_split_3x6_3(
   _______, TOBAS,   KC_GRV,  KC_TILD, KC_BSLS, TIPS,                         _______, _______, _______, _______, _______, _______,
-  _______, KC_AT,   KC_BSLS, KC_UNDS, KC_PIPE, KC_SCLN,                      _______, KC_RALT, KC_RSFT, KC_RCTL, _______, _______,
-  _______, TD_CURB, TD_SQRB, TD_PARB, TD_ANGB, _______,                      TONAV,   KC_RGUI, _______, _______, LLOCK,   _______,
+  _______, KC_AT,   KC_BSLS, KC_UNDS, KC_PIPE, KC_SCLN,                      _______, KC_RGUI, KC_RCTL, KC_RSFT, _______, _______,
+  _______, TD_CURB, TD_SQRB, TD_PARB, TD_ANGB, _______,                      TONAV,   KC_RALT, _______, _______, LLOCK,   _______,
                                       _______, _______, SPCSFT,     _______, _______, _______
 ),
 

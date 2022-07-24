@@ -56,11 +56,10 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         // case ALT_K:
         // case GUI_J:
         case GUI_4:
-        case ALT_5:
-        case CTL_6:
-        case SFT_5:
+        case CTL_5:
+        case SFT_6:
         case ALT_4:
-        case GUI_1:
+        case ALT_1:
             return g_tapping_term + 115;
         case TD_ANGB:
         case TD_PARB:
@@ -80,13 +79,13 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         case CAP_NAV:
             return g_tapping_term + 100;
         case SFT_S:
-        case ALT_D:
-        case CTL_F:
-        case GUI_V:
+        case CTL_D:
+        case GUI_F:
+        case ALT_V:
         case SFT_L:
         case ALT_K:
-        case CTL_J:
-        case GUI_M:
+        case GUI_J:
+        case ALT_M:
         case CTL_R:
         case ALT_S:
         case GUI_KCT:
@@ -94,11 +93,7 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         case ALT_E:
         case CTL_I:
         case CTL_S:
-        case SFT_D:
-        case ALT_F:
         case CTL_L:
-        case SFT_K:
-        case ALT_J:
             return g_tapping_term + 50;
         default:
             return g_tapping_term;
@@ -150,11 +145,9 @@ bool get_permissive_hold_result(uint16_t keycode) {
         // case ALT_K:
         // case GUI_J:
         case GUI_4:
-        case ALT_5:
-        case CTL_6:
-        case SFT_5:
-        case ALT_4:
-        case GUI_1:
+        case CTL_5:
+        case SFT_6:
+        case ALT_1:
         // case KC0_NAV:
         case SPCSFT:
             // Immediately select the hold action when another key is tapped.

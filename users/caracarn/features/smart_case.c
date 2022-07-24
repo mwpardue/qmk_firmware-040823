@@ -260,6 +260,8 @@ process_record_result_t process_smart_case_chars(uint16_t keycode, keyrecord_t *
             case KC_UNDS:
             case KC_LEFT:
             case KC_RIGHT:
+            case KC_UP:
+            case KC_DOWN:
             case KC_HOME:
             case KC_END:
             case TG_SNAK:

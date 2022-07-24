@@ -64,7 +64,7 @@ void matrix_scan_user(void) {
   // Exceptionally consider the following chords as holds, even though they
   // are on the same hand in Dvorak.
   switch (tap_hold_keycode) {
-    case GUI_V: //V   + W, Q
+    case GUI_F: //F   + W, Q
       if (other_keycode == KC_W || other_keycode == KC_Q) {return true;}
       break;
   }
