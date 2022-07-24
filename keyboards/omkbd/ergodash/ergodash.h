@@ -9,3 +9,7 @@
 #ifdef KEYBOARD_omkbd_ergodash_mini
     #include "mini.h"
 #endif
+
+#ifdef KEYBOARD_omkbd_ergodash_c4
+    #include "c4.h"
+#endif

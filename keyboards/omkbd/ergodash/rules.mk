@@ -1,8 +1,8 @@
 # MCU name
-MCU = atmega32u4
+#MCU = atmega32u4
 
 # Bootloader selection
-BOOTLOADER = caterina
+#BOOTLOADER = caterina
 
 # Build Options
 #   change yes to no to disable
@@ -19,4 +19,4 @@ RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 
 SPLIT_KEYBOARD = yes       # Enables split keyboard support
 
-DEFAULT_FOLDER = omkbd/ergodash/rev1
+#DEFAULT_FOLDER = omkbd/ergodash/rev1
