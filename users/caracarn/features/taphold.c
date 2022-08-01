@@ -2,62 +2,17 @@
 
 #include "taphold.h"
 
-/* process_record_result_t process_custom_taphold(uint16_t keycode, keyrecord_t *record) {
-    // Fix layer-tap using Underscore
-    switch (keycode) {
-        case UND_MAI:
-        case UND_FUN:
-        case LA_UNDS:
-            if (record->event.pressed) {
-                if (record->tap.count > 0) {
-                    tap_code16(KC_UNDS);
-                    return PROCESS_RECORD_RETURN_FALSE;
-                }
-            }
-        case F15_MAI:
-            if (record->event.pressed) {
-                if (record->tap.count > 0) {
-                    tap_code16(KC_F15);
-                    return PROCESS_RECORD_RETURN_FALSE;
-                }
-            }
-    }
-    return PROCESS_RECORD_CONTINUE;
-} */
-
-/* process_record_result_t process_taphold(uint16_t keycode, keyrecord_t *record) {
-    switch (process_custom_taphold(keycode, record)) {
-        case PROCESS_RECORD_RETURN_TRUE:
-            return PROCESS_RECORD_RETURN_TRUE;
-        case PROCESS_RECORD_RETURN_FALSE:
-            return PROCESS_RECORD_RETURN_FALSE;
-        default:
-            break;
-    };
-
-    return PROCESS_RECORD_CONTINUE;
-} */
-
 uint16_t get_tapping_term_result(uint16_t keycode) {
     switch (keycode) {
         case TAB_NUM:
         case SPC_MAC:
-        // case ENT_FUN:
         case BSP_SYM:
         case ESC_FUN:
         case ENT_MED:
-        // case NAV_LL:
             return g_tapping_term + 40;
-        //case GUI_Z:
-        // case CTL_S:
-        // case ALT_D:
-        // case GUI_F:
-        // case CTL_L:
-        // case ALT_K:
-        // case GUI_J:
         case GUI_4:
-        case CTL_5:
-        case SFT_6:
+        case SFT_5:
+        case CTL_6:
         case ALT_4:
         case ALT_1:
             return g_tapping_term + 115;
@@ -70,19 +25,15 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         case TD_S119:
         case TD_S310:
         case TD_QUOT:
-        // case TD_KBAB:
-        // case TD_SNAK:
-        // case TD_CAML:
         case TD_SSFL:
         case TD_SNIP:
-        // case CAP_KEY:
         case CAP_NAV:
             return g_tapping_term + 100;
-        case SFT_S:
+        case SFT_D:
         case CTL_D:
         case GUI_F:
         case ALT_V:
-        case SFT_L:
+        case SFT_K:
         case ALT_K:
         case GUI_J:
         case ALT_M:
@@ -94,7 +45,7 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         case CTL_I:
         case CTL_S:
         case CTL_L:
-            return g_tapping_term + 50;
+            return g_tapping_term + 100;
         default:
             return g_tapping_term;
     }
@@ -105,7 +56,6 @@ bool get_tapping_force_hold_result(uint16_t keycode) {
         case BSP_SYM:
         case SPC_MAC:
         case TAB_NUM:
-        // case ENT_FUN:
         case ENT_MED:
         case ESC_FUN:
             return false;
@@ -123,12 +73,9 @@ bool get_tapping_force_hold_result(uint16_t keycode) {
 bool get_hold_on_other_key_press_result(uint16_t keycode) {
     switch (keycode) {
         case TAB_NUM:
-        // case ENT_FUN:
         case BSP_SYM:
-        // case CAP_NAV:
         case ESC_FUN:
         case ENT_MED:
-        // case TD_CAPK:
             return true;
         default:
             return false;
@@ -137,18 +84,10 @@ bool get_hold_on_other_key_press_result(uint16_t keycode) {
 
 bool get_permissive_hold_result(uint16_t keycode) {
     switch (keycode) {
-        //case GUI_Z:
-        // case CTL_S:
-        // case ALT_D:
-        // case GUI_F:
-        // case CTL_L:
-        // case ALT_K:
-        // case GUI_J:
         case GUI_4:
-        case CTL_5:
-        case SFT_6:
+        case SFT_5:
+        case CTL_6:
         case ALT_1:
-        // case KC0_NAV:
         case SPCSFT:
             // Immediately select the hold action when another key is tapped.
             return true;

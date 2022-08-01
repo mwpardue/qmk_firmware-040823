@@ -1,10 +1,6 @@
-//#include "quantum.h"
-
 #ifndef CONFIG_USER_H
     #define CONFIG_USER_H
 #endif
-
-//#define USE_MATRIX_I2C
 
 /* Select hand configuration */
 
@@ -13,20 +9,14 @@
 // #define EE_HANDS
 
 #undef USE_I2C
-//#undef SSD1306OLED
-
-//#define USE_SERIAL_PD2
 
 #define FORCE_NKRO
 
-//#define LAYER_STATE_8BIT
 #define USB_POLLING_INTERVAL_MS 1
 
 #ifdef SMART_CASE_ENABLE
     #define CUSTOM_ONESHOT_TIMEOUT 2000
 #endif
-
-//#define RGBLIGHT_SPLIT
 
 #define SSD1306OLED
 
@@ -91,7 +81,7 @@
 #undef ENABLE_RGB_MATRIX_DIGITAL_RAIN
 
 #undef ENABLE_RGB_MATRIX_SOLID
-#undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE
 #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
 #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE

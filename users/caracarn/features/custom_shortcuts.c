@@ -4,12 +4,6 @@
 
 extern os_t os;
 
-// #ifndef DEFAULT_MOD_ENABLE
-//         bool should_send_ctrl(bool isWindowsOrLinux, bool isOneShotShift) {
-//             return (isWindowsOrLinux && !isOneShotShift) || (!isWindowsOrLinux && isOneShotShift);
-//         }
-// #endif
-
 process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *record) {
 
     bool isWindowsOrLinux = os.type == WINDOWS || os.type == LINUX;
@@ -85,8 +79,6 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
                 }
             }
             return PROCESS_RECORD_RETURN_FALSE;
-
     }
-
     return PROCESS_RECORD_CONTINUE;
 }

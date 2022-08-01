@@ -118,13 +118,21 @@ void td_quotes(qk_tap_dance_state_t *state, void *user_data) {
     tap_state.state = dance_state(state);
     switch (tap_state.state) {
         case TD_SINGLE_TAP:
+            if (get_mods() & MOD_MASK_SHIFT) {
+                del_mods(MOD_MASK_SHIFT);
+                del_weak_mods(MOD_MASK_SHIFT);
+                del_oneshot_mods(MOD_MASK_SHIFT);
+                tap_code16(KC_SCLN);
+            } else {
             tap_code16(KC_QUOT);
+            };
             break;
         case TD_DOUBLE_TAP:
+            if (get_mods() & MOD_MASK_SHIFT) {
+                tap_code16(KC_COLN);
+            } else {
             tap_code16(KC_DQUO);
-            break;
-        case TD_TRIPLE_TAP:
-            tap_code16(KC_COLN);
+            };
             break;
         default: break;
     }
@@ -196,48 +204,6 @@ void td_vimq(qk_tap_dance_state_t *state, void *user_data) {
         default: break;
     }
 }
-
-// void td_kebab(qk_tap_dance_state_t *state, void *user_data) {
-//     tap_state.state = dance_state(state);
-//     switch (tap_state.state) {
-//         case TD_SINGLE_TAP:
-//             set_smart_case(KEBAB_CASE);
-//             break;
-//         case TD_DOUBLE_TAP:
-//             set_smart_case(KEBAB_CASE);
-//             set_smart_case(WORD_CASE);
-//             break;
-//         default: break;
-//     }
-// }
-
-// void td_snake(qk_tap_dance_state_t *state, void *user_data) {
-//     tap_state.state = dance_state(state);
-//     switch (tap_state.state) {
-//         case TD_SINGLE_TAP:
-//             set_smart_case(SNAKE_CASE);
-//             break;
-//         case TD_DOUBLE_TAP:
-//             set_smart_case(SNAKE_CASE);
-//             set_smart_case(WORD_CASE);
-//             break;
-//         default: break;
-//     }
-// }
-
-// void td_camel(qk_tap_dance_state_t *state, void *user_data) {
-//     tap_state.state = dance_state(state);
-//     switch (tap_state.state) {
-//         case TD_SINGLE_TAP:
-//             set_smart_case(CAMEL_CASE);
-//             break;
-//         case TD_DOUBLE_TAP:
-//             set_smart_case(CAMEL_CASE);
-//             add_oneshot_mods(MOD_LSFT);
-//             break;
-//         default: break;
-//     }
-// }
 
 void td_screenshot_full(qk_tap_dance_state_t *state, void *user_data) {
     tap_state.state = dance_state(state);
@@ -312,9 +278,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [BRT_PAR] = ACTION_TAP_DANCE_FN(td_parentesis),
     [BRT_ANG] = ACTION_TAP_DANCE_FN(td_angle_brackets),
     [SDB_QUO] = ACTION_TAP_DANCE_FN(td_quotes),
-    // [KEBAB] = ACTION_TAP_DANCE_FN(td_kebab),
-    // [SNAKE] = ACTION_TAP_DANCE_FN(td_snake),
-    // [CAMEL] = ACTION_TAP_DANCE_FN(td_camel),
     [SS_FULL] = ACTION_TAP_DANCE_FN(td_screenshot_full),
     [VIMQ] = ACTION_TAP_DANCE_FN(td_vimq),
     [SS_SNIP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,td_sssnippet_finished, td_sssnippet_reset)

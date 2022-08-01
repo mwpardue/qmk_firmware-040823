@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "caracarn.h"
-//#include "features/caps_word.h"
 
 #ifdef OLED_ENABLE
 #    include "oled.c"
@@ -17,16 +16,9 @@
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-// [_BASE] = LAYOUT_split_3x6_3(
-//   LLOCK,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    OSMLGUI,
-//   OSMLCTL, KC_A,   SFT_S,   ALT_D,   CTL_F,   KC_G,                         KC_H,    CTL_J,   ALT_K,   SFT_L,   TD_QUOT, OSMRALT,
-//   OSMLALT, KC_Z,   KC_X,    KC_C,    GUI_V,   KC_B,                         KC_N,    GUI_M,   KC_COMM, KC_DOT,  KC_SLSH, OSMRCTL,
-//                                      MOD_KEY, TAB_NUM, CAP_KEY,    BSP_SYM, SPC_MAC, ENT_FUN
-// ),
-
 [_BASE] = LAYOUT_split_3x6_3(
   LLOCK,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    OSMLGUI,
-  OSMLCTL, KC_A,   SFT_S,   CTL_D,   GUI_F,   KC_G,                         KC_H,    GUI_J,   CTL_K,   SFT_L,   TD_QUOT, OSMRALT,
+  OSMLCTL, KC_A,   CTL_S,   SFT_D,   GUI_F,   KC_G,                         KC_H,    GUI_J,   SFT_K,   CTL_L,   TD_QUOT, OSMRALT,
   OSMLALT, KC_Z,   KC_X,    KC_C,    ALT_V,   KC_B,                         KC_N,    ALT_M,   KC_COMM, KC_DOT,  KC_SLSH, OSMRCTL,
                                      ESC_FUN, TAB_NUM, CAP_NAV,    BSP_SYM, SPC_MAC, ENT_MED
 ),
@@ -38,30 +30,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                      MOD_KEY, TAB_NUM, CAP_KEY,    BSP_SYM, SPC_MAC, ENT_FUN
 ),
 
-// [_NUMPAD] = LAYOUT_split_3x6_3(
-//   _______, KC_TAB,  PRVTAB,  KC_UP,   NXTTAB,  KC_ESC,                       KC_MINS, KC_7,    KC_8,    KC_9,    KC_PSLS, _______,
-//   _______, KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, KC_BTN1,                      KC_COLN, GUI_4,   ALT_5,   CTL_6,   KC_PDOT, _______,
-//   _______, MC_SWAP, MC_SWLE, LCTLC,   MC_SWRI, KC_ENT,                       KC_EQL,  KC_1,    KC_2,    KC_3,    KC_ENT,  _______,
-//                                       _______, _______, _______,    SPCSFT,  KC_0,    NAV_LL
-// ),
-
 [_NUMPAD] = LAYOUT_split_3x6_3(
   _______, KC_TAB,  PRVTAB,  KC_UP,   NXTTAB,  _______,                      KC_MINS, KC_7,    KC_8,    KC_9,    KC_PSLS, _______,
-  _______, KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, _______,                      KC_COLN, GUI_4,   CTL_5,   SFT_6,   KC_PLUS, _______,
+  _______, KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, _______,                      KC_COLN, GUI_4,   SFT_5,   CTL_6,   KC_PLUS, _______,
   _______, LLOCK,   MC_SWLE, MC_SWAP, MC_SWRI, _______,                      KC_EQL,  ALT_1,   KC_2,    KC_3,    KC_DOT,  _______,
                                       _______, _______, _______,    SPCSFT,  KC_0,    KC_ENT
 ),
 
-// [_NAVIGATION] = LAYOUT_split_3x6_3(
-//   _______, KC_ESC,  MC_SWLE, HOME,    MC_SWRI, KC_WH_U,                      KC_MINS, KC_7,    KC_8,    KC_9,    KC_PSLS, _______,
-//   _______, KC_DEL,  WORD_LE, END,     WORD_RI, KC_WH_D,                      KC_COLN, GUI_4,   ALT_5,   CTL_6,   KC_PDOT, _______,
-//   _______, _______, MC_SWLE, MC_SELW, MC_SWRI, _______,                      KC_UNDS, KC_1,    KC_2,    KC_3,    KC_ENT,  _______,
-//                                       LLOCK,   _______, _______,    SPCSFT,  KC_0,    _______
-// ),
-
 [_NAVIGATION] = LAYOUT_split_3x6_3(
   _______, _______, CUT,     COPY,    PASTE,   _______,                      _______, KC_WH_U, KC_MS_U, KC_WH_D, TOBAS,   _______,
-  _______, SELALL,  KC_LSFT, KC_LCTL, KC_LGUI, _______,                      KC_WH_L, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_R, _______,
+  _______, SELALL,  KC_LCTL, KC_LSFT, KC_LGUI, _______,                      KC_WH_L, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_R, _______,
   _______, LLOCK,   _______, _______, KC_LALT, TOSYM,                        _______, _______, _______, _______, _______, _______,
                                       _______, _______, _______,    KC_BTN2, KC_BTN1, KC_BTN3
 ),
@@ -73,16 +51,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       _______, _______, SPCSFT,     KC_BSPC, KC_0,    KC_SPC
 ),
 
-// [_SYMBOL] = LAYOUT_split_3x6_3(
-//   _______, KC_ESC,  KC_GRV,  KC_TILD, KC_BSLS, TIPS,                         KC_MINS, KC_AMPR, KC_ASTR, KC_RPRN, KC_BSLS, _______,
-//   _______, KC_AT,   KC_BSLS, KC_UNDS, KC_PIPE, KC_SCLN,                      KC_COLN, KC_DLR,  KC_PERC, KC_CIRC, KC_SCLN, _______,
-//   _______, TD_CURB, TD_SQRB, TD_PARB, TD_ANGB, _______,                      KC_EQL,  KC_EXLM, KC_AT,   KC_HASH, KC_ENT,  _______,
-//                                       LLOCK,   _______, SPCSFT,     _______, KC_LPRN, _______
-// ),
-
 [_SYMBOL] = LAYOUT_split_3x6_3(
   _______, TOBAS,   KC_GRV,  KC_TILD, KC_BSLS, TIPS,                         _______, _______, _______, _______, _______, _______,
-  _______, KC_AT,   KC_BSLS, KC_UNDS, KC_PIPE, KC_SCLN,                      _______, KC_RGUI, KC_RCTL, KC_RSFT, _______, _______,
+  _______, KC_AT,   KC_BSLS, KC_UNDS, KC_PIPE, KC_SCLN,                      _______, KC_RGUI, KC_RSFT, KC_RCTL, _______, _______,
   _______, TD_CURB, TD_SQRB, TD_PARB, TD_ANGB, _______,                      TONAV,   KC_RALT, _______, _______, LLOCK,   _______,
                                       _______, _______, SPCSFT,     _______, _______, _______
 ),
@@ -95,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_FUNCTION] = LAYOUT_split_3x6_3( \
-  _______, QWERTY,  _______, EEP_RST, _______,  _______,                       _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,\
+  _______, QWERTY,  _______, EEP_RST, _______,  QK_BOOT,                       QK_BOOT, KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,\
   _______, TOADJ,   MACSLEP, DEBUG,   DT_PRNT,  DT_UP,                         _______, KC_F4,   KC_F5,   KC_F6,   KC_F11,  _______,\
   _______, _______, _______, COLEMAK, _______,  DT_DOWN,                       _______, KC_F1,   KC_F2,   KC_F3,   KC_F12,  _______,\
                                       _______,  _______,  _______,   _______,  _______, _______ \
@@ -109,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = LAYOUT_split_3x6_3( \
-  _______, TOBAS,   _______, _______, _______, _______,                      _______, _______, _______, _______, TOBAS,   _______,  \
+  _______, TOBAS,   _______, _______, _______, _______,                      _______, RGB_MDT, _______, _______, TOBAS,   _______,  \
   RGB_ALP, _______, _______, DEBUG,   DT_PRNT, DT_UP,                        RGB_SPP, RGB_CHG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,\
   RGB_ALM, _______, _______, _______, _______, DT_DOWN,                      RGB_SPM, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,\
                                       _______, _______, _______,    _______, _______, _______ \
@@ -122,7 +93,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #undef _______
 #define _______ {0, 0, 0}
 
-//const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
 const ledmap PROGMEM ledmaps[] = {
   [_BASE] = RGB_MATRIX_LAYOUT_LEDMAP(
   _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,

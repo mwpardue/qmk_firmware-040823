@@ -5,9 +5,6 @@
 #include "../definitions/keycodes.h"
 #include "caps_word.h"
 #include "smart_case.h"
-//#include "os_toggle.h"
-//#include "default_mod_key.h"
-//#include "dynamic_macro.h"
 
 enum {
     SEC1_5,
@@ -19,9 +16,6 @@ enum {
     BRT_PAR,
     BRT_ANG,
     SDB_QUO,
-    // KEBAB,
-    // SNAKE,
-    // CAMEL,
     SS_FULL,
     VIMQ,
     SS_SNIP
@@ -36,9 +30,6 @@ enum {
 #define TD_PARB TD(BRT_PAR)
 #define TD_ANGB TD(BRT_ANG)
 #define TD_QUOT TD(SDB_QUO)
-// #define TD_KBAB TD(KEBAB)
-// #define TD_SNAK TD(SNAKE)
-// #define TD_CAML TD(CAMEL)
 #define TD_SSFL TD(SS_FULL)
 #define TD_SNIP TD(SS_SNIP)
 #define TD_VIMQ TD(VIMQ)

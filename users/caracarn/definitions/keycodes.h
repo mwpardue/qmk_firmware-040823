@@ -30,11 +30,6 @@ enum {
     KC_SECRET_12,
 #endif
 
-
-
- //   SS_BTIC, SS_DQUO, SS_SQUO,
- //   SS_CIRC, SS_TILD, SS_DEG,
-
 #ifdef OS_TOGGLE_ENABLE
     TG_MAC, TG_WIN, TG_LIN,
 #endif
@@ -72,7 +67,7 @@ enum {
 #endif
 
 #ifdef RGB_MATRIX_ENABLED
-    RGB_SPP, RGB_SPM, RGB_ALP, RGB_ALM, RGB_CHG,
+    RGB_SPP, RGB_SPM, RGB_ALP, RGB_ALM, RGB_CHG, RGB_MDT,
 #endif
 
     CUSTOM_KEYCODE_END
@@ -87,13 +82,10 @@ enum {
 #define OSMLALT OSM(MOD_LALT)
 #define OSMRALT OSM(MOD_RALT)
 #define OSMLGUI OSM(MOD_LGUI)
-//#define OSMRSFT OSM(MOD_RSFT)
 #define OSMRCTL OSM(MOD_RCTL)
-//#define OSMRGUI OSM(MOD_RGUI)
-//#define OSMHYPR OSM(MOD_HYPR)
 
 // Left-hand home row mods
-#define SFT_S LSFT_T(KC_S)
+#define SFT_D LSFT_T(KC_D)
 #define ALT_D LALT_T(KC_D)
 #define CTL_F LCTL_T(KC_F)
 #define ALT_V LALT_T(KC_V)
@@ -107,7 +99,7 @@ enum {
 // // Right-hand home row mods
 #define CTL_J RCTL_T(KC_J)
 #define ALT_K RALT_T(KC_K)
-#define SFT_L RSFT_T(KC_L)
+#define SFT_K RSFT_T(KC_K)
 #define ALT_M RALT_T(KC_M)
 #define CTL_I RCTL_T(KC_I)
 #define ALT_E RALT_T(KC_E)
@@ -117,8 +109,8 @@ enum {
 #define GUI_J RGUI_T(KC_J)
 #define GUI_4 RGUI_T(KC_4)
 #define ALT_5 RALT_T(KC_5)
-#define SFT_6 RSFT_T(KC_6)
-#define CTL_5 RCTL_T(KC_5)
+#define SFT_5 RSFT_T(KC_5)
+#define CTL_6 RCTL_T(KC_6)
 #define ALT_4 RALT_T(KC_4)
 #define ALT_1 RALT_T(KC_1)
 
@@ -157,13 +149,7 @@ enum {
 #define SS3 LGUI(LSFT(KC_3))
 #define SS4 LGUI(LSFT(KC_4))
 #define LCTLC LCTL(KC_C)
-//#define SHFTTAB LSFT(KC_TAB)
-//#define QUIT LGUI(KC_Q)
-//#define CLTAB LGUI(KC_W)
 #define SELALL LGUI(KC_A)
-//#define SAVE LGUI(KC_S)
-//#define FIND LGUI(KC_F)
-//#define UNDO LGUI(KC_Z)
 #define CUT LGUI(KC_X)
 #define COPY LGUI(KC_C)
 #define PASTE LGUI(KC_V)

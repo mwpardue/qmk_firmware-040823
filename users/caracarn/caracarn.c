@@ -13,13 +13,6 @@ void matrix_init_user(void) {
     debug_enable=true;
 }
 
-// Led update
-
-/* bool led_update_user(led_t led_state) {
-    check_start_capslock_timer(led_state.caps_lock);
-    return true;
-}
- */
 // Matrix scan
 
 __attribute__ ((weak)) void matrix_scan_keymap(void) {
@@ -245,19 +238,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         default:
             break;
     };
-#endif
-
-#ifdef TAPHOLD_ENABLE
-    // Process taphold
-/*     switch (process_taphold(keycode, record)) {
-        case PROCESS_RECORD_RETURN_TRUE:
-            return true;
-        case PROCESS_RECORD_RETURN_FALSE:
-            return false;
-        default:
-            break;
-    };
- */
 #endif
 
 #ifdef DEFAULT_MOD_ENABLE
