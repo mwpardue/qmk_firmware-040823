@@ -1,6 +1,12 @@
 #pragma once
 
+//#include "features/transport_sync.h"
+
 extern uint8_t is_master;
+
+extern rgb_split_config_t rgb_split_config;
+
+extern uint32_t transport_user_state;
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
 
@@ -140,14 +146,14 @@ void render_mod_status_ctrl_shift(uint8_t modifiers) {
     }
 }
 
-void render_logo(void) {
-    static const char PROGMEM corne_logo[] = {
-        0x80, 0x81, 0x82, 0x83, 0x84,
-        0xa0, 0xa1, 0xa2, 0xa3, 0xa4,
-        0xc0, 0xc1, 0xc2, 0xc3, 0xc4,
-        0x20, 0x99, 0x9a, 0x9b, 0x20, 0};
-    oled_write_P(corne_logo, false);
-}
+// void render_logo(void) {
+//     static const char PROGMEM corne_logo[] = {
+//         0x80, 0x81, 0x82, 0x83, 0x84,
+//         0xa0, 0xa1, 0xa2, 0xa3, 0xa4,
+//         0xc0, 0xc1, 0xc2, 0xc3, 0xc4,
+//         0x20, 0x99, 0x9a, 0x9b, 0x20, 0};
+//     oled_write_P(corne_logo, false);
+// }
 
 void render_layer_box_top(void) {
     static const char PROGMEM layer_top[] = {
@@ -238,9 +244,25 @@ void render_smart_case(void) {
     }
 }
 
+void render_rgb_state(void) {
+    if (rgb_split_config.rgb_matrix_ledmap_active == 0) {
+        oled_write_P(PSTR(" ROFF"), false);
+    } else {
+        oled_write_P(PSTR(" RON "), false);
+    }
+}
+
+void render_transport_user_state(void) {
+    if (transport_user_state == 0) {
+        oled_write_P(PSTR(" TR0 "), false);
+    } else {
+        oled_write_P(PSTR(" TR1 "), false);
+    }
+}
+
 bool oled_task_user(void) {
     // Renders the current keyboard state (layers and mods)
-    render_logo();
+    //render_logo();
     render_space();
     render_mod_status_gui_alt(get_mods()|get_oneshot_mods());
     render_mod_status_ctrl_shift(get_mods()|get_oneshot_mods());
@@ -250,5 +272,8 @@ bool oled_task_user(void) {
     render_layer_box_bottom();
     render_space();
     render_smart_case();
+    render_rgb_state();
+    render_space();
+    render_transport_user_state();
     return false;
 }

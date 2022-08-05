@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_HEX] = LAYOUT_split_3x6_3(
   _______, KC_TAB,  _______, _______, _______, KC_MINS,                      KC_MINS, KC_7,    KC_8,    KC_9,    TOBAS,   _______,
   _______, _______, KC_SLSH, _______, _______, KC_COLN,                      KC_COLN, KC_4,    KC_5,    KC_6,    KC_PDOT, _______,
-  _______, _______, KC_UNDS, _______, KC_DOT,  _______,                      KC_UNDS, KC_1,    KC_2,    KC_3,    KC_ENT,  _______,
+  _______, TOBAS,   KC_UNDS, _______, KC_DOT,  _______,                      KC_UNDS, KC_1,    KC_2,    KC_3,    KC_ENT,  _______,
                                       _______, _______, SPCSFT,     KC_BSPC, KC_0,    KC_SPC
 ),
 
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FUNCTION] = LAYOUT_split_3x6_3( \
   _______, QWERTY,  _______, EEP_RST, _______,  QK_BOOT,                       QK_BOOT, KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,\
   _______, TOADJ,   MACSLEP, DEBUG,   DT_PRNT,  DT_UP,                         _______, KC_F4,   KC_F5,   KC_F6,   KC_F11,  _______,\
-  _______, _______, _______, COLEMAK, _______,  DT_DOWN,                       _______, KC_F1,   KC_F2,   KC_F3,   KC_F12,  _______,\
+  _______, TOHEX,   _______, COLEMAK, _______,  DT_DOWN,                       _______, KC_F1,   KC_F2,   KC_F3,   KC_F12,  _______,\
                                       _______,  _______,  _______,   _______,  _______, _______ \
 ),
 
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = LAYOUT_split_3x6_3( \
-  _______, TOBAS,   _______, _______, _______, _______,                      _______, RGB_MDT, _______, _______, TOBAS,   _______,  \
+  _______, TOBAS,   _______, _______, RGB_MDT, _______,                      _______, RGB_MDT, _______, _______, TOBAS,   _______,  \
   RGB_ALP, _______, _______, DEBUG,   DT_PRNT, DT_UP,                        RGB_SPP, RGB_CHG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,\
   RGB_ALM, _______, _______, _______, _______, DT_DOWN,                      RGB_SPM, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,\
                                       _______, _______, _______,    _______, _______, _______ \

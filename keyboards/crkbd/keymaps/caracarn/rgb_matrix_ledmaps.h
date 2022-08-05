@@ -30,14 +30,15 @@
     R30, R31, R32 \
   }
 // clang-format on
-//extern uint8_t ledmap[DRIVER_LED_TOTAL][3];
 typedef uint8_t ledmap[DRIVER_LED_TOTAL][3];
 extern const ledmap ledmaps[];
+bool rgb_matrix_ledmap_active;
 
-void set_layer_rgb(uint8_t led_min, uint8_t led_max, int layer, int led_type);
+void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_type);
 
 void rgb_matrix_layers_enable(void);
 void rgb_matrix_layers_disable(void);
+bool get_ledmap_active(void);
 
 // Just a handy defines to make our ledmaps look better
 #    define RED \

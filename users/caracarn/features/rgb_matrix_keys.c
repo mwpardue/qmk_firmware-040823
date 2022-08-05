@@ -3,10 +3,13 @@
 #include "rgb_matrix_keys.h"
 #include "caracarn.h"
 #include "rgb_matrix.h"
+//#include "features/transport_sync.h"
 // #include "config.h"
 
 // uint8_t rgb_matrix_typing_heatmap_spread = 40;
 // uint8_t rgb_matrix_typing_heatmap_area_limit = 16;
+
+bool ledmap_active = false;
 
 static void heatmap_spread_report(void) {
     const char *heatmap_spread_str = get_u16_str(rgb_matrix_typing_heatmap_spread, ' ');
@@ -42,26 +45,31 @@ process_record_result_t process_rgb_matrix_keys(uint16_t keycode, keyrecord_t *r
                 case LED_FLAG_ALL: {
                     rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
                     rgb_matrix_set_color_all(0, 0, 0);
+                    dprintf("rgb_matrix_get_flags (KMI)= %d\n", rgb_matrix_get_flags());
                   }
                   break;
                 case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
                     rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
                     rgb_matrix_set_color_all(0, 0, 0);
+                    dprintf("rgb_matrix_get_flags (UG)= %d\n", rgb_matrix_get_flags());
                   }
                   break;
                 case LED_FLAG_UNDERGLOW: {
                     rgb_matrix_set_flags(LED_FLAG_NONE);
                     rgb_matrix_disable_noeeprom();
+                    dprintf("rgb_matrix_get_flags (OFF)= %d\n", rgb_matrix_get_flags());
                   }
                   break;
                 default: {
                     rgb_matrix_set_flags(LED_FLAG_ALL);
                     rgb_matrix_enable_noeeprom();
+                    dprintf("rgb_matrix_get_flags (ALL)= %d\n", rgb_matrix_get_flags());
                   }
                   break;
               }
               return PROCESS_RECORD_RETURN_FALSE;
             }
+
         case RGB_SPP:
             if (record->event.pressed) {
                 rgb_matrix_typing_heatmap_spread = rgb_matrix_typing_heatmap_spread + 1;
@@ -69,6 +77,7 @@ process_record_result_t process_rgb_matrix_keys(uint16_t keycode, keyrecord_t *r
                 return PROCESS_RECORD_RETURN_FALSE;
             }
             break;
+
         case RGB_SPM:
             if (record->event.pressed) {
                 rgb_matrix_typing_heatmap_spread = rgb_matrix_typing_heatmap_spread - 1;
@@ -76,6 +85,7 @@ process_record_result_t process_rgb_matrix_keys(uint16_t keycode, keyrecord_t *r
                 return PROCESS_RECORD_RETURN_FALSE;
             }
             break;
+
         case RGB_ALP:
             if (record->event.pressed) {
                 rgb_matrix_typing_heatmap_area_limit = rgb_matrix_typing_heatmap_area_limit + 1;
@@ -83,11 +93,20 @@ process_record_result_t process_rgb_matrix_keys(uint16_t keycode, keyrecord_t *r
                 return PROCESS_RECORD_RETURN_FALSE;
             }
             break;
+
         case RGB_ALM:
             if (record->event.pressed) {
                 rgb_matrix_typing_heatmap_area_limit = rgb_matrix_typing_heatmap_area_limit - 1;
                 heatmap_area_report();
                 return PROCESS_RECORD_RETURN_FALSE;
+            }
+            break;
+
+        case RGB_MDT:
+            if (record->event.pressed) {
+                ledmap_active ^= 1;
+                eeconfig_update_user(ledmap_active);
+                dprintf("rgb_matrix_ledmap_active = %d\n", ledmap_active);
             }
             break;
   }

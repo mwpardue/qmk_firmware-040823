@@ -138,3 +138,12 @@ ifeq ($(strip $(RGB_MATRIX_LEDMAPS)), yes)
 	SRC += rgb_matrix_ledmaps.c
 	OPT_DEFS += -DRGB_MATRIX_LEDMAPS_ENABLED
 endif
+
+CUSTOM_SPLIT_TRANSPORT_SYNC ?= yes
+ifeq ($(strip $(CUSTOM_SPLIT_TRANSPORT_SYNC)), yes)
+    ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+        QUANTUM_LIB_SRC += $(USER_PATH)/features/transport_sync.c
+        OPT_DEFS += -DCUSTOM_SPLIT_TRANSPORT_SYNC
+    endif
+
+endif

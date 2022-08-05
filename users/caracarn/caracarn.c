@@ -1,5 +1,5 @@
 #include "caracarn.h"
-
+//#include "features/transport_sync.h"
 //extern os_t os;
 
 #ifdef CAPITALIZE_KEY_ENABLE
@@ -7,6 +7,25 @@
         #error Do not enable both Capitalize Key and Smart Thumb Key
     #endif
 #endif
+
+void keyboard_pre_init_user(void) {
+    rgb_split_config.raw = eeconfig_read_user();
+}
+
+void                       keyboard_post_init_user(void) {
+//#if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
+    keyboard_post_init_transport_sync();
+//#endif
+    keyboard_post_init_keymap();
+}
+
+__attribute__((weak)) void eeconfig_init_keymap(void) {}
+void                       eeconfig_init_user(void) {
+    rgb_split_config.raw              = 0;
+    rgb_split_config.rgb_matrix_ledmap_active = false;
+    eeconfig_update_user(rgb_split_config.raw);
+    eeconfig_init_keymap();
+}
 
 void matrix_init_user(void) {
     // Enable or disable debugging
@@ -304,3 +323,11 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     return get_tapping_term_result(keycode);
 }
 #endif
+
+//__attribute__((weak)) void housekeeping_task_keymap(void) {}
+void housekeeping_task_user(void) {
+//#if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
+    housekeeping_task_transport_sync();
+//#endif
+    //housekeeping_task_keymap();
+}
