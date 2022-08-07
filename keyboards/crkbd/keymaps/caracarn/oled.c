@@ -262,6 +262,14 @@ void render_transport_user_state(void) {
     }
 }
 
+void render_test_user_state(void) {
+    if (user_state.rgb_matrix_toggle == 0) {
+        oled_write_P(PSTR("TST0 "), false);
+    } else {
+        oled_write_P(PSTR("TST1 "), false);
+    }
+}
+
 bool oled_task_user(void) {
     // Renders the current keyboard state (layers and mods)
     //render_logo();
@@ -277,5 +285,6 @@ bool oled_task_user(void) {
     render_rgb_state();
     render_space();
     render_transport_user_state();
+    render_test_user_state();
     return false;
 }

@@ -107,6 +107,8 @@ process_record_result_t process_rgb_matrix_keys(uint16_t keycode, keyrecord_t *r
                 ledmap_active ^= 1;
                 eeconfig_update_user(ledmap_active);
                 dprintf("ledmap_active = %d\n", ledmap_active);
+                user_state.rgb_matrix_toggle ^= 1;
+                dprintf("Test Variable = %d\n", user_state.rgb_matrix_toggle);
             }
             break;
   }

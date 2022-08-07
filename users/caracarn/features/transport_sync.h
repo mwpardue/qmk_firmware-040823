@@ -17,6 +17,7 @@ typedef union {
     uint32_t raw;
     struct {
         bool    rgb_matrix_ledmap_active  :1;
+        bool    rgb_matrix_toggle :1;
     };
 } user_runtime_config_t;
 

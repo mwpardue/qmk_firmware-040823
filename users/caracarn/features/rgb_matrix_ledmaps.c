@@ -113,6 +113,13 @@ void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_t
                 rgb_matrix_set_color(6, 0, 0, 0);
             }
     #endif
+    if (user_state.rgb_matrix_toggle) {
+        rgb_matrix_set_color(9, 255, 0, 0);
+        rgb_matrix_set_color(39, 255, 0, 0);
+    } else {
+        rgb_matrix_set_color(9, 0, 0, 0);
+        rgb_matrix_set_color(39, 0, 0, 0);
+    }
     }
 
 void rgb_matrix_layers_enable() {
