@@ -7,7 +7,7 @@
 
 // #ifdef RGB_MATRIX_ENABLE
 //     #ifdef RGB_MATRIX_LEDMAPS_ENABLED
-//             #include "rgb_matrix_ledmaps.c"
+//             #include "features/rgb_matrix_ledmaps.c"
 //         #else
 //             #include "rgb.c"
 //     #endif //RGB_MATRIX_LEDMAPS_ENABLED

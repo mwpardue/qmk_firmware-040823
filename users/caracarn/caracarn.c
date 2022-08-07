@@ -8,9 +8,9 @@
     #endif
 #endif
 
-void keyboard_pre_init_user(void) {
-    rgb_split_config.raw = eeconfig_read_user();
-}
+// void keyboard_pre_init_user(void) {
+//     rgb_split_config.raw = eeconfig_read_user();
+// }
 
 void                       keyboard_post_init_user(void) {
 //#if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
@@ -19,13 +19,13 @@ void                       keyboard_post_init_user(void) {
     keyboard_post_init_keymap();
 }
 
-__attribute__((weak)) void eeconfig_init_keymap(void) {}
-void                       eeconfig_init_user(void) {
-    rgb_split_config.raw              = 0;
-    rgb_split_config.rgb_matrix_ledmap_active = false;
-    eeconfig_update_user(rgb_split_config.raw);
-    eeconfig_init_keymap();
-}
+// __attribute__((weak)) void eeconfig_init_keymap(void) {}
+// void                       eeconfig_init_user(void) {
+//     rgb_split_config.raw              = 0;
+//     rgb_split_config.rgb_matrix_ledmap_active = false;
+//     eeconfig_update_user(rgb_split_config.raw);
+//     eeconfig_init_keymap();
+// }
 
 void matrix_init_user(void) {
     // Enable or disable debugging

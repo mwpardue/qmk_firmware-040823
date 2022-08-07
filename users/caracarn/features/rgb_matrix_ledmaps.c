@@ -1,7 +1,7 @@
 #include "caracarn.h"
-#include "rgb_matrix_ledmaps.h"
+#include "features/rgb_matrix_ledmaps.h"
 #include "definitions/layers.h"
-//#include "features/transport_sync.h"
+// #include "features/transport_sync.h"
 #ifdef SMART_CASE_ENABLE
     #include "features/smart_case.h"
 #endif
@@ -11,7 +11,9 @@
 
 extern led_config_t g_led_config;
 
-extern bool ledmap_active;
+// extern rgb_split_config_t rgb_split_config;
+
+bool ledmap_active;
 
 __attribute__((weak)) void rgb_matrix_indicators_keymap(void) { return; }
 __attribute__((weak)) void rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
@@ -24,9 +26,9 @@ static bool enabled = true;
 
 #endif  // RGB_MATRIX_LEDMAPS_ENABLED
 
-bool get_ledmap_active() {
-    return (ledmap_active);
-}
+// bool get_ledmap_active() {
+//     return (ledmap_active);
+// }
 
 void rgb_matrix_indicators_user(void) { rgb_matrix_indicators_keymap(); }
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
@@ -65,8 +67,7 @@ void rgb_matrix_base_underglow(void) {
 void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_type) {
     const ledmap *l = &(ledmaps[layer]);
     uint8_t val = rgb_matrix_get_val();
-    switch (ledmap_active) {
-        case 0:
+    if (!ledmap_active) {
             for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
                 HSV hsv = {
                     .h = (*l)[0][0],
@@ -74,7 +75,7 @@ void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_t
                     .v = val,
                 };
 			    rgb_matrix_sethsv_noeeprom(hsv.h, hsv.s, hsv.v);
-                dprintln("Executing case 0");
+                //dprintln("Executing case 0");
                 if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
                     RGB rgb = hsv_to_rgb(hsv);
                     RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
@@ -83,8 +84,7 @@ void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_t
             // if (layer != _BASE || _COLEMAK_DH || _ADJUST) {
             //     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_SIMPLE);
             // }
-            break;
-        case 1:
+    } else {
             for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
                 HSV hsv = {
                     .h = (*l)[i][0],
@@ -98,7 +98,6 @@ void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_t
                     }
                 }
             }
-            break;
     }
     #ifdef CAPS_WORD_ENABLE
             if (isCapsWord) {

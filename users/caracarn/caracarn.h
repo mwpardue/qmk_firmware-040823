@@ -3,15 +3,25 @@
 #include "eeprom.h"
 #include "definitions/layers.h"
 #include "definitions/keycodes.h"
+#include "features/transport_sync.h"
 
-typedef union {
-  uint32_t raw;
-  struct {
-    bool     rgb_matrix_ledmap_active :1;
-  };
-} rgb_split_config_t;
+// typedef union {
+//   uint32_t raw;
+//   struct {
+//     bool     rgb_matrix_ledmap_active :1;
+//   };
+// } rgb_split_config_t;
 
-rgb_split_config_t rgb_split_config;
+// rgb_split_config_t rgb_split_config;
+
+// typedef union {
+//     uint32_t raw;
+//     struct {
+//         bool    rgb_matrix_ledmap_active  :1;
+//     };
+// } user_runtime_config_t;
+
+// user_runtime_config_t user_state;
 
 void keyboard_post_init_transport_sync(void);
 void keyboard_post_init_keymap(void);
@@ -107,7 +117,7 @@ void housekeeping_task_transport_sync(void);
 #endif
 
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED
-    #include "rgb_matrix_ledmaps.h"
+    #include "features/rgb_matrix_ledmaps.h"
 #endif
 
 void matrix_scan_keymap(void);

@@ -4,7 +4,9 @@
 
 extern uint8_t is_master;
 
-extern rgb_split_config_t rgb_split_config;
+// extern rgb_split_config_t rgb_split_config;
+
+extern bool ledmap_active;
 
 extern uint32_t transport_user_state;
 
@@ -245,7 +247,7 @@ void render_smart_case(void) {
 }
 
 void render_rgb_state(void) {
-    if (rgb_split_config.rgb_matrix_ledmap_active == 0) {
+    if (ledmap_active == 0) {
         oled_write_P(PSTR(" ROFF"), false);
     } else {
         oled_write_P(PSTR(" RON "), false);

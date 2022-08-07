@@ -1,6 +1,7 @@
 #pragma once
 
 #include "quantum.h"
+//#include "features/transport_sync.h"
 
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED
 
@@ -32,13 +33,13 @@
 // clang-format on
 typedef uint8_t ledmap[DRIVER_LED_TOTAL][3];
 extern const ledmap ledmaps[];
-bool rgb_matrix_ledmap_active;
+extern bool ledmap_active;
 
 void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_type);
 
 void rgb_matrix_layers_enable(void);
 void rgb_matrix_layers_disable(void);
-bool get_ledmap_active(void);
+// bool get_ledmap_active(void);
 
 // Just a handy defines to make our ledmaps look better
 #    define RED \

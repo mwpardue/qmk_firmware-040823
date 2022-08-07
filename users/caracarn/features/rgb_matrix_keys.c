@@ -9,7 +9,7 @@
 // uint8_t rgb_matrix_typing_heatmap_spread = 40;
 // uint8_t rgb_matrix_typing_heatmap_area_limit = 16;
 
-bool ledmap_active = false;
+extern bool ledmap_active;
 
 static void heatmap_spread_report(void) {
     const char *heatmap_spread_str = get_u16_str(rgb_matrix_typing_heatmap_spread, ' ');
@@ -106,7 +106,7 @@ process_record_result_t process_rgb_matrix_keys(uint16_t keycode, keyrecord_t *r
             if (record->event.pressed) {
                 ledmap_active ^= 1;
                 eeconfig_update_user(ledmap_active);
-                dprintf("rgb_matrix_ledmap_active = %d\n", ledmap_active);
+                dprintf("ledmap_active = %d\n", ledmap_active);
             }
             break;
   }
