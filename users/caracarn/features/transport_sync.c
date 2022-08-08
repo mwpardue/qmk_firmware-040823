@@ -47,23 +47,24 @@ void user_transport_sync(void) {
 
         // Check if the state values are different
         if (memcmp(&transport_user_state, &last_user_state, sizeof(transport_user_state))) {
-            dprintf("memcmp different. LUS: %ld TUS: %ld\n", last_user_state, transport_user_state);
+            dprintf("memcmp different. LUS: %ld TUS: %ld NS: %d\n", last_user_state, transport_user_state, needs_sync);
             needs_sync = true;
             memcpy(&last_user_state, &transport_user_state, sizeof(transport_user_state));
-            dprintf("memcpy executed. LUS: %ld TUS: %ld\n", last_user_state, transport_user_state);
+            dprintf("memcpy executed. LUS: %ld TUS: %ld NS: %d\n", last_user_state, transport_user_state, needs_sync);
         }
         // Send to slave every 500ms regardless of state change
         if (timer_elapsed32(last_sync) > 250) {
             needs_sync = true;
+            // dprintln("Setting needs_sync true due to timeout");
         }
 
         // Perform the sync if requested
         if (needs_sync) {
             if (transaction_rpc_send(RPC_ID_USER_STATE_SYNC, sizeof(user_state), &user_state)) {
-                dprintln("Resetting last_sync");
+                // dprintln("Resetting last_sync");
                 last_sync = timer_read32();
-                needs_sync = false;
             }
+            needs_sync = false;
         }
     }
 }

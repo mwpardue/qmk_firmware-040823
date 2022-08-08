@@ -67,7 +67,7 @@ void rgb_matrix_base_underglow(void) {
 void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_type) {
     const ledmap *l = &(ledmaps[layer]);
     uint8_t val = rgb_matrix_get_val();
-    if (!ledmap_active) {
+    if (!host_keyboard_led_state().caps_lock) {
             for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
                 HSV hsv = {
                     .h = (*l)[0][0],
