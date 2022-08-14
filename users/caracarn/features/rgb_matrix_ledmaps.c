@@ -1,7 +1,6 @@
 #include "caracarn.h"
 #include "features/rgb_matrix_ledmaps.h"
 #include "definitions/layers.h"
-// #include "features/transport_sync.h"
 #ifdef SMART_CASE_ENABLE
     #include "features/smart_case.h"
 #endif
@@ -10,8 +9,6 @@
 #endif
 
 extern led_config_t g_led_config;
-
-// extern rgb_split_config_t rgb_split_config;
 
 bool ledmap_active;
 
@@ -25,10 +22,6 @@ __attribute__((weak)) void rgb_matrix_indicators_advanced_keymap(uint8_t led_min
 static bool enabled = true;
 
 #endif  // RGB_MATRIX_LEDMAPS_ENABLED
-
-// bool get_ledmap_active() {
-//     return (ledmap_active);
-// }
 
 void rgb_matrix_indicators_user(void) { rgb_matrix_indicators_keymap(); }
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
@@ -67,7 +60,7 @@ void rgb_matrix_base_underglow(void) {
 void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_type) {
     const ledmap *l = &(ledmaps[layer]);
     uint8_t val = rgb_matrix_get_val();
-    if (!host_keyboard_led_state().caps_lock) {
+    if (!rgb_split_config.rgb_matrix_ledmap_active) {
             for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
                 HSV hsv = {
                     .h = (*l)[0][0],
@@ -75,7 +68,6 @@ void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_t
                     .v = val,
                 };
 			    rgb_matrix_sethsv_noeeprom(hsv.h, hsv.s, hsv.v);
-                //dprintln("Executing case 0");
                 if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
                     RGB rgb = hsv_to_rgb(hsv);
                     RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
@@ -113,14 +105,7 @@ void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_t
                 rgb_matrix_set_color(6, 0, 0, 0);
             }
     #endif
-    if (user_state.rgb_matrix_toggle) {
-        rgb_matrix_set_color(9, 255, 0, 0);
-        rgb_matrix_set_color(39, 255, 0, 0);
-    } else {
-        rgb_matrix_set_color(9, 0, 0, 0);
-        rgb_matrix_set_color(39, 0, 0, 0);
-    }
-    }
+}
 
 void rgb_matrix_layers_enable() {
     dprintf("ledmaps are enabled\n");

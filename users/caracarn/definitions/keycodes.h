@@ -129,6 +129,8 @@ enum {
 #define CAP_KEY LSFT_T(SP_CAP)
 #define CAP_NAV LT(_NAVIGATION, SP_CAP)
 #define ESC_FUN LT(_FUNCTION, KC_ESC)
+#define SPC_MEH MEH_T(KC_SPACE)
+#define ENT_HYP HYPR_T(KC_ENT)
 #define MC_SWAP LGUI(KC_GRV)
 
 // Layer transitions
@@ -143,6 +145,7 @@ enum {
 #define TOADJ TO(_ADJUST)
 #define TOCMK TO(_COLEMAK_DH)
 #define TONAV TO(_NAVIGATION)
+#define OSL_MAC OSL(_MACROS)
 
 // Custom Shortcuts
 

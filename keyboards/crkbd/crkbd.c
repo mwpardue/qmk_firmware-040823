@@ -28,6 +28,7 @@ void keyboard_post_init_kb(void) {
     #ifdef EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN
 	    setPinOutput(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
 		writePinHigh(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
+        keyboard_post_init_user();
 	#endif
 }
 

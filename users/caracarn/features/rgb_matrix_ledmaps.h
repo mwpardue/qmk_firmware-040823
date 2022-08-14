@@ -1,7 +1,6 @@
 #pragma once
 
 #include "quantum.h"
-//#include "features/transport_sync.h"
 
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED
 
@@ -39,7 +38,6 @@ void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_t
 
 void rgb_matrix_layers_enable(void);
 void rgb_matrix_layers_disable(void);
-// bool get_ledmap_active(void);
 
 // Just a handy defines to make our ledmaps look better
 #    define RED \

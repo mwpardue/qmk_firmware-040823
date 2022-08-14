@@ -3,11 +3,6 @@
 #include "rgb_matrix_keys.h"
 #include "caracarn.h"
 #include "rgb_matrix.h"
-//#include "features/transport_sync.h"
-// #include "config.h"
-
-// uint8_t rgb_matrix_typing_heatmap_spread = 40;
-// uint8_t rgb_matrix_typing_heatmap_area_limit = 16;
 
 extern bool ledmap_active;
 
@@ -28,14 +23,6 @@ static void heatmap_area_report(void) {
     }
     send_string(heatmap_area_str);
 }
-
-// uint8_t rgb_matrix_get_heatmap_spread(void) {
-//     return rgb_matrix_typing_heatmap_spread;
-// }
-
-// uint8_t rgb_matrix_get_area_limit(void) {
-//     return rgb_matrix_typing_heatmap_area_limit;
-// }
 
 process_record_result_t process_rgb_matrix_keys(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -104,11 +91,8 @@ process_record_result_t process_rgb_matrix_keys(uint16_t keycode, keyrecord_t *r
 
         case RGB_MDT:
             if (record->event.pressed) {
-                ledmap_active ^= 1;
-                eeconfig_update_user(ledmap_active);
-                dprintf("ledmap_active = %d\n", ledmap_active);
-                user_state.rgb_matrix_toggle ^= 1;
-                dprintf("Test Variable = %d\n", user_state.rgb_matrix_toggle);
+                rgb_split_config.rgb_matrix_ledmap_active ^= 1;
+                eeconfig_update_user(rgb_split_config.rgb_matrix_ledmap_active);
             }
             break;
   }

@@ -7,9 +7,9 @@ uint32_t transport_user_state = 0;
 
 user_runtime_config_t user_state;
 
-extern bool ledmap_active;
+// extern bool ledmap_active;
 
-// rgb_split_config_t rgb_split_config;
+rgb_split_config_t rgb_split_config;
 
 void user_state_sync(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
     if (initiator2target_buffer_size == sizeof(transport_user_state)) {
@@ -25,16 +25,13 @@ void keyboard_post_init_transport_sync(void) {
 void user_transport_update(void) {
     if (is_keyboard_master()) {
         // ledmap_active = get_ledmap_active();
-        user_state.rgb_matrix_ledmap_active = ledmap_active;
+        // user_state.rgb_matrix_ledmap_active = ledmap_active;
+        user_state.rgb_matrix_ledmap_active = rgb_split_config.rgb_matrix_ledmap_active;
         transport_user_state = user_state.raw;
-        // dprintf("MASTER ledmap_active = %d\n", ledmap_active);
-        // dprintf("MASTER user_state.rgb_matrix_ledmap_active = %d\n", user_state.rgb_matrix_ledmap_active);
-        // dprintf("MASTER transport_user_state = %ld\n", transport_user_state);
-        // dprintf("SLAVE user_state.raw = %ld\n", user_state.raw);
-        // dprintf("SLAVE ledmap_active = %d\n", ledmap_active);
     } else {
         user_state.raw       = transport_user_state;
-        ledmap_active = user_state.rgb_matrix_ledmap_active;
+        // ledmap_active = user_state.rgb_matrix_ledmap_active;
+        rgb_split_config.rgb_matrix_ledmap_active = user_state.rgb_matrix_ledmap_active;
     }
 }
 
@@ -47,21 +44,17 @@ void user_transport_sync(void) {
 
         // Check if the state values are different
         if (memcmp(&transport_user_state, &last_user_state, sizeof(transport_user_state))) {
-            dprintf("memcmp different. LUS: %ld TUS: %ld NS: %d\n", last_user_state, transport_user_state, needs_sync);
             needs_sync = true;
             memcpy(&last_user_state, &transport_user_state, sizeof(transport_user_state));
-            dprintf("memcpy executed. LUS: %ld TUS: %ld NS: %d\n", last_user_state, transport_user_state, needs_sync);
         }
         // Send to slave every 500ms regardless of state change
         if (timer_elapsed32(last_sync) > 250) {
             needs_sync = true;
-            // dprintln("Setting needs_sync true due to timeout");
         }
 
         // Perform the sync if requested
         if (needs_sync) {
             if (transaction_rpc_send(RPC_ID_USER_STATE_SYNC, sizeof(user_state), &user_state)) {
-                // dprintln("Resetting last_sync");
                 last_sync = timer_read32();
             }
             needs_sync = false;
