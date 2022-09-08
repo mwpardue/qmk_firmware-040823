@@ -32,6 +32,11 @@ void keyboard_post_init_kb(void) {
 	#endif
 }
 
+void eeconfig_init_kb(void) {
+    // set default config
+    eeconfig_init_user();
+}
+
 /*
 void housekeeping_task_kb(void) {
     #ifdef EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN
@@ -79,6 +84,8 @@ void board_init(void) {
     // B9 is configured as I2C1_SDA in the board file; that function must be
     // disabled before using B9 as I2C1_SDA
     setPinInputHigh(B9);
+    // setPinOutput(B0);
+    // writePinHigh(B0);
 }
 
 #ifdef SWAP_HANDS_ENABLE
