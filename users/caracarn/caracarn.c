@@ -7,10 +7,21 @@
 #endif
 
 void keyboard_pre_init_user(void) {
-    rgb_split_config.raw = eeconfig_read_user();
+    setPinOutput(B0);
+    writePinHigh(B0);
+    user_config.raw = eeconfig_read_user();
 }
 
 void                       keyboard_post_init_user(void) {
+    // user_config.raw = eeconfig_read_user();
+    // user_config.rgb_matrix_heatmap_area = eeconfig_read_user();
+    // user_config.rgb_matrix_heatmap_spread = eeconfig_read_user();
+    // user_config.raw              = 0;
+    // user_config.rgb_matrix_ledmap_active = false;
+    // user_config.rgb_matrix_heatmap_area = 16;
+    // user_config.rgb_matrix_heatmap_spread = 40;
+    // eeconfig_update_user(user_config.raw);
+    // test_var = test_var + 1;
 #if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
     keyboard_post_init_transport_sync();
 #endif
@@ -19,9 +30,11 @@ void                       keyboard_post_init_user(void) {
 
 __attribute__((weak)) void eeconfig_init_keymap(void) {}
 void                       eeconfig_init_user(void) {
-    rgb_split_config.raw              = 0;
-    rgb_split_config.rgb_matrix_ledmap_active = false;
-    eeconfig_update_user(rgb_split_config.raw);
+    user_config.raw              = 0;
+    user_config.rgb_matrix_ledmap_active = true;
+    user_config.rgb_matrix_heatmap_area = 16;
+    user_config.rgb_matrix_heatmap_spread = 40;
+    eeconfig_update_user(user_config.raw);
     eeconfig_init_keymap();
 }
 

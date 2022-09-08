@@ -18,10 +18,10 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         case ALT_4:
         case ALT_1:
             return g_tapping_term + 115;
-        case TD_ANGB:
-        case TD_PARB:
-        case TD_CURB:
-        case TD_SQRB:
+        // case TD_ANGB:
+        // case TD_PARB:
+        // case TD_CURB:
+        // case TD_SQRB:
         case TD_S15:
         case TD_S78:
         case TD_S119:
@@ -81,6 +81,8 @@ bool get_hold_on_other_key_press_result(uint16_t keycode) {
         case ESC_FUN:
         case ENT_MED:
         case ENT_HYP:
+        case SFT_D:
+        case SFT_K:
             return true;
         default:
             return false;
@@ -94,6 +96,8 @@ bool get_permissive_hold_result(uint16_t keycode) {
         case CTL_6:
         case ALT_1:
         case SPCSFT:
+        case SFT_D:
+        case SFT_K:
             // Immediately select the hold action when another key is tapped.
             return true;
         default:

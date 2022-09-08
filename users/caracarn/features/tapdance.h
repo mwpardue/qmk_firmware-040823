@@ -11,10 +11,10 @@ enum {
     SEC7_8,
     SEC11_9,
     SEC3_10,
-    BRT_CUR,
-    BRT_SQR,
-    BRT_PAR,
-    BRT_ANG,
+    // BRT_CUR,
+    // BRT_SQR,
+    // BRT_PAR,
+    // BRT_ANG,
     SDB_QUO,
     SS_FULL,
     VIMQ,
@@ -25,10 +25,10 @@ enum {
 #define TD_S78 TD(SEC7_8)
 #define TD_S119 TD(SEC11_9)
 #define TD_S310 TD(SEC3_10)
-#define TD_CURB TD(BRT_CUR)
-#define TD_SQRB TD(BRT_SQR)
-#define TD_PARB TD(BRT_PAR)
-#define TD_ANGB TD(BRT_ANG)
+// #define TD_CURB TD(BRT_CUR)
+// #define TD_SQRB TD(BRT_SQR)
+// #define TD_PARB TD(BRT_PAR)
+// #define TD_ANGB TD(BRT_ANG)
 #define TD_QUOT TD(SDB_QUO)
 #define TD_SSFL TD(SS_FULL)
 #define TD_SNIP TD(SS_SNIP)

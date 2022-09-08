@@ -51,7 +51,8 @@ enum {
 #endif
 
 #ifdef SHORTCUTS_ENABLE
-    SS_MODP, SS_MODM, COLEMAK, QWERTY, TG_KBAB, TG_CAML, TG_SNAK,
+    SS_MODP, SS_MODM, COLEMAK, QWERTY, TG_KBAB, TG_CAML, TG_SNAK, SM_PARN,
+    SM_BRAC, SM_ANGB, SM_CURB,
 #endif
 
 #ifdef SELECT_WORD_ENABLE
@@ -169,6 +170,10 @@ enum {
 #define SPCSFT LSFT_T(KC_SPC)
 #define DOTSFT LSFT_T(KC_DOT)
 #define MACSLEP LSFT(LCTL(KC_POWER))
+#define GUI_VD LGUI_T(KC_VOLD)
+#define SFT_MUT LSFT_T(KC_MUTE)
+#define CTL_VU LCTL_T(KC_VOLU)
+#define ALT_PRV LALT_T(KC_MPRV)
 
 uint16_t extract_base_tapping_keycode(uint16_t keycode);
 

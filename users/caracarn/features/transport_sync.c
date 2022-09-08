@@ -4,12 +4,15 @@
 #include <string.h>
 
 uint32_t transport_user_state = 0;
+// uint32_t transport_kb_state = 0;
 
 user_runtime_config_t user_state;
 
+// kb_state_t kb_state;
+
 // extern bool ledmap_active;
 
-rgb_split_config_t rgb_split_config;
+user_config_t user_config;
 
 void user_state_sync(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
     if (initiator2target_buffer_size == sizeof(transport_user_state)) {
@@ -26,12 +29,20 @@ void user_transport_update(void) {
     if (is_keyboard_master()) {
         // ledmap_active = get_ledmap_active();
         // user_state.rgb_matrix_ledmap_active = ledmap_active;
-        user_state.rgb_matrix_ledmap_active = rgb_split_config.rgb_matrix_ledmap_active;
+        user_state.rgb_matrix_ledmap_active = user_config.rgb_matrix_ledmap_active;
+        user_state.rgb_matrix_heatmap_area = user_config.rgb_matrix_heatmap_area;
+        user_state.rgb_matrix_heatmap_spread = user_config.rgb_matrix_heatmap_spread;
         transport_user_state = user_state.raw;
+        // kb_state.type = smart_case.type;
+        // kb_state.smart_case_types = smart_case_types;
+        // transport_kb_state = kb_state.raw;
     } else {
         user_state.raw       = transport_user_state;
         // ledmap_active = user_state.rgb_matrix_ledmap_active;
-        rgb_split_config.rgb_matrix_ledmap_active = user_state.rgb_matrix_ledmap_active;
+        user_config.rgb_matrix_ledmap_active = user_state.rgb_matrix_ledmap_active;
+        user_config.rgb_matrix_heatmap_area = user_state.rgb_matrix_heatmap_area;
+        user_config.rgb_matrix_heatmap_spread = user_state.rgb_matrix_heatmap_spread;
+        // kb_state.raw = transport_kb_state;
     }
 }
 

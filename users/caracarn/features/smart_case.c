@@ -6,6 +6,8 @@
 
 static oneshot_mods_timer_t oneshot_mods_timer = {.timer = 0};
 
+static int8_t distance_to_last_delim = -1;
+
 void clear_expired_oneshot_mods(void) {
     uint8_t oneshot_locked_mods = get_oneshot_locked_mods();
     uint8_t oneshot_mods        = get_oneshot_mods();
@@ -238,18 +240,39 @@ process_record_result_t process_smart_case_chars(uint16_t keycode, keyrecord_t *
                     return PROCESS_RECORD_CONTINUE;
                 }
                 if (has_smart_case(SNAKE_CASE)) {
-                    tap_code16(KC_UNDS);
-                    start_smart_case_timer();
+                    if (distance_to_last_delim != 0) {
+                        tap_code16(KC_UNDS);
+                        distance_to_last_delim = 0;
+                        start_smart_case_timer();
+                    } else {
+                        disable_smart_case();
+                        tap_code16(KC_BSPC);
+                        distance_to_last_delim = -1;
+                    }
                     return PROCESS_RECORD_RETURN_FALSE;
                 }
                 if (has_smart_case(KEBAB_CASE)) {
-                    tap_code16(KC_MINS);
-                    start_smart_case_timer();
+                    if (distance_to_last_delim != 0) {
+                        tap_code16(KC_MINS);
+                        distance_to_last_delim = 0;
+                        start_smart_case_timer();
+                    } else {
+                        disable_smart_case();
+                        tap_code16(KC_BSPC);
+                        distance_to_last_delim = -1;
+                    }
                     return PROCESS_RECORD_RETURN_FALSE;
                 }
                 if (has_smart_case(CAMEL_CASE)) {
-                    add_oneshot_mods(MOD_BIT(KC_LSFT));
-                    start_smart_case_timer();
+                    if (distance_to_last_delim != 0) {
+                        add_oneshot_mods(MOD_BIT(KC_LSFT));
+                        distance_to_last_delim = 0;
+                        start_smart_case_timer();
+                    } else {
+                        disable_smart_case();
+                        del_oneshot_mods(MOD_LSFT);
+                        distance_to_last_delim = -1;
+                    }
                     return PROCESS_RECORD_RETURN_FALSE;
                 }
             //case STR_MACRO_START ... STR_MACRO_END:
@@ -268,6 +291,7 @@ process_record_result_t process_smart_case_chars(uint16_t keycode, keyrecord_t *
             case TG_KBAB:
             case TG_CAML:
                 start_smart_case_timer();
+                distance_to_last_delim = -1;
                 break;
             default:
                 if (is_key_on_tap(keycode) && (has_smart_case(WORD_CASE) || !has_smart_case(CAPS_LOCK))) {

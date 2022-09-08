@@ -6,6 +6,10 @@ extern bool ledmap_active;
 
 extern uint32_t transport_user_state;
 
+// extern uint8_t user_config.rgb_matrix_heatmap_area;
+
+// extern uint8_t user_config.rgb_matrix_heatmap_spread;
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
 
 void render_space(void) {
@@ -144,14 +148,14 @@ void render_mod_status_ctrl_shift(uint8_t modifiers) {
     }
 }
 
-void render_logo(void) {
-    static const char PROGMEM corne_logo[] = {
-        0x80, 0x81, 0x82, 0x83, 0x84,
-        0xa0, 0xa1, 0xa2, 0xa3, 0xa4,
-        0xc0, 0xc1, 0xc2, 0xc3, 0xc4,
-        0x20, 0x99, 0x9a, 0x9b, 0x20, 0};
-    oled_write_P(corne_logo, false);
-}
+// void render_logo(void) {
+//     static const char PROGMEM corne_logo[] = {
+//         0x80, 0x81, 0x82, 0x83, 0x84,
+//         0xa0, 0xa1, 0xa2, 0xa3, 0xa4,
+//         0xc0, 0xc1, 0xc2, 0xc3, 0xc4,
+//         0x20, 0x99, 0x9a, 0x9b, 0x20, 0};
+//     oled_write_P(corne_logo, false);
+// }
 
 void render_layer_box_top(void) {
     static const char PROGMEM layer_top[] = {
@@ -242,10 +246,37 @@ void render_smart_case(void) {
     }
 }
 
+uint8_t get_heatmap_area(void) {
+    return user_config.rgb_matrix_heatmap_area;
+}
+
+uint8_t get_heatmap_spread(void) {
+    return user_config.rgb_matrix_heatmap_spread;
+}
+
+char heatmap_area_str[8];
+char heatmap_spread_str[8];
+
+void render_heatmap_specs(void) {
+    sprintf(heatmap_area_str, "%03d", get_heatmap_area());
+    sprintf(heatmap_spread_str, "%03d", get_heatmap_spread());
+    oled_write_P(PSTR("A:"), false);
+    oled_write_P(heatmap_area_str, false);
+    oled_write_P(PSTR("\nS:"), false);
+    oled_write_P(heatmap_spread_str, false);
+    oled_write_P(PSTR("\n"), false);
+}
+
+// void render_heatmap_spread(void) {
+//     sprintf(heatmap_spread_str, "%03d", get_heatmap_spread());
+//     oled_write_ln_P(heatmap_spread_str, false);
+//     oled_write_P(PSTR("\n"), false);
+// }
+
 bool oled_task_user(void) {
     // Renders the current keyboard state (layers and mods)
-    render_logo();
-    render_space();
+    // render_logo();
+    // render_space();
     render_mod_status_gui_alt(get_mods()|get_oneshot_mods());
     render_mod_status_ctrl_shift(get_mods()|get_oneshot_mods());
     render_space();
@@ -253,6 +284,9 @@ bool oled_task_user(void) {
     render_layer_state();
     render_layer_box_bottom();
     render_space();
+    render_heatmap_specs();
+    render_space();
     render_smart_case();
+    // render_heatmap_spread();
     return false;
 }

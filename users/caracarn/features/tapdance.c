@@ -40,77 +40,77 @@ __attribute__ ((weak)) td_state_t dance_state(qk_tap_dance_state_t *state) {
 
 // Dancing brackets
 
-void td_curly_braces(qk_tap_dance_state_t *state, void *user_data) {
-    tap_state.state = dance_state(state);
-    switch (tap_state.state) {
-        case TD_SINGLE_TAP:
-            tap_code16(KC_LCBR);
-            break;
-        case TD_DOUBLE_TAP:
-            tap_code16(KC_RCBR);
-            break;
-        case TD_SINGLE_HOLD:
-            tap_code16(KC_LCBR);
-            tap_code16(KC_RCBR);
-            tap_code(KC_LEFT);
-            break;
-        default: break;
-    }
-}
+// void td_curly_braces(qk_tap_dance_state_t *state, void *user_data) {
+//     tap_state.state = dance_state(state);
+//     switch (tap_state.state) {
+//         case TD_SINGLE_TAP:
+//             tap_code16(KC_LCBR);
+//             break;
+//         case TD_DOUBLE_TAP:
+//             tap_code16(KC_RCBR);
+//             break;
+//         case TD_SINGLE_HOLD:
+//             tap_code16(KC_LCBR);
+//             tap_code16(KC_RCBR);
+//             tap_code(KC_LEFT);
+//             break;
+//         default: break;
+//     }
+// }
 
-void td_square_brackets(qk_tap_dance_state_t *state, void *user_data) {
-    tap_state.state = dance_state(state);
-    switch (tap_state.state) {
-        case TD_SINGLE_TAP:
-            tap_code16(KC_LBRC);
-            break;
-        case TD_DOUBLE_TAP:
-            tap_code16(KC_RBRC);
-            break;
-        case TD_SINGLE_HOLD:
-            tap_code16(KC_LBRC);
-            tap_code16(KC_RBRC);
-            tap_code(KC_LEFT);
-            break;
-        default: break;
-    }
-}
+// void td_square_brackets(qk_tap_dance_state_t *state, void *user_data) {
+//     tap_state.state = dance_state(state);
+//     switch (tap_state.state) {
+//         case TD_SINGLE_TAP:
+//             tap_code16(KC_LBRC);
+//             break;
+//         case TD_DOUBLE_TAP:
+//             tap_code16(KC_RBRC);
+//             break;
+//         case TD_SINGLE_HOLD:
+//             tap_code16(KC_LBRC);
+//             tap_code16(KC_RBRC);
+//             tap_code(KC_LEFT);
+//             break;
+//         default: break;
+//     }
+// }
 
-void td_parentesis(qk_tap_dance_state_t *state, void *user_data) {
-    tap_state.state = dance_state(state);
-    switch (tap_state.state) {
-        case TD_SINGLE_TAP:
-            tap_code16(KC_LPRN);
-            break;
-        case TD_DOUBLE_TAP:
-            tap_code16(KC_RPRN);
-            break;
-        case TD_SINGLE_HOLD:
-            tap_code16(KC_LPRN);
-            tap_code16(KC_RPRN);
-            tap_code(KC_LEFT);
-            break;
-        default: break;
-    }
-}
+// void td_parentesis(qk_tap_dance_state_t *state, void *user_data) {
+//     tap_state.state = dance_state(state);
+//     switch (tap_state.state) {
+//         case TD_SINGLE_TAP:
+//             tap_code16(KC_LPRN);
+//             break;
+//         case TD_DOUBLE_TAP:
+//             tap_code16(KC_RPRN);
+//             break;
+//         case TD_SINGLE_HOLD:
+//             tap_code16(KC_LPRN);
+//             tap_code16(KC_RPRN);
+//             tap_code(KC_LEFT);
+//             break;
+//         default: break;
+//     }
+// }
 
-void td_angle_brackets(qk_tap_dance_state_t *state, void *user_data) {
-    tap_state.state = dance_state(state);
-    switch (tap_state.state) {
-        case TD_SINGLE_TAP:
-            tap_code16(KC_LT);
-            break;
-        case TD_DOUBLE_TAP:
-            tap_code16(KC_GT);
-            break;
-        case TD_SINGLE_HOLD:
-            tap_code16(KC_LT);
-            tap_code16(KC_GT);
-            tap_code(KC_LEFT);
-            break;
-        default: break;
-    }
-}
+// void td_angle_brackets(qk_tap_dance_state_t *state, void *user_data) {
+//     tap_state.state = dance_state(state);
+//     switch (tap_state.state) {
+//         case TD_SINGLE_TAP:
+//             tap_code16(KC_LT);
+//             break;
+//         case TD_DOUBLE_TAP:
+//             tap_code16(KC_GT);
+//             break;
+//         case TD_SINGLE_HOLD:
+//             tap_code16(KC_LT);
+//             tap_code16(KC_GT);
+//             tap_code(KC_LEFT);
+//             break;
+//         default: break;
+//     }
+// }
 
 // Quotes
 
@@ -273,10 +273,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [SEC7_8] = ACTION_TAP_DANCE_FN(td_secret78),
     [SEC11_9] = ACTION_TAP_DANCE_FN(td_secret119),
     [SEC3_10] = ACTION_TAP_DANCE_FN(td_secret310),
-    [BRT_CUR] = ACTION_TAP_DANCE_FN(td_curly_braces),
-    [BRT_SQR] = ACTION_TAP_DANCE_FN(td_square_brackets),
-    [BRT_PAR] = ACTION_TAP_DANCE_FN(td_parentesis),
-    [BRT_ANG] = ACTION_TAP_DANCE_FN(td_angle_brackets),
+    // [BRT_CUR] = ACTION_TAP_DANCE_FN(td_curly_braces),
+    // [BRT_SQR] = ACTION_TAP_DANCE_FN(td_square_brackets),
+    // [BRT_PAR] = ACTION_TAP_DANCE_FN(td_parentesis),
+    // [BRT_ANG] = ACTION_TAP_DANCE_FN(td_angle_brackets),
     [SDB_QUO] = ACTION_TAP_DANCE_FN(td_quotes),
     [SS_FULL] = ACTION_TAP_DANCE_FN(td_screenshot_full),
     [VIMQ] = ACTION_TAP_DANCE_FN(td_vimq),

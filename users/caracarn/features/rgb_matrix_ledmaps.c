@@ -12,9 +12,35 @@ extern led_config_t g_led_config;
 
 bool ledmap_active;
 
+uint8_t rgb_matrix_get_heatmap_spread(void) {
+    return user_config.rgb_matrix_heatmap_spread;
+}
+
+uint8_t rgb_matrix_get_heatmap_area_limit(void) {
+    return user_config.rgb_matrix_heatmap_area;
+}
+
 __attribute__((weak)) void rgb_matrix_indicators_keymap(void) { return; }
 __attribute__((weak)) void rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     return;
+}
+
+void rgb_matrix_set_smart_case_color() {
+    if ((has_smart_case(CAMEL_CASE)) && (has_smart_case(WORD_CASE))) {
+                rgb_matrix_set_color(6, RGB_PINK);
+    } else if ((has_smart_case(KEBAB_CASE)) && (has_smart_case(WORD_CASE))) {
+                rgb_matrix_set_color(6, RGB_GREEN);
+    } else if ((has_smart_case(SNAKE_CASE)) && (has_smart_case(WORD_CASE))) {
+                rgb_matrix_set_color(6, RGB_BLUE);
+    } else if ((has_smart_case(CAMEL_CASE)) && !(has_smart_case(WORD_CASE))) {
+                rgb_matrix_set_color(6, RGB_ORANGE);
+    } else if ((has_smart_case(KEBAB_CASE)) && !(has_smart_case(WORD_CASE))) {
+                rgb_matrix_set_color(6, RGB_CYAN);
+    } else if ((has_smart_case(SNAKE_CASE)) && !(has_smart_case(WORD_CASE))) {
+                rgb_matrix_set_color(6, RGB_TURQUOISE);
+    } else if ((has_smart_case(WORD_CASE)) && !(has_smart_case(KEBAB_CASE)) && !(has_smart_case(SNAKE_CASE)) && !(has_smart_case(CAMEL_CASE))) {
+                rgb_matrix_set_color(6, RGB_RED);
+    }
 }
 
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED
@@ -57,55 +83,103 @@ void rgb_matrix_base_underglow(void) {
 
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED
 
+// void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_type) {
+//     const ledmap *l = &(ledmaps[layer]);
+//     uint8_t val = rgb_matrix_get_val();
+//     if (!user_config.rgb_matrix_ledmap_active) {
+//         // Normal RGB Matrix Effects
+//             for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+//                 HSV hsv = {
+//                     .h = (*l)[0][0],
+//                     .s = (*l)[0][1],
+//                     .v = val,
+//                 };
+// 			    rgb_matrix_sethsv_noeeprom(hsv.h, hsv.s, hsv.v);
+//                 if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
+//                     RGB rgb = hsv_to_rgb(hsv);
+//                     RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
+//             }
+//             }
+//             // if (layer != _BASE || _COLEMAK_DH || _ADJUST) {
+//             //     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_SIMPLE);
+//             // }
+//     } else {
+//         // RGB Matrix Utilizing LED Map
+//             for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+//                 HSV hsv = {
+//                     .h = (*l)[i][0],
+//                     .s = (*l)[i][1],
+//                     .v = val,
+//                 };
+//                 if (hsv.h || hsv.s) {
+//                     RGB rgb = hsv_to_rgb(hsv);
+//                     if (HAS_ANY_FLAGS(g_led_config.flags[i], led_type)) {
+//                         RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
+//                     }
+//                 }
+//             }
+//     }
+//     // Global RGB Matrix Effects
+//     #ifdef CAPS_WORD_ENABLE
+//             if (isCapsWord) {
+//                 rgb_matrix_set_color(6, 255, 0, 0);
+//             } else {
+//                 rgb_matrix_set_color(6, 0, 0, 0);
+//             }
+//     #endif
+//     #ifdef SMART_CASE_ENABLE
+//             if (has_any_smart_case()){
+//                 rgb_matrix_set_color(6, RGB_RED);
+//             } else if ((rgb_matrix_get_flags() == LED_FLAG_UNDERGLOW) && (!has_any_smart_case())) {
+//                 rgb_matrix_set_color(6, 0, 0, 0);
+//             }
+//     #endif
+// }
+
 void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_type) {
     const ledmap *l = &(ledmaps[layer]);
     uint8_t val = rgb_matrix_get_val();
-    if (!rgb_split_config.rgb_matrix_ledmap_active) {
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+        for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+            if (!user_config.rgb_matrix_ledmap_active) {
                 HSV hsv = {
                     .h = (*l)[0][0],
                     .s = (*l)[0][1],
                     .v = val,
                 };
 			    rgb_matrix_sethsv_noeeprom(hsv.h, hsv.s, hsv.v);
-                if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
+                if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
                     RGB rgb = hsv_to_rgb(hsv);
                     RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
             }
-            }
-            // if (layer != _BASE || _COLEMAK_DH || _ADJUST) {
-            //     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_SIMPLE);
-            // }
-    } else {
-            for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+            } else {
                 HSV hsv = {
                     .h = (*l)[i][0],
                     .s = (*l)[i][1],
                     .v = val,
-                };
+            };
                 if (hsv.h || hsv.s) {
-                    RGB rgb = hsv_to_rgb(hsv);
+                RGB rgb = hsv_to_rgb(hsv);
                     if (HAS_ANY_FLAGS(g_led_config.flags[i], led_type)) {
                         RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
                     }
                 }
             }
-    }
-    #ifdef CAPS_WORD_ENABLE
-            if (isCapsWord) {
-                rgb_matrix_set_color(6, 255, 0, 0);
-            } else {
-                rgb_matrix_set_color(6, 0, 0, 0);
-            }
-    #endif
-    #ifdef SMART_CASE_ENABLE
-            if (has_any_smart_case()){
-                rgb_matrix_set_color(6, RGB_RED);
-            } else if ((rgb_matrix_get_flags() == LED_FLAG_UNDERGLOW) && (!has_any_smart_case())) {
-                rgb_matrix_set_color(6, 0, 0, 0);
-            }
-    #endif
+            // RGB rgb = hsv_to_rgb(hsv);
+            // if (HAS_ANY_FLAGS(g_led_config.flags[i], led_type)) {
+            //     RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
+            // }
+        }
+        if (has_any_smart_case()) {
+            rgb_matrix_set_smart_case_color();
+        }
+        // if (user_config.rgb_matrix_heatmap_area != rgb_matrix_typing_heatmap_area_limit) {
+        //     rgb_matrix_typing_heatmap_area_limit = user_config.rgb_matrix_heatmap_area;
+        // }
+        // if (user_config.rgb_matrix_heatmap_spread != rgb_matrix_typing_heatmap_spread) {
+        //     rgb_matrix_typing_heatmap_spread = user_config.rgb_matrix_heatmap_spread;
+        // }
 }
+
 
 void rgb_matrix_layers_enable() {
     dprintf("ledmaps are enabled\n");

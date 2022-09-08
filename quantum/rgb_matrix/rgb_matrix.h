@@ -265,5 +265,5 @@ extern last_hit_t g_last_hit_tracker;
 extern uint8_t g_rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS];
 #endif
 
-uint8_t rgb_matrix_typing_heatmap_spread;
-uint8_t rgb_matrix_typing_heatmap_area_limit;
+// uint8_t rgb_matrix_typing_heatmap_spread;
+// uint8_t rgb_matrix_typing_heatmap_area_limit;

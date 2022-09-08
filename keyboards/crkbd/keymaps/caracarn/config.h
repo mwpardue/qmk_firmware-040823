@@ -10,6 +10,9 @@
 
 #undef USE_I2C
 
+// #define NO_USB_STARTUP_CHECK // Disables USB Suspend check after KB startup
+// #define WAIT_FOR_USB // Wait for USB connection before it starts up
+
 #define FORCE_NKRO
 
 #define USB_POLLING_INTERVAL_MS 1
@@ -45,7 +48,7 @@
         #undef RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT
     #endif
     #define RGB_MATRIX_TYPING_HEATMAP_SPREAD rgb_matrix_get_heatmap_spread()
-    #define RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT rgb_matrix_get_area_limit()
+    #define RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT rgb_matrix_get_heatmap_area_limit()
 
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
 #undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
