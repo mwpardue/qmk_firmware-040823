@@ -162,6 +162,12 @@ void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_t
                     if (HAS_ANY_FLAGS(g_led_config.flags[i], led_type)) {
                         RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
                     }
+                } else {
+                    if ((get_highest_layer(layer_state | default_layer_state) != _BASE) && (get_highest_layer(layer_state | default_layer_state) != _ADJUST))  {
+                        if (HAS_ANY_FLAGS(g_led_config.flags[i], led_type)) {
+                        RGB_MATRIX_INDICATOR_SET_COLOR(i, 0, 0, 0);
+                        }
+                    }
                 }
             }
             // RGB rgb = hsv_to_rgb(hsv);
@@ -171,6 +177,8 @@ void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_t
         }
         if (has_any_smart_case()) {
             rgb_matrix_set_smart_case_color();
+        } else if ((get_mods()|get_oneshot_mods()) & MOD_MASK_SHIFT) {
+            rgb_matrix_set_color(6, RGB_RED);
         }
         // if (user_config.rgb_matrix_heatmap_area != rgb_matrix_typing_heatmap_area_limit) {
         //     rgb_matrix_typing_heatmap_area_limit = user_config.rgb_matrix_heatmap_area;

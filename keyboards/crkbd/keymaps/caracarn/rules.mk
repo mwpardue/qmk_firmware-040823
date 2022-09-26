@@ -14,7 +14,7 @@ OLED_DRIVER = SSD1306
 
 #Custom Features
 LEADER_ENABLE = no
-COMBO_ENABLE = no
+COMBO_ENABLE = yes
 DYNAMIC_TAPPING_TERM_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes # Audio control and System control

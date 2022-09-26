@@ -16,15 +16,15 @@ typedef union {
 
 user_runtime_config_t user_state;
 
-// typedef union {
-//     uint32_t raw;
-//     struct {
-//         uint8_t type :8;
-//         uint8_t smart_case_types :8;
-//     };
-// } kb_state_t;
+typedef union {
+    uint32_t raw;
+    struct {
+        uint8_t type :8;
+        // uint8_t smart_case_types :8;
+    };
+} kb_state_t;
 
-// extern kb_state_t kb_state;
+extern kb_state_t kb_state;
 
 typedef union {
     uint32_t raw;

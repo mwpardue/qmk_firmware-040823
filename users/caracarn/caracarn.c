@@ -10,9 +10,11 @@ void keyboard_pre_init_user(void) {
     setPinOutput(B0);
     writePinHigh(B0);
     user_config.raw = eeconfig_read_user();
+    oled_clear();
 }
 
 void                       keyboard_post_init_user(void) {
+    // oled_clear();
     // user_config.raw = eeconfig_read_user();
     // user_config.rgb_matrix_heatmap_area = eeconfig_read_user();
     // user_config.rgb_matrix_heatmap_spread = eeconfig_read_user();
@@ -116,6 +118,7 @@ void matrix_scan_user(void) {
      case ENT_MED:
      case ENT_HYP:
      case SPC_MEH:
+     case ENT_NUM:
        return 0;  // Bypass Achordion for these keys.
        dprintf("Bypassing achordion for timeout\n");
    }

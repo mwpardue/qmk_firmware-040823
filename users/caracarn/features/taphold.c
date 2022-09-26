@@ -11,6 +11,7 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         case ENT_MED:
         case ENT_HYP:
         case SPC_MEH:
+        case ENT_NUM:
             return g_tapping_term + 40;
         case GUI_4:
         case SFT_5:
@@ -62,6 +63,7 @@ bool get_tapping_force_hold_result(uint16_t keycode) {
         case ESC_FUN:
         case ENT_HYP:
         case SPC_MEH:
+        case ENT_NUM:
             return false;
     }
     switch (keycode) {
@@ -81,8 +83,7 @@ bool get_hold_on_other_key_press_result(uint16_t keycode) {
         case ESC_FUN:
         case ENT_MED:
         case ENT_HYP:
-        case SFT_D:
-        case SFT_K:
+        case ENT_NUM:
             return true;
         default:
             return false;

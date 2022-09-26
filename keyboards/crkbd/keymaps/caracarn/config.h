@@ -10,7 +10,7 @@
 
 #undef USE_I2C
 
-// #define NO_USB_STARTUP_CHECK // Disables USB Suspend check after KB startup
+#define NO_USB_STARTUP_CHECK // Disables USB Suspend check after KB startup
 // #define WAIT_FOR_USB // Wait for USB connection before it starts up
 
 #define FORCE_NKRO

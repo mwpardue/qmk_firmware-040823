@@ -109,6 +109,20 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
             }
             return PROCESS_RECORD_RETURN_TRUE;
 
+            case LALT_T(KC_UNDS):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_UNDS);
+                return PROCESS_RECORD_RETURN_FALSE;
+            }
+            return PROCESS_RECORD_RETURN_TRUE;
+
+            case LSFT_T(KC_AT):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_AT);
+                return PROCESS_RECORD_RETURN_FALSE;
+            }
+            return PROCESS_RECORD_RETURN_TRUE;
+
         case SM_PARN:
             if (record->event.pressed) {
                 if ((get_oneshot_mods() & MOD_MASK_SHIFT) || get_mods() & MOD_MASK_SHIFT) {
