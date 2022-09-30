@@ -109,11 +109,11 @@ void matrix_scan_user(void) {
      case CAP_KEY:
      case TAB_NUM:
      case SPC_MAC:
-     case BSP_SYM:
+     case BSP_MSE:
      case SPCSFT:
      case ENT_FUN:
-     case NAV_LL:
-     case CAP_NAV:
+     case SYM_LL:
+     case CAP_SYM:
      case ESC_FUN:
      case ENT_MED:
      case ENT_HYP:

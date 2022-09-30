@@ -3,11 +3,11 @@
 #include "combos.h"
 
 //Shortcuts
-const uint16_t PROGMEM bootloader_combo[] = {CAP_NAV, KC_Q, KC_T, COMBO_END};
-const uint16_t PROGMEM sleep_combo[] = {CAP_NAV, KC_Q, KC_W, COMBO_END};
-const uint16_t PROGMEM playpause_combo[] = {CAP_NAV, CTL_S, SFT_D, COMBO_END};
-const uint16_t PROGMEM previous_combo[] = {CAP_NAV, KC_A, CTL_S, COMBO_END};
-const uint16_t PROGMEM next_combo[] = {CAP_NAV, SFT_D, GUI_F, COMBO_END};
+const uint16_t PROGMEM bootloader_combo[] = {CAP_SYM, KC_Q, KC_T, COMBO_END};
+const uint16_t PROGMEM sleep_combo[] = {CAP_SYM, KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM playpause_combo[] = {CAP_SYM, CTL_S, SFT_D, COMBO_END};
+const uint16_t PROGMEM previous_combo[] = {CAP_SYM, KC_A, CTL_S, COMBO_END};
+const uint16_t PROGMEM next_combo[] = {CAP_SYM, SFT_D, GUI_F, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
 

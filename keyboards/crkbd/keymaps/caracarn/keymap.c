@@ -18,16 +18,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BASE] = LAYOUT_split_3x6_3(
   LLOCK,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    OSMLGUI,
-  OSMLCTL, KC_A,   CTL_S,   SFT_D,   GUI_F,   KC_G,                         KC_H,    GUI_J,   SFT_K,   CTL_L,   TD_QUOT, OSMRALT,
+  OSMLCTL, KC_A,   CTL_S,   SFT_D,   GUI_F,   KC_G,                         KC_H,    GUI_J,   SFT_K,   CTL_L,   KC_QUOT, OSMRALT,
   OSMLALT, KC_Z,   KC_X,    KC_C,    ALT_V,   KC_B,                         KC_N,    ALT_M,   KC_COMM, KC_DOT,  KC_SLSH, OSMRCTL,
-                                     ESC_FUN, TAB_NUM, CAP_NAV,    BSP_SYM, SPC_MEH, ENT_HYP
+                                     ESC_FUN, TAB_NUM, CAP_SYM,    BSP_MSE, SPC_MEH, ENT_HYP
 ),
 
 [_COLEMAK_DH] = LAYOUT_split_3x6_3(
   _______, KC_Q,   KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y,    TD_QUOT, _______,
   _______, KC_A,   CTL_R,   ALT_S,   GUI_KCT, KC_G,                         KC_M,    GUI_N,   ALT_E,   CTL_I,   KC_O,    _______,
   _______, KC_Z,   KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, _______,
-                                     MOD_KEY, TAB_NUM, CAP_KEY,    BSP_SYM, SPC_MAC, ENT_FUN
+                                     ESC_FUN, TAB_NUM, CAP_SYM,    BSP_MSE, SPC_MEH, ENT_HYP
 ),
 
 // [_NUMPAD] = LAYOUT_split_3x6_3(
@@ -53,10 +53,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ), */
 
 
-[_NAVIGATION] = LAYOUT_split_3x6_3(
-  _______, KC_TAB,  KC_GRV,  KC_TILD, KC_PIPE, TIPS,                        KC_MINS, KC_7,    KC_8,    KC_9,    KC_PSLS, _______,
-  _______, SM_PARN, CTL_BSL, SFT_AT,  GUI_MNS, KC_PLUS,                     KC_COLN, GUI_4,   SFT_5,   CTL_6,   KC_SCLN, _______,
-  _______, SM_CURB, SM_BRAC, SM_ANGB, ALT_UNS, _______,                     KC_EQL,  ALT_1,   KC_2,    KC_3,    KC_DOT,  _______,
+[_SYMBOL] = LAYOUT_split_3x6_3(
+  _______, KC_TAB,  KC_GRV,  KC_TILD, KC_UNDS, TIPS,                        KC_MINS, KC_7,    KC_8,    KC_9,    KC_PSLS, _______,
+  _______, KC_AT,   CTL_BSL, SFT_MNS, GUI_PIP, KC_PLUS,                     KC_COLN, GUI_4,   SFT_5,   CTL_6,   KC_SCLN, _______,
+  _______, SM_PARN, SM_ANGB, SM_CURB, ALT_BRC, _______,                     KC_EQL,  ALT_1,   KC_2,    KC_3,    KC_DOT,  _______,
                                       _______, _______, _______,   SPC_MEH, KC_0,    ENT_NUM
 ),
 
@@ -74,11 +74,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       _______, _______, SPCSFT,     _______, _______, _______
 ), */
 
-[_SYMBOL] = LAYOUT_split_3x6_3(
-  _______, _______, KC_WH_U, KC_MS_U, KC_WH_D, TOBAS,  		          TD_SSFL, TD_SNIP, ZOOMIN,  ZOOMOUT, OSL_MAC, _______,
-  _______, KC_WH_L, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_R, 		          _______, GUI_VD,  SFT_MUT, CTL_VU, _______, _______,
-  _______, _______, _______, _______, _______, _______, 		          TONAV,   ALT_PRV, KC_MPLY, KC_MNXT, LLOCK,   _______,
-							KC_BTN2, KC_BTN1, KC_BTN3,     _______, _______, _______
+[_MOUSE] = LAYOUT_split_3x6_3(
+  _______, _______, KC_WH_U, KC_MS_U, KC_WH_D, TOBAS,  		                 TD_SSFL, TD_SNIP, ZOOMIN,  ZOOMOUT, OSL_MAC, _______,
+  _______, KC_WH_L, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_R, 		             _______, GUI_VD,  SFT_MUT, CTL_VU, _______, _______,
+  _______, _______, _______, _______, _______, _______, 		             _______, ALT_PRV, KC_MPLY, KC_MNXT, LLOCK,   _______,
+							          KC_BTN2, KC_BTN1, KC_BTN3,    _______, _______, _______
 ),
 
 [_MACROS] = LAYOUT_split_3x6_3(
@@ -152,23 +152,23 @@ const ledmap PROGMEM ledmaps[] = {
   ),
 
   [_NUMPAD] = RGB_MATRIX_LAYOUT_LEDMAP(
-  _______, AQUA,    ORANGE,  BLUE,    ORANGE,  _______,                      YELLOW,  CYAN,    CYAN,    CYAN,    YELLOW,  _______,
+  _______, AQUA,    ORANGE,  BLUE,    ORANGE,  AZURE,                        YELLOW,  CYAN,    CYAN,    CYAN,    YELLOW,  _______,
            NUM_UGL,         NUM_UGL,         NUM_UGL,                             NUM_UGL,          NUM_UGL,          NUM_UGL,
-  _______, AQUA,    BLUE,    BLUE,    BLUE,    _______,                      YELLOW,  CYAN,    CYAN,    CYAN,    YELLOW,  _______,
+  _______, AQUA,    BLUE,    BLUE,    BLUE,    AZURE,                        YELLOW,  CYAN,    CYAN,    CYAN,    YELLOW,  _______,
            NUM_UGL,                                                                                                   NUM_UGL,
-  _______, PURPLE,  ORANGE,  ORANGE,  ORANGE,  _______,                      YELLOW,  CYAN,    CYAN,    CYAN,    YELLOW,  _______,
+  _______, PURPLE,  ORANGE,  ORANGE,  ORANGE,  GREEN,                        YELLOW,  CYAN,    CYAN,    CYAN,    YELLOW,  _______,
                             NUM_UGL,         NUM_UGL,                             NUM_UGL,          NUM_UGL,
                                       _______, _______, _______,    AQUA,    CYAN,    GREEN
   ),
 
-  [_NAVIGATION] = RGB_MATRIX_LAYOUT_LEDMAP(
-  _______, _______, ORANGE,  _______, ORANGE,  BLUE,                         _______, PINK,    CYAN,    PINK,    BAS_UGL, _______,
-           NAV_UGL,         NAV_UGL,         NAV_UGL,                              NAV_UGL,          NAV_UGL,          NAV_UGL,
-  _______, ORANGE,  ORANGE,  GREEN,   ORANGE,  BLUE,                         PINK,    CYAN,    CYAN,    CYAN,    PINK,    _______,
-           NAV_UGL,                                                                                                    NAV_UGL,
-  _______, PURPLE,  ORANGE,  ORANGE,  ORANGE,  GREEN,                        _______, _______, _______, _______, _______, _______,
-                            NAV_UGL,         NAV_UGL,                              NAV_UGL,          NAV_UGL,
-                                      _______, _______, _______,    BLUE,    BLUE,    BLUE
+  [_MOUSE] = RGB_MATRIX_LAYOUT_LEDMAP(
+  _______, _______, AZURE,     BLUE,     AZURE,    BAS_UGL,                  AZURE,   AZURE,   MAGENT,  PINK,    MAC_UGL, _______,
+           MSE_UGL,         MSE_UGL,         MSE_UGL,                              MSE_UGL,          MSE_UGL,          MSE_UGL,
+  _______, AZURE,   BLUE,      BLUE,     BLUE,     AZURE,                    _______, ORANGE,  AQUA,    ORANGE,  _______, _______,
+           MSE_UGL,                                                                                                    MSE_UGL,
+  _______, _______,  _______,  _______,  _______,  _______,                  _______, AZURE,   GREEN,   AZURE,   PURPLE,  _______,
+                            MSE_UGL,         MSE_UGL,                              MSE_UGL,          MSE_UGL,
+                                      CYAN,    BLUE,    AQUA,       _______, _______, _______
   ),
 
   [_HEX] = RGB_MATRIX_LAYOUT_LEDMAP(
@@ -182,13 +182,13 @@ const ledmap PROGMEM ledmaps[] = {
   ),
 
   [_SYMBOL] = RGB_MATRIX_LAYOUT_LEDMAP(
-  _______, BAS_UGL, YELLOW,  YELLOW,  YELLOW,  ORANGE,                       GREEN,   GREEN,   GREEN,   GREEN,   MAC_UGL, _______,
+  _______, AQUA,    YELLOW,  YELLOW,  YELLOW, ORANGE,                       YELLOW,  CYAN,    CYAN,    CYAN,    YELLOW,  _______,
            SYM_UGL,         SYM_UGL,         SYM_UGL,                             SYM_UGL,          SYM_UGL,          SYM_UGL,
-  _______, YELLOW,  YELLOW,  YELLOW,  YELLOW,  YELLOW,                       _______, BLUE,    RED,     CYAN,    _______, _______,
+  _______, YELLOW,  GOLD,    GOLD,    GOLD,   YELLOW,                       YELLOW,  CYAN,    CYAN,    CYAN,    YELLOW,  _______,
            SYM_UGL,                                                                                                    SYM_UGL,
-  _______, GREEN,   GREEN,   GREEN,   GREEN,   _______,                      NAV_UGL, YELLOW,  ORANGE,  GREEN,   PURPLE,  _______,
+  _______, GREEN,   GREEN,   GREEN,   CYAN,   _______,                      YELLOW,  CYAN,    CYAN,    CYAN,    YELLOW,  _______,
                             SYM_UGL,          SYM_UGL,                            SYM_UGL,          SYM_UGL,
-                                      _______, _______, BLUE,       _______, _______, _______
+                                      _______, _______, _______,    AQUA,   CYAN,    NUM_UGL
   ),
 
   [_MACROS] = RGB_MATRIX_LAYOUT_LEDMAP(
@@ -202,11 +202,11 @@ const ledmap PROGMEM ledmaps[] = {
   ),
 
   [_FUNCTION] = RGB_MATRIX_LAYOUT_LEDMAP(
-  _______, BAS_UGL, _______, ORANGE,  _______, RED,                          _______, GOLD,    GOLD,    GOLD,    GOLD,    _______,
+  _______, ADJ_UGL, BLUE,    _______, BLUE,    _______,                         _______, GOLD,    GOLD,    GOLD,    GOLD,    _______,
            FUN_UGL,         FUN_UGL,         FUN_UGL,                             FUN_UGL,          FUN_UGL,          FUN_UGL,
-  _______, ADJ_UGL, RED,     YELLOW,  GREEN,   BLUE,                         _______, GOLD,    GOLD,    GOLD,    GOLD,    _______,
+  _______, ORANGE,  ORANGE,  _______, ORANGE,  _______,                         _______, GOLD,    GOLD,    GOLD,    GOLD,    _______,
            FUN_UGL,                                                                                                   FUN_UGL,
-  _______, _______, HEX_UGL, CMK_UGL, _______, CYAN,                         _______, GOLD,    GOLD,    GOLD,    GOLD,    _______,
+  _______, HEX_UGL, ORANGE,  ORANGE,  ORANGE,  _______,                         _______, GOLD,    GOLD,    GOLD,    GOLD,    _______,
                             FUN_UGL,         FUN_UGL,                             FUN_UGL,          FUN_UGL,
                                       _______, _______, _______,    _______, _______, _______
   ),
@@ -222,11 +222,11 @@ const ledmap PROGMEM ledmaps[] = {
   ),
 
   [_ADJUST] = RGB_MATRIX_LAYOUT_LEDMAP(
-  _______, BAS_UGL, _______, _______, GREEN,   _______,                    _______, GREEN,   _______, _______, _______, _______,
+  _______, BAS_UGL, _______, RED,     GREEN,   _______,                    _______, GREEN,   _______, _______, BAS_UGL, _______,
            ADJ_UGL,         ADJ_UGL,         ADJ_UGL,                             ADJ_UGL,          ADJ_UGL,          ADJ_UGL,
-  RED,     CYAN,    AQUA,    YELLOW,  GREEN,   BLUE,                       ORANGE,  BLUE,    GREEN,   AZURE,   ORANGE,  AQUA,
+  RED,     CYAN,    AQUA,    YELLOW,  CYAN,    BLUE,                       ORANGE,  BLUE,    GREEN,   AZURE,   ORANGE,  AQUA,
            ADJ_UGL,                                                                                                   ADJ_UGL,
-  RED,     BLUE,    GREEN,   _______, _______, CYAN,                       RED,     BLUE,    GREEN,   AZURE,   ORANGE,  AQUA,
+  RED,     CYAN,    AQUA,    _______, _______, BLUE,                       RED,     BLUE,    GREEN,   AZURE,   ORANGE,  AQUA,
                              ADJ_UGL,          ADJ_UGL,                          ADJ_UGL,          ADJ_UGL,
                                       _______, _______, _______,    _______, _______, _______
   ),
