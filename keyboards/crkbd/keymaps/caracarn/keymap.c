@@ -18,8 +18,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BASE] = LAYOUT_split_3x6_3(
   LLOCK,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    OSMLGUI,
-  OSMLCTL, KC_A,   CTL_S,   SFT_D,   GUI_F,   KC_G,                         KC_H,    GUI_J,   SFT_K,   CTL_L,   KC_QUOT, OSMRALT,
-  OSMLALT, KC_Z,   KC_X,    KC_C,    ALT_V,   KC_B,                         KC_N,    ALT_M,   KC_COMM, KC_DOT,  KC_SLSH, OSMRCTL,
+  OSMLCTL, CTL_A,  ALT_S,   SFT_D,   GUI_F,   KC_G,                         KC_H,    GUI_J,   SFT_K,   ALT_L,   CTL_QUO, OSMRALT,
+  OSMLALT, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, OSMRCTL,
                                      ESC_FUN, TAB_NUM, CAP_SYM,    BSP_MSE, SPC_MEH, ENT_HYP
 ),
 
@@ -39,8 +39,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_NUMPAD] = LAYOUT_split_3x6_3(
   _______, KC_TAB,  PRVTAB,  KC_UP,   NXTTAB,  TD_SSFL,                      KC_MINS, KC_7,    KC_8,    KC_9,    KC_PSLS, _______,
-  _______, KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, TD_SNIP,                      KC_COLN, GUI_4,   SFT_5,   CTL_6,   KC_SCLN, _______,
-  _______, LLOCK,   MC_SWLE, MC_SWAP, MC_SWRI, KC_ENT,                       KC_EQL,  ALT_1,   KC_2,    KC_3,    KC_DOT,  _______,
+  _______, KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, TD_SNIP,                      KC_COLN, GUI_4,   SFT_5,   ALT_6,   CTL_SCL, _______,
+  _______, LLOCK,   MC_SWLE, MC_SWAP, MC_SWRI, KC_ENT,                       KC_EQL,  KC_1,    KC_2,    KC_3,    KC_DOT,  _______,
                                       _______, _______, _______,    SPC_MEH, KC_0,    KC_ENT
 ),
 
@@ -55,9 +55,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_SYMBOL] = LAYOUT_split_3x6_3(
   _______, KC_TAB,  KC_GRV,  KC_TILD, KC_UNDS, TIPS,                        KC_MINS, KC_7,    KC_8,    KC_9,    KC_PSLS, _______,
-  _______, KC_AT,   CTL_BSL, SFT_MNS, GUI_PIP, KC_PLUS,                     KC_COLN, GUI_4,   SFT_5,   CTL_6,   KC_SCLN, _______,
-  _______, SM_PARN, SM_ANGB, SM_CURB, ALT_BRC, _______,                     KC_EQL,  ALT_1,   KC_2,    KC_3,    KC_DOT,  _______,
-                                      _______, _______, _______,   SPC_MEH, KC_0,    ENT_NUM
+  _______, CTL_AT,  ALT_BSL, SFT_MNS, GUI_PIP, KC_PLUS,                     KC_COLN, GUI_4,   SFT_5,   ALT_6,   CTL_SCL, _______,
+  _______, SM_ANGB, SM_BRAC, SM_CURB, SM_PARN, _______,                     KC_EQL,  KC_1,    KC_2,    KC_3,    KC_DOT,  _______,
+                                      _______, _______, _______,   KC_BSPC, KC0_NUM, ENT_NUM
 ),
 
 [_HEX] = LAYOUT_split_3x6_3(
@@ -75,9 +75,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ), */
 
 [_MOUSE] = LAYOUT_split_3x6_3(
-  _______, _______, KC_WH_U, KC_MS_U, KC_WH_D, TOBAS,  		                 TD_SSFL, TD_SNIP, ZOOMIN,  ZOOMOUT, OSL_MAC, _______,
-  _______, KC_WH_L, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_R, 		             _______, GUI_VD,  SFT_MUT, CTL_VU, _______, _______,
-  _______, _______, _______, _______, _______, _______, 		             _______, ALT_PRV, KC_MPLY, KC_MNXT, LLOCK,   _______,
+  _______, _______, KC_WH_U, KC_MS_U, KC_WH_D, TOBAS,  		                 TD_SSFL, TD_SNIP, ZOOMIN,   ZOOMOUT, OSL_MAC, _______,
+  _______, KC_WH_L, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_R, 		             _______, GUI_VD,  SFT_MUT,  ALT_VU,  KC_RCTL, _______,
+  _______, _______, _______, _______, _______, _______, 		             _______, KC_MPRV,  KC_MPLY, KC_MNXT, LLOCK,   _______,
 							          KC_BTN2, KC_BTN1, KC_BTN3,    _______, _______, _______
 ),
 
@@ -221,12 +221,22 @@ const ledmap PROGMEM ledmaps[] = {
                                       _______, _______, _______,    _______, _______, _______
   ),
 
+// [_ADJUST] = RGB_MATRIX_LAYOUT_LEDMAP(
+//   _______, BAS_UGL, _______, RED,     GREEN,   _______,                    _______, GREEN,   _______, _______, BAS_UGL, _______,
+//            ADJ_UGL,         ADJ_UGL,         ADJ_UGL,                             ADJ_UGL,          ADJ_UGL,          ADJ_UGL,
+//   RED,     CYAN,    AQUA,    YELLOW,  CYAN,    BLUE,                       ORANGE,  BLUE,    GREEN,   AZURE,   ORANGE,  AQUA,
+//            ADJ_UGL,                                                                                                   ADJ_UGL,
+//   RED,     CYAN,    AQUA,    _______, _______, BLUE,                       RED,     BLUE,    GREEN,   AZURE,   ORANGE,  AQUA,
+//                              ADJ_UGL,          ADJ_UGL,                          ADJ_UGL,          ADJ_UGL,
+//                                       _______, _______, _______,    _______, _______, _______
+//   ),
+
   [_ADJUST] = RGB_MATRIX_LAYOUT_LEDMAP(
-  _______, BAS_UGL, _______, RED,     GREEN,   _______,                    _______, GREEN,   _______, _______, BAS_UGL, _______,
+  _______, _______, _______, _______,     _______,   _______,                    _______, _______,   _______, _______, _______, _______,
            ADJ_UGL,         ADJ_UGL,         ADJ_UGL,                             ADJ_UGL,          ADJ_UGL,          ADJ_UGL,
-  RED,     CYAN,    AQUA,    YELLOW,  CYAN,    BLUE,                       ORANGE,  BLUE,    GREEN,   AZURE,   ORANGE,  AQUA,
+  _______,     _______,    _______,    _______,  _______,    _______,                       _______,  _______,    _______,   _______,   _______,  _______,
            ADJ_UGL,                                                                                                   ADJ_UGL,
-  RED,     CYAN,    AQUA,    _______, _______, BLUE,                       RED,     BLUE,    GREEN,   AZURE,   ORANGE,  AQUA,
+  _______,     _______,    _______,    _______, _______, _______,                       _______,     _______,    _______,   _______,   _______,  _______,
                              ADJ_UGL,          ADJ_UGL,                          ADJ_UGL,          ADJ_UGL,
                                       _______, _______, _______,    _______, _______, _______
   ),
