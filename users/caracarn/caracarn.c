@@ -119,6 +119,8 @@ void matrix_scan_user(void) {
      case ENT_HYP:
      case SPC_MEH:
      case ENT_NUM:
+     case BSP_MEH:
+     case KC0_NUM:
        return 0;  // Bypass Achordion for these keys.
        dprintf("Bypassing achordion for timeout\n");
    }

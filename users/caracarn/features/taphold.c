@@ -13,12 +13,14 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         case SPC_MEH:
         case ENT_NUM:
         case CAP_SYM:
+        case BSP_MEH:
             return g_tapping_term + 40;
         case GUI_4:
         case SFT_5:
-        case CTL_6:
+        case ALT_6:
         case ALT_4:
-        case ALT_1:
+        case CTL_SCL:
+        case KC0_NUM:
             return g_tapping_term + 115;
         // case TD_ANGB:
         // case TD_PARB:
@@ -35,11 +37,11 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         case SFT_D:
         case CTL_D:
         case GUI_F:
-        case ALT_V:
+        case CTL_A:
         case SFT_K:
         case ALT_K:
         case GUI_J:
-        case ALT_M:
+        case CTL_QUO:
         case CTL_R:
         case ALT_S:
         case GUI_KCT:
@@ -47,7 +49,7 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         case ALT_E:
         case CTL_I:
         case CTL_S:
-        case CTL_L:
+        case ALT_L:
             return g_tapping_term + 100;
         default:
             return g_tapping_term;
@@ -63,6 +65,7 @@ bool get_tapping_force_hold_result(uint16_t keycode) {
         case ESC_FUN:
         case ENT_HYP:
         case SPC_MEH:
+        case BSP_MEH:
         case ENT_NUM:
         case CAP_SYM:
             return false;
@@ -96,11 +99,13 @@ bool get_permissive_hold_result(uint16_t keycode) {
     switch (keycode) {
         case GUI_4:
         case SFT_5:
-        case CTL_6:
-        case ALT_1:
+        case ALT_6:
+        case CTL_SCL:
+        case KC0_NUM:
         case SPCSFT:
         case SFT_D:
         case SFT_K:
+        case CAP_SYM:
             // Immediately select the hold action when another key is tapped.
             return true;
         default:
