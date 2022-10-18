@@ -1,7 +1,12 @@
 #include "caracarn.h"
 #include "features/transport_sync.h"
 #include "transactions.h"
-#include "features/smart_case.h"
+#ifdef SMART_CASE_ENABLE
+    #include "features/smart_case.h"
+#endif
+#ifdef CASEMODE_ENABLE
+    #include "features/casemodes.h"
+#endif
 #include <string.h>
 
 uint32_t transport_user_state = 0;
@@ -13,7 +18,15 @@ kb_state_t kb_state;
 
 user_config_t user_config;
 
+#ifdef SMART_CASE_ENABLE
 extern smart_case_t smart_case;
+#endif
+
+#ifdef CASEMODE_ENABLE
+    extern enum xcase_state xcase_state;
+    extern bool caps_word_on;
+#endif
+
 
 void user_state_sync(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
     if (initiator2target_buffer_size == sizeof(transport_user_state)) {
@@ -41,7 +54,11 @@ void user_transport_update(void) {
         user_state.rgb_matrix_heatmap_area = user_config.rgb_matrix_heatmap_area;
         user_state.rgb_matrix_heatmap_spread = user_config.rgb_matrix_heatmap_spread;
         transport_user_state = user_state.raw;
-        kb_state.type = smart_case.type;
+    // #ifdef SMART_CASE_ENABLE
+    //     kb_state.type = smart_case.type;
+    // #endif
+        kb_state.xcase_state = xcase_state;
+        kb_state.caps_word_on = caps_word_on;
         // kb_state.smart_case_types = smart_case_types;
         transport_kb_state = kb_state.raw;
     } else {
@@ -51,7 +68,11 @@ void user_transport_update(void) {
         user_config.rgb_matrix_heatmap_area = user_state.rgb_matrix_heatmap_area;
         user_config.rgb_matrix_heatmap_spread = user_state.rgb_matrix_heatmap_spread;
         kb_state.raw = transport_kb_state;
-        smart_case.type = kb_state.type;
+    // #ifdef SMART_CASE_ENABLE
+    //     smart_case.type = kb_state.type;
+    // #endif
+        xcase_state = kb_state.xcase_state;
+        caps_word_on = kb_state.caps_word_on;
         // smart_case_types = kb_state.smart_case_types;
 
     }

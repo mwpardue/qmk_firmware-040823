@@ -6,6 +6,11 @@ extern bool ledmap_active;
 
 extern uint32_t transport_user_state;
 
+#ifdef CASEMODE_ENABLE
+    extern enum xcase_state xcase_state;
+    extern bool caps_word_on;
+#endif
+
 // extern uint8_t user_config.rgb_matrix_heatmap_area;
 
 // extern uint8_t user_config.rgb_matrix_heatmap_spread;
@@ -232,25 +237,37 @@ void render_smart_case(void) {
             oled_write_P(PSTR(" RGB "), false);
         }
     } else {
-        if (has_smart_case(CAMEL_CASE) && has_smart_case(WORD_CASE)) {
-            oled_write_P(PSTR(" Pas "), false);
-        } else if (has_smart_case(SNAKE_CASE) && has_smart_case(WORD_CASE)) {
-            oled_write_P(PSTR("_SNK_"), false);
-        } else if (has_smart_case(KEBAB_CASE) && has_smart_case(WORD_CASE)) {
-            oled_write_P(PSTR("-KBB-"), false);
-        } else if (has_smart_case(CAMEL_CASE) && !has_smart_case(WORD_CASE)) {
-            oled_write_P(PSTR(" cam "), false);
-        } else if (has_smart_case(SNAKE_CASE) && !has_smart_case(WORD_CASE)) {
-            oled_write_P(PSTR("_snk_"), false);
-        } else if (has_smart_case(KEBAB_CASE) && !has_smart_case(WORD_CASE)) {
-            oled_write_P(PSTR("-kbb-"), false);
-        } else if (has_smart_case(CAPS_LOCK)) {
-            oled_write_P(PSTR("CPSLK"), false);
-        } else if (has_smart_case(WORD_CASE)) {
-            oled_write_P(PSTR("CPSWD"), false);
-        } else {
-            oled_write_P(PSTR("     "), false);
-        }
+        #ifdef SMART_CASE_ENABLE
+            if (has_smart_case(CAMEL_CASE) && has_smart_case(WORD_CASE)) {
+                oled_write_P(PSTR(" Pas "), false);
+            } else if (has_smart_case(SNAKE_CASE) && has_smart_case(WORD_CASE)) {
+                oled_write_P(PSTR("_SNK_"), false);
+            } else if (has_smart_case(KEBAB_CASE) && has_smart_case(WORD_CASE)) {
+                oled_write_P(PSTR("-KBB-"), false);
+            } else if (has_smart_case(CAMEL_CASE) && !has_smart_case(WORD_CASE)) {
+                oled_write_P(PSTR(" cam "), false);
+            } else if (has_smart_case(SNAKE_CASE) && !has_smart_case(WORD_CASE)) {
+                oled_write_P(PSTR("_snk_"), false);
+            } else if (has_smart_case(KEBAB_CASE) && !has_smart_case(WORD_CASE)) {
+                oled_write_P(PSTR("-kbb-"), false);
+            } else if (has_smart_case(CAPS_LOCK)) {
+                oled_write_P(PSTR("CPSLK"), false);
+            } else if (has_smart_case(WORD_CASE)) {
+                oled_write_P(PSTR("CPSWD"), false);
+        #endif
+        #ifdef CASEMODE_ENABLE
+            if ((host_keyboard_led_state().caps_lock) && (xcase_state == XCASE_ON)) {
+                oled_write_P(PSTR("XCASE"), false);
+            } else if ((xcase_state == XCASE_ON)) {
+                oled_write_P(PSTR("xcase"), false);
+            } else if ((xcase_state == XCASE_WAIT)) {
+                oled_write_P(PSTR("XWAIT"), false);
+            } else if (host_keyboard_led_state().caps_lock) {
+                oled_write_P(PSTR("CPSWD"), false);
+        #endif
+            } else {
+                oled_write_P(PSTR("     "), false);
+            }
     }
 }
 

@@ -21,6 +21,10 @@ void housekeeping_task_transport_sync(void);
     #include "features/smart_case.h"
 #endif
 
+#ifdef CASEMODE_ENABLE
+    #include "features/casemodes.h"
+#endif
+
 #ifdef CUSTOM_ONESHOT_MODS_ENABLE
     #include "features/custom_oneshot_mods.h"
 #endif

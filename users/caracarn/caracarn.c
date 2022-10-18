@@ -121,6 +121,7 @@ void matrix_scan_user(void) {
      case ENT_NUM:
      case BSP_MEH:
      case KC0_NUM:
+    //  case CTL_AT:
        return 0;  // Bypass Achordion for these keys.
        dprintf("Bypassing achordion for timeout\n");
    }
@@ -145,6 +146,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (!process_layer_lock(keycode, record, LLOCK)) { return false; }
     #endif
 
+#ifdef CASEMODE_ENABLE
+    // Process case modes
+    if (!process_case_modes(keycode, record)) { return false; }
+#endif
+
 #ifdef SMART_CASE_ENABLE
         // Process smart case
     switch (process_smart_case(keycode, record)) {
@@ -156,6 +162,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     };
 #endif
+
+// #ifdef CASEMODE_ENABLE
+//         // Process smart case
+//     switch (process_case_modes(keycode, record)) {
+//         case PROCESS_RECORD_RETURN_TRUE:
+//             return true;
+//         case PROCESS_RECORD_RETURN_FALSE:
+//             return false;
+//         default:
+//             break;
+//     };
+// #endif
 
 #ifdef SMART_THUMB_KEYS_ENABLE
         // Process smart thumb keys

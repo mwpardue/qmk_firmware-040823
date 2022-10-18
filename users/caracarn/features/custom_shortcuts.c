@@ -47,6 +47,7 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
             }
             return PROCESS_RECORD_RETURN_FALSE;
 
+    #ifdef SMART_CASE_ENABLE
         case TG_KBAB:
             if (record->event.pressed) {
                 if (has_smart_case(KEBAB_CASE) && has_smart_case(WORD_CASE)) {
@@ -80,6 +81,7 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
                 }
             }
             return PROCESS_RECORD_RETURN_FALSE;
+    #endif
 
         case LGUI_T(KC_VOLD):
             if (record->tap.count && record->event.pressed) {

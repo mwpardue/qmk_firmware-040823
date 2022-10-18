@@ -21,6 +21,7 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         case ALT_4:
         case CTL_SCL:
         case KC0_NUM:
+        // case CTL_AT:
             return g_tapping_term + 115;
         // case TD_ANGB:
         // case TD_PARB:
@@ -51,6 +52,8 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         case CTL_S:
         case ALT_L:
             return g_tapping_term + 100;
+        // case CTL_AT:
+        //     return g_tapping_term - 50;
         default:
             return g_tapping_term;
     }
@@ -68,6 +71,10 @@ bool get_tapping_force_hold_result(uint16_t keycode) {
         case BSP_MEH:
         case ENT_NUM:
         case CAP_SYM:
+        case CTL_AT:
+        case ALT_BSL:
+        case SFT_MNS:
+        case GUI_PIP:
             return false;
     }
     switch (keycode) {

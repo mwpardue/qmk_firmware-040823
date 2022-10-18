@@ -2,6 +2,21 @@
 
 extern os_t os;
 
+void clear_locked_and_oneshot_mods(void) {
+    uint8_t oneshot_locked_mods = get_oneshot_locked_mods();
+    uint8_t oneshot_mods = get_oneshot_mods();
+    if (oneshot_locked_mods || oneshot_mods) {
+        clear_oneshot_mods();
+        clear_oneshot_locked_mods();
+        unregister_mods(MOD_LSFT);
+        unregister_mods(MOD_LCTL);
+        unregister_mods(MOD_LALT);
+        unregister_mods(MOD_RALT);
+        unregister_mods(MOD_LGUI);
+    }
+//    dyn_macro_reset();
+}
+
 select_word_t select_word = {.state = STATE_NONE};
 
 process_record_result_t process_select_word(uint16_t keycode, keyrecord_t* record) {

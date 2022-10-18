@@ -35,7 +35,12 @@ extern const ledmap ledmaps[];
 extern bool ledmap_active;
 
 void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_type);
-void rgb_matrix_set_smart_case_color(void);
+#ifdef SMART_CASE_ENABLE
+    void rgb_matrix_set_smart_case_color(void);
+#endif
+#ifdef CASEMODE_ENABLE
+    void rgb_matrix_set_casemode_color(void);
+#endif
 
 void rgb_matrix_layers_enable(void);
 void rgb_matrix_layers_disable(void);

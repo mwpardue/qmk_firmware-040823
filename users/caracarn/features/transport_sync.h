@@ -19,7 +19,13 @@ user_runtime_config_t user_state;
 typedef union {
     uint32_t raw;
     struct {
-        uint8_t type :8;
+    // #ifdef SMART_CASE_ENABLE
+    //     uint8_t type :8;
+    // #endif
+    #ifdef CASEMODE_ENABLE
+        uint8_t xcase_state :8;
+        bool caps_word_on :1;
+    #endif
         // uint8_t smart_case_types :8;
     };
 } kb_state_t;

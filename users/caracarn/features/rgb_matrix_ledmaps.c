@@ -4,6 +4,11 @@
 #ifdef SMART_CASE_ENABLE
     #include "features/smart_case.h"
 #endif
+#ifdef CASEMODE_ENABLE
+    #include "features/casemodes.h"
+    extern enum xcase_state xcase_state;
+    extern bool caps_word_on;
+#endif
 #ifdef CAPS_WORD_ENABLE
     #include "features/caps_word.h"
 #endif
@@ -25,23 +30,39 @@ __attribute__((weak)) void rgb_matrix_indicators_advanced_keymap(uint8_t led_min
     return;
 }
 
-void rgb_matrix_set_smart_case_color() {
-    if ((has_smart_case(CAMEL_CASE)) && (has_smart_case(WORD_CASE))) {
-                rgb_matrix_set_color(6, RGB_PINK);
-    } else if ((has_smart_case(KEBAB_CASE)) && (has_smart_case(WORD_CASE))) {
-                rgb_matrix_set_color(6, RGB_GREEN);
-    } else if ((has_smart_case(SNAKE_CASE)) && (has_smart_case(WORD_CASE))) {
-                rgb_matrix_set_color(6, RGB_BLUE);
-    } else if ((has_smart_case(CAMEL_CASE)) && !(has_smart_case(WORD_CASE))) {
-                rgb_matrix_set_color(6, RGB_ORANGE);
-    } else if ((has_smart_case(KEBAB_CASE)) && !(has_smart_case(WORD_CASE))) {
-                rgb_matrix_set_color(6, RGB_CYAN);
-    } else if ((has_smart_case(SNAKE_CASE)) && !(has_smart_case(WORD_CASE))) {
-                rgb_matrix_set_color(6, RGB_TURQUOISE);
-    } else if ((has_smart_case(WORD_CASE)) && !(has_smart_case(KEBAB_CASE)) && !(has_smart_case(SNAKE_CASE)) && !(has_smart_case(CAMEL_CASE))) {
-                rgb_matrix_set_color(6, RGB_RED);
+#ifdef SMART_CASE_ENABLE
+    void rgb_matrix_set_smart_case_color() {
+        if ((has_smart_case(CAMEL_CASE)) && (has_smart_case(WORD_CASE))) {
+                    rgb_matrix_set_color(6, RGB_PINK);
+        } else if ((has_smart_case(KEBAB_CASE)) && (has_smart_case(WORD_CASE))) {
+                    rgb_matrix_set_color(6, RGB_GREEN);
+        } else if ((has_smart_case(SNAKE_CASE)) && (has_smart_case(WORD_CASE))) {
+                    rgb_matrix_set_color(6, RGB_BLUE);
+        } else if ((has_smart_case(CAMEL_CASE)) && !(has_smart_case(WORD_CASE))) {
+                    rgb_matrix_set_color(6, RGB_ORANGE);
+        } else if ((has_smart_case(KEBAB_CASE)) && !(has_smart_case(WORD_CASE))) {
+                    rgb_matrix_set_color(6, RGB_CYAN);
+        } else if ((has_smart_case(SNAKE_CASE)) && !(has_smart_case(WORD_CASE))) {
+                    rgb_matrix_set_color(6, RGB_TURQUOISE);
+        } else if ((has_smart_case(WORD_CASE)) && !(has_smart_case(KEBAB_CASE)) && !(has_smart_case(SNAKE_CASE)) && !(has_smart_case(CAMEL_CASE))) {
+                    rgb_matrix_set_color(6, RGB_RED);
+        }
     }
-}
+#endif
+
+#ifdef CASEMODE_ENABLE
+    void rgb_matrix_set_casemode_color() {
+        if ((xcase_state == XCASE_ON) && (host_keyboard_led_state().caps_lock)) {
+                    rgb_matrix_set_color(6, RGB_ORANGE);
+        } else if ((xcase_state == XCASE_WAIT)) {
+                    rgb_matrix_set_color(6, RGB_BLUE);
+        } else if ((xcase_state == XCASE_ON)) {
+                    rgb_matrix_set_color(6, RGB_GREEN);
+        } else if (host_keyboard_led_state().caps_lock) {
+                    rgb_matrix_set_color(6, RGB_CYAN);
+        }
+    }
+#endif
 
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED
 
@@ -121,11 +142,18 @@ void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_t
                             }
                         }
                     }
-        if (has_any_smart_case()) {
-            rgb_matrix_set_smart_case_color();
-        } else if ((get_mods()|get_oneshot_mods()) & MOD_MASK_SHIFT) {
-            rgb_matrix_set_color(6, RGB_RED);
+        #ifdef SMART_CASE_ENABLE
+            if (has_any_smart_case()) {
+                rgb_matrix_set_smart_case_color();
             }
+        #endif
+        #ifdef CASEMODE_ENABLE
+            //  if ((xcase_state == XCASE_ON) || (xcase_state == XCASE_WAIT)) {
+                rgb_matrix_set_casemode_color();
+        #endif
+            if ((get_mods()|get_oneshot_mods()) & MOD_MASK_SHIFT) {
+                rgb_matrix_set_color(6, RGB_RED);
+                }
         }
     }
 }

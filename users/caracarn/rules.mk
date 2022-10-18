@@ -25,6 +25,12 @@ ifeq ($(strip $(SMART_CASE_ENABLE)), yes)
     OPT_DEFS += -DSMART_CASE_ENABLE
 endif
 
+CASEMODE_ENABLE ?= no
+ifeq ($(strip $(CASEMODE_ENABLE)), yes)
+    SRC += $(USER_PATH)/features/casemodes.c
+    OPT_DEFS += -DCASEMODE_ENABLE
+endif
+
 CUSTOM_ONESHOT_MODS_ENABLE ?= no
 ifeq ($(strip $(CUSTOM_ONESHOT_MODS_ENABLE)), yes)
     SRC += $(USER_PATH)/features/custom_oneshot_mods.c

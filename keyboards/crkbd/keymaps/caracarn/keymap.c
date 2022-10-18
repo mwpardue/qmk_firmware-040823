@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_TAB,  KC_GRV,  KC_TILD, KC_UNDS, TIPS,                        KC_MINS, KC_7,    KC_8,    KC_9,    KC_PSLS, _______,
   _______, CTL_AT,  ALT_BSL, SFT_MNS, GUI_PIP, KC_PLUS,                     KC_COLN, GUI_4,   SFT_5,   ALT_6,   CTL_SCL, _______,
   _______, SM_ANGB, SM_BRAC, SM_CURB, SM_PARN, _______,                     KC_EQL,  KC_1,    KC_2,    KC_3,    KC_DOT,  _______,
-                                      _______, _______, _______,   KC_BSPC, KC0_NUM, ENT_NUM
+                                      _______, _______, _______,   KC_BSPC, KC_0,    ENT_NUM
 ),
 
 [_HEX] = LAYOUT_split_3x6_3(
