@@ -107,20 +107,20 @@ void matrix_scan_user(void) {
   uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
    switch (tap_hold_keycode) {
      case CAP_KEY:
-     case TAB_NUM:
-     case SPC_MAC:
+     case CAP_NUM:
      case BSP_MSE:
      case SPCSFT:
      case ENT_FUN:
      case SYM_LL:
-     case CAP_SYM:
+     case TAB_SYM:
      case ESC_FUN:
      case ENT_MED:
      case ENT_HYP:
      case SPC_MEH:
      case ENT_NUM:
      case BSP_MEH:
-     case KC0_NUM:
+     case KC0_MEH:
+     case SPC_SYM:
     //  case CTL_AT:
        return 0;  // Bypass Achordion for these keys.
        dprintf("Bypassing achordion for timeout\n");
@@ -132,6 +132,22 @@ void matrix_scan_user(void) {
 #endif
 
 // Process record
+
+bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
+    // for example:
+    switch (keycode) {
+         case KC_A ... KC_Z:
+         case KC_1 ... KC_0:
+             return true;
+         case (SP_CAP & 0xff):
+         case SP_CAP:
+         case TAB_SYM:
+         default:
+            return false;
+     }
+     dprintf("default xcase separator\n");
+    return false;
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef ACHORDION_ENABLE
@@ -146,10 +162,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (!process_layer_lock(keycode, record, LLOCK)) { return false; }
     #endif
 
-#ifdef CASEMODE_ENABLE
-    // Process case modes
-    if (!process_case_modes(keycode, record)) { return false; }
-#endif
+// #ifdef CASEMODE_ENABLE
+//     // Process case modes
+//     if (!process_case_modes(keycode, record)) { return false; }
+// #endif
 
 #ifdef SMART_CASE_ENABLE
         // Process smart case
@@ -185,6 +201,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         default:
             break;
     };
+#endif
+
+#ifdef CASEMODE_ENABLE
+    // Process case modes
+    if (!process_case_modes(keycode, record)) { return false; }
 #endif
 
 #ifdef CAPSLOCK_TIMER_ENABLE

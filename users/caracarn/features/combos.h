@@ -5,7 +5,7 @@
 #include "tapdance.h"
 #include "process_record_result.h"
 #include "smart_thumb_keys.h"
-//#include "secrets.h"
+#include "secrets.h"
 
 #ifndef DEFAULT_MOD_ENABLE
     #ifndef SHORTCUTS_ENABLE

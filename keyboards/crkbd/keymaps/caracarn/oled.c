@@ -6,6 +6,8 @@ extern bool ledmap_active;
 
 extern uint32_t transport_user_state;
 
+extern uint16_t sft_tapping_term;
+
 #ifdef CASEMODE_ENABLE
     extern enum xcase_state xcase_state;
     extern bool caps_word_on;
@@ -279,17 +281,44 @@ uint8_t get_heatmap_spread(void) {
     return user_config.rgb_matrix_heatmap_spread;
 }
 
+uint16_t get_shift_tapping_term_str(void) {
+    return sft_tapping_term;
+}
+
+uint16_t get_tapping_term_str(void) {
+    return g_tapping_term;
+}
+
 char heatmap_area_str[8];
 char heatmap_spread_str[8];
+char shift_tapping_term_str[16];
+char g_tapping_term_str[16];
 
 void render_heatmap_specs(void) {
     sprintf(heatmap_area_str, "%03d", get_heatmap_area());
     sprintf(heatmap_spread_str, "%03d", get_heatmap_spread());
-    oled_write_P(PSTR("A:"), false);
-    oled_write_P(heatmap_area_str, false);
-    oled_write_P(PSTR("\nS:"), false);
-    oled_write_P(heatmap_spread_str, false);
-    oled_write_P(PSTR("\n"), false);
+    sprintf(shift_tapping_term_str, "%03d", get_shift_tapping_term_str());
+    sprintf(g_tapping_term_str, "%03d", get_tapping_term_str());
+    if (get_highest_layer(layer_state | default_layer_state) == _ADJUST) {
+        oled_write_P(PSTR("ST"), false);
+        oled_write_P(shift_tapping_term_str, false);
+        oled_write_P(PSTR("\n"), false);
+        oled_write_P(PSTR("TT"), false);
+        oled_write_P(g_tapping_term_str, false);
+        oled_write_P(PSTR("\n"), false);
+        render_space();
+        render_smart_case();
+    }
+    else {
+        oled_write_P(PSTR("A:"), false);
+        oled_write_P(heatmap_area_str, false);
+        oled_write_P(PSTR("\nS:"), false);
+        oled_write_P(heatmap_spread_str, false);
+        oled_write_P(PSTR("\n"), false);
+        render_space();
+        render_smart_case();
+        render_space();
+    }
 }
 
 // void render_heatmap_spread(void) {
@@ -310,8 +339,8 @@ bool oled_task_user(void) {
     render_layer_box_bottom();
     render_space();
     render_heatmap_specs();
-    render_space();
-    render_smart_case();
+    // render_space();
+    // render_smart_case();
     // render_heatmap_spread();
     return false;
 }

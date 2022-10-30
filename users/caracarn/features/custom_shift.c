@@ -42,6 +42,7 @@ process_record_result_t process_custom_shift(uint16_t keycode, keyrecord_t *reco
 
             if (isShifted && !isOneShotShift) {
                 if (record->event.pressed) {
+                    dprintln("Custom Shift Invoked");
                     register_code(KC_DEL);
                 } else {
                     unregister_code(KC_DEL);

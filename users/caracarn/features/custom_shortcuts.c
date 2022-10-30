@@ -4,6 +4,12 @@
 
 extern os_t os;
 
+uint16_t sft_tapping_term = TAPPING_TERM;
+
+uint16_t get_sft_tapping_term(void) {
+    return sft_tapping_term;
+}
+
 process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *record) {
 
     bool isWindowsOrLinux = os.type == WINDOWS || os.type == LINUX;
@@ -104,26 +110,39 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
             }
             return PROCESS_RECORD_RETURN_TRUE;
 
-        case LALT_T(KC_MPRV):
+        case RCTL_T(KC_PLUS):
             if (record->tap.count && record->event.pressed) {
-                tap_code16(KC_MPRV);
+                tap_code16(KC_PLUS);
                 return PROCESS_RECORD_RETURN_FALSE;
             }
             return PROCESS_RECORD_RETURN_TRUE;
 
-            case LGUI_T(KC_PIPE):
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(KC_PIPE);
-                return PROCESS_RECORD_RETURN_FALSE;
-            }
-            return PROCESS_RECORD_RETURN_TRUE;
+        // case LALT_T(KC_MPRV):
+        //     if (record->tap.count && record->event.pressed) {
+        //         tap_code16(KC_MPRV);
+        //         return PROCESS_RECORD_RETURN_FALSE;
+        //     }
+        //     return PROCESS_RECORD_RETURN_TRUE;
 
-            case LCTL_T(KC_AT):
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(KC_AT);
-                return PROCESS_RECORD_RETURN_FALSE;
-            }
-            return PROCESS_RECORD_RETURN_TRUE;
+        //     case LGUI_T(KC_PIPE):
+        //     if (record->tap.count && record->event.pressed) {
+        //         tap_code16(KC_PIPE);
+        //         return PROCESS_RECORD_RETURN_FALSE;
+        //     }
+        //     return PROCESS_RECORD_RETURN_TRUE;
+
+        //     case LCTL_T(KC_AT):
+        //     if (record->tap.count && record->event.pressed) {
+        //         tap_code16(KC_AT);
+        //         return PROCESS_RECORD_RETURN_FALSE;
+        //     }
+
+        //     case LSFT_T(KC_BSPC):
+        //     if (record->tap.count && record->event.pressed) {
+        //         tap_code16(KC_BSPC);
+        //         return PROCESS_RECORD_RETURN_FALSE;
+        //     }
+        //     return PROCESS_RECORD_RETURN_TRUE;
 
             // case LSFT_T(KC_AT):
             // if (record->tap.count && record->event.pressed) {
@@ -158,7 +177,7 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
 
         case SM_PARN:
             if (record->event.pressed) {
-                if ((get_oneshot_mods() & MOD_MASK_SHIFT) || get_mods() & MOD_MASK_SHIFT) {
+                if ((get_oneshot_mods() & MOD_MASK_GUI) || get_mods() & MOD_MASK_GUI) {
                     smart_mods = get_mods();
                     unregister_mods(smart_mods);
                     tap_code16(KC_LPRN);
@@ -181,7 +200,7 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
 
         case SM_CURB:
             if (record->event.pressed) {
-                if ((get_oneshot_mods() & MOD_MASK_SHIFT) || get_mods() & MOD_MASK_SHIFT) {
+                if ((get_oneshot_mods() & MOD_MASK_GUI) || get_mods() & MOD_MASK_GUI) {
                     smart_mods = get_mods();
                     unregister_mods(smart_mods);
                     tap_code16(KC_LCBR);
@@ -204,7 +223,7 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
 
         case SM_BRAC:
             if (record->event.pressed) {
-                if ((get_oneshot_mods() & MOD_MASK_SHIFT) || get_mods() & MOD_MASK_SHIFT) {
+                if ((get_oneshot_mods() & MOD_MASK_GUI) || get_mods() & MOD_MASK_GUI) {
                     smart_mods = get_mods();
                     unregister_mods(smart_mods);
                     tap_code16(KC_LBRC);
@@ -227,7 +246,7 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
 
         case SM_ANGB:
             if (record->event.pressed) {
-                if ((get_oneshot_mods() & MOD_MASK_SHIFT) || get_mods() & MOD_MASK_SHIFT) {
+                if ((get_oneshot_mods() & MOD_MASK_GUI) || get_mods() & MOD_MASK_GUI) {
                     smart_mods = get_mods();
                     unregister_mods(smart_mods);
                     tap_code16(KC_LT);
@@ -247,6 +266,21 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
                 }
                 return PROCESS_RECORD_RETURN_FALSE;
             }
+
+        case SFT_TTP:
+            if (record->event.pressed) {
+                sft_tapping_term = sft_tapping_term + 5;
+                dprintf("Shift Tapping Term = %d\n", sft_tapping_term);
+                return PROCESS_RECORD_RETURN_FALSE;
+            }
+
+        case SFT_TTM:
+            if (record->event.pressed) {
+                sft_tapping_term = sft_tapping_term - 5;
+                dprintf("Shift Tapping Term = %d\n", sft_tapping_term);
+                return PROCESS_RECORD_RETURN_FALSE;
+            }
+        return PROCESS_RECORD_RETURN_FALSE;
     }
     return PROCESS_RECORD_CONTINUE;
 }

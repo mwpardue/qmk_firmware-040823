@@ -24,7 +24,7 @@
     #define ONESHOT_TAP_TOGGLE 2
     #define ONESHOT_TIMEOUT 2000
     #define TAPPING_TOGGLE 1
-    #define TAPPING_TERM 175
+    #define TAPPING_TERM 125
 
 #ifdef CUSTOM_ONESHOT_MODS_ENABLE
     #define CUSTOM_ONESHOT_TIMEOUT 2000
@@ -39,7 +39,7 @@
 
 // Configure combos
 #ifdef COMBO_ENABLE
-    #define COMBO_COUNT 5
+    #define COMBO_COUNT 6
     #define COMBO_TERM 60
     #define EXTRA_SHORT_COMBOS
     #define COMBO_STRICT_TIMER

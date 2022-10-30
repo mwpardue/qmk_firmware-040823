@@ -82,7 +82,7 @@ process_record_result_t process_select_word(uint16_t keycode, keyrecord_t* recor
         case STATE_LINE_SELECTED:
             if (keycode != MC_SELW && record->event.pressed) {
                 unregister_mods(MOD_LSFT);
-                tap_code(KC_RGHT);
+                // tap_code(KC_RGHT);
                 select_word.state = STATE_NONE;
                 return PROCESS_RECORD_CONTINUE;
             }

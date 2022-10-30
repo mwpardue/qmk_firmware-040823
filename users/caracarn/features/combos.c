@@ -3,11 +3,12 @@
 #include "combos.h"
 
 //Shortcuts
-const uint16_t PROGMEM bootloader_combo[] = {CAP_SYM, KC_Q, KC_T, COMBO_END};
-const uint16_t PROGMEM sleep_combo[] = {CAP_SYM, KC_Q, KC_W, COMBO_END};
-const uint16_t PROGMEM playpause_combo[] = {CAP_SYM, ALT_S, SFT_D, COMBO_END};
-const uint16_t PROGMEM previous_combo[] = {CAP_SYM, CTL_A, ALT_S, COMBO_END};
-const uint16_t PROGMEM next_combo[] = {CAP_SYM, SFT_D, GUI_F, COMBO_END};
+const uint16_t PROGMEM bootloader_combo[] = {TAB_SYM, KC_Q, KC_T, COMBO_END};
+const uint16_t PROGMEM sleep_combo[] = {TAB_SYM, KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM playpause_combo[] = {TAB_SYM, ALT_S, SFT_D, COMBO_END};
+const uint16_t PROGMEM previous_combo[] = {TAB_SYM, CTL_A, ALT_S, COMBO_END};
+const uint16_t PROGMEM next_combo[] = {TAB_SYM, SFT_D, GUI_F, COMBO_END};
+const uint16_t PROGMEM login_combo[] = {BSP_MSE, KC_O, KC_P, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
 
@@ -15,7 +16,8 @@ combo_t key_combos[COMBO_COUNT] = {
   COMBO(sleep_combo, MACSLEP),
   COMBO(playpause_combo, KC_MPLY),
   COMBO(previous_combo, KC_MPRV),
-  COMBO(next_combo, KC_MNXT)
+  COMBO(next_combo, KC_MNXT),
+  COMBO(login_combo, SM_LOGN)
 
 };
 
@@ -58,6 +60,14 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
     // bool isOneShotShift = get_oneshot_mods() & MOD_MASK_SHIFT || get_oneshot_locked_mods() & MOD_MASK_SHIFT;
 
     switch (keycode) {
+
+        case SM_LOGN:
+            if (record->event.pressed) {
+                    send_string(secrets[1]);
+                    tap_code16(KC_ENTER);
+                    return PROCESS_RECORD_RETURN_FALSE;
+            }
+            break;
 
         // case CB_NWTB:
         //     if (record->event.pressed) {

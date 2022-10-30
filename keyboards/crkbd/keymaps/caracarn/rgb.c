@@ -19,13 +19,13 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_
                 #ifdef CAPS_WORD_ENABLE
                     bool isCapsWord = caps_word_get();
                         if (isCapsWord) {
-                            rgb_matrix_set_color(6, 255, 0, 0);
+                            rgb_matrix_set_color(13, 255, 0, 0);
                         }
                 #endif
                 #ifdef SMART_CASE_ENABLE
                     bool smartCase = has_any_smart_case();
                         if (smartCase) {
-                            rgb_matrix_set_color(6, 255, 0, 0);
+                            rgb_matrix_set_color(13, 255, 0, 0);
                         }
                 #endif
                 if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {

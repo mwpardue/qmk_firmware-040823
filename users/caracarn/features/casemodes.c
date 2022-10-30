@@ -79,6 +79,7 @@ void disable_caps_word(void) {
     if (host_keyboard_led_state().caps_lock) {
         tap_code(KC_CAPS);
         dprintf("Disable Caps Word\n");
+        dprintf("xcase_state: %d\n", xcase_state);
     }
 #else
     unregister_mods(MOD_LSFT);
@@ -107,6 +108,8 @@ void enable_xcase(void) {
 
 // Enable xcase with the specified delimiter
 void enable_xcase_with(uint16_t delimiter) {
+    dprintf("enabled with delimter %d\n", delimiter);
+    dprintf("xcase_state: %d\n", xcase_state);
     xcase_state = XCASE_ON;
     xcase_delimiter = delimiter;
     distance_to_last_delim = -1;
@@ -117,6 +120,7 @@ void enable_xcase_with(uint16_t delimiter) {
 void disable_xcase(void) {
     xcase_state = XCASE_OFF;
     dprintf("Disable xcase\n");
+    dprintf("xcase_state: %d\n", xcase_state);
 }
 
 // Place the current xcase delimiter
@@ -124,6 +128,8 @@ static void place_delimiter(void) {
     if (IS_OSM(xcase_delimiter)) {
         // apparently set_oneshot_mods() is dumb and doesn't deal with handedness for you
         uint8_t mods = xcase_delimiter & 0x10 ? (xcase_delimiter & 0x0F) << 4 : xcase_delimiter & 0xFF;
+        dprintln("OSM Delimiter");
+        dprintf("xcase_state: %d\n", xcase_state);
         set_oneshot_mods(mods);
     } else {
         tap_code16(xcase_delimiter);
@@ -135,10 +141,12 @@ static void remove_delimiter(void) {
     if (IS_OSM(xcase_delimiter)) {
         clear_oneshot_mods();
         dprintf("OSM remove delimiter\n");
+        dprintf("xcase_state: %d\n", xcase_state);
     } else {
         for (int8_t i = 0; i < DEFAULT_DELIMITERS_TERMINATE_COUNT - 1; i++) {
             tap_code(KC_BSPC);
             dprintf("Other remove delimiter\n");
+        dprintf("xcase_state: %d\n", xcase_state);
         }
     }
 }
@@ -154,7 +162,7 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
             case KC_MINS:
             case KC_UNDS:
             case KC_BSPC:
-            case CAP_SYM:
+            case CAP_NUM:
             case (SP_CAP & 0xff):
             case KC_UP:
             case KC_DOWN:
@@ -163,17 +171,20 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
                 // If mod chording disable the mods
                 if (record->event.pressed && (get_mods() != 0)) {
                     dprintf("Terminating Case Modes at get_mods\n");
+        dprintf("xcase_state term: %d\n", xcase_state);
                     return true;
                 }
                 break;
             default:
                 if (record->event.pressed) {
                     dprintf("Terminating Case Modes at Default\n");
+        dprintf("xcase_state termdef: %d\n", xcase_state);
                     return true;
                 }
                 break;
         }
         dprintf("Should not be terminating case modes\n");
+        dprintf("xcase_state termnot: %d\n", xcase_state);
         return false;
 }
 
@@ -182,12 +193,16 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
 __attribute__ ((weak))
 bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
     // for example:
-/*    switch (keycode) {
-         case KC_A ... KC_Z:
-         case KC_1 ... KC_0:
-             return true;
-     } */
-     dprintf("default xcase separator\n");
+    // switch (keycode) {
+    //      case KC_A ... KC_Z:
+    //      case KC_1 ... KC_0:
+    //          return true;
+    //      case (SP_CAP & 0xff):
+    //      case CAP_NUM:
+    //      default:
+    //         return false;
+    //  }
+    //  dprintf("default xcase separator\n");
     return false;
 }
 
@@ -200,6 +215,8 @@ bool process_case_modes(uint16_t keycode, const keyrecord_t *record) {
             if (record->tap.count == 0)
                 return true;
             keycode = keycode & 0xFF;
+            dprintln("base tapping keycode");
+        dprintf("xcase_state pcm: %d\n", xcase_state);
             // keycode = extract_base_tapping_keycode(keycode);
         }
 
@@ -211,6 +228,8 @@ bool process_case_modes(uint16_t keycode, const keyrecord_t *record) {
         if (xcase_state == XCASE_WAIT) {
             // grab the next input to be the delimiter
             if (use_default_xcase_separator(keycode, record)) {
+                dprintln("Enabling XCASE using Default Separator from WAIT");
+        dprintf("xcase_state xcasewait: %d\n", xcase_state);
                 enable_xcase_with(DEFAULT_XCASE_SEPARATOR);
             }
             else if (record->event.pressed) {
@@ -221,14 +240,26 @@ bool process_case_modes(uint16_t keycode, const keyrecord_t *record) {
                 else if (get_mods() & MOD_BIT(KC_RALT)) {
                     keycode = RALT(keycode);
                 }
-                enable_xcase_with(keycode);
-                return false;
+                switch (keycode) {
+                    case CAP_NUM:
+                    case SP_CAP:
+                    case (SP_CAP & 0xff):
+                        return false;
+                        dprintln("xcase pcm met first switch condition");
+        dprintf("xcase_state switch1: %d\n", xcase_state);
+                    default:
+                        dprintln("Enabling xcase under XCASE WAIT pcm");
+        dprintf("xcase_state switch2: %d\n", xcase_state);
+                        enable_xcase_with(keycode);
+                        return false;
+                }
             }
             else {
                 if (IS_OSM(keycode)) {
                     // this catches the OSM release if no other key was pressed
                     set_oneshot_mods(0);
                     enable_xcase_with(keycode);
+        dprintf("xcase_state OSM: %d\n", xcase_state);
                     return false;
                 }
                 // let other special keys go through
@@ -251,6 +282,7 @@ bool process_case_modes(uint16_t keycode, const keyrecord_t *record) {
                     // remove the delimiter and disable modes
                     else {
                         dprintf("delimiter and xcase and caps word under process record\n");
+        dprintf("xcase_state remove delimiter: %d\n", xcase_state);
                         remove_delimiter();
                         disable_xcase();
                         disable_caps_word();
@@ -279,6 +311,7 @@ bool process_case_modes(uint16_t keycode, const keyrecord_t *record) {
             // check if the case modes have been terminated
             if (terminate_case_modes(keycode, record)) {
                 dprintf("terminate due to case modes having been terminated\n");
+        dprintf("xcase_state tcm: %d\n", xcase_state);
                 disable_caps_word();
                 disable_xcase();
             }
