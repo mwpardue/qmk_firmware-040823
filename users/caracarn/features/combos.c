@@ -8,7 +8,12 @@ const uint16_t PROGMEM sleep_combo[] = {TAB_SYM, KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM playpause_combo[] = {TAB_SYM, ALT_S, SFT_D, COMBO_END};
 const uint16_t PROGMEM previous_combo[] = {TAB_SYM, CTL_A, ALT_S, COMBO_END};
 const uint16_t PROGMEM next_combo[] = {TAB_SYM, SFT_D, GUI_F, COMBO_END};
-const uint16_t PROGMEM login_combo[] = {BSP_MSE, KC_O, KC_P, COMBO_END};
+const uint16_t PROGMEM login_combo[] = {DEL_MSE, KC_O, KC_P, COMBO_END};
+const uint16_t PROGMEM copy_combo[] = {BSP_NUM, KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM cut_combo[] = {BSP_NUM, KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM paste_combo[] = {BSP_NUM, KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM pasteplain_combo[] = {TAB_SYM, KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM function_combo[] = {KC_DOT, KC_SLSH, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
 
@@ -17,7 +22,12 @@ combo_t key_combos[COMBO_COUNT] = {
   COMBO(playpause_combo, KC_MPLY),
   COMBO(previous_combo, KC_MPRV),
   COMBO(next_combo, KC_MNXT),
-  COMBO(login_combo, SM_LOGN)
+  COMBO(login_combo, SM_LOGN),
+  COMBO(copy_combo, LGUI(KC_C)),
+  COMBO(cut_combo, LGUI(KC_X)),
+  COMBO(paste_combo, LGUI(KC_V)),
+  COMBO(pasteplain_combo, LGUI(LALT(LSFT(KC_V)))),
+  COMBO(function_combo, MO(_FUNCTION))
 
 };
 

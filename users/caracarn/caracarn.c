@@ -1,4 +1,7 @@
 #include "caracarn.h"
+#ifdef RAW_ENABLE
+    #include "raw_hid.h"
+#endif
 
 #ifdef CAPITALIZE_KEY_ENABLE
     #ifdef SMART_THUMB_KEYS_ENABLE
@@ -44,6 +47,13 @@ void matrix_init_user(void) {
     // Enable or disable debugging
     debug_enable=true;
 }
+
+#ifdef RAW_ENABLE
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+    // Your code goes here. data is the packet received from host.
+}
+#endif
+
 
 // Matrix scan
 
@@ -91,6 +101,8 @@ void matrix_scan_user(void) {
   switch (tap_hold_keycode) {
     case GUI_F: //F   + W, Q
       if (other_keycode == KC_W || other_keycode == KC_Q) {return true;}
+    case SFT_5: //Shift + XCS_SFT
+      if (other_keycode == XCASE || other_keycode == XCS_SFT || other_keycode == (XCASE & 0xff)) {return true;}
       break;
   }
 
@@ -106,9 +118,9 @@ void matrix_scan_user(void) {
 
   uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
    switch (tap_hold_keycode) {
-     case CAP_KEY:
-     case CAP_NUM:
-     case BSP_MSE:
+     case XCS_SFT:
+     case BSP_NUM:
+     case DEL_MSE:
      case SPCSFT:
      case ENT_FUN:
      case SYM_LL:
@@ -117,10 +129,13 @@ void matrix_scan_user(void) {
      case ENT_MED:
      case ENT_HYP:
      case SPC_MEH:
+     case SPC_MAC:
+     case ESC_MEH:
      case ENT_NUM:
      case BSP_MEH:
      case KC0_MEH:
      case SPC_SYM:
+     case CAP_FUN:
     //  case CTL_AT:
        return 0;  // Bypass Achordion for these keys.
        dprintf("Bypassing achordion for timeout\n");
@@ -139,9 +154,10 @@ bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
          case KC_A ... KC_Z:
          case KC_1 ... KC_0:
              return true;
-         case (SP_CAP & 0xff):
-         case SP_CAP:
+         case (XCASE & 0xff):
+         case XCASE:
          case TAB_SYM:
+         case DEL_MSE:
          default:
             return false;
      }

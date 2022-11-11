@@ -30,39 +30,57 @@ __attribute__((weak)) void rgb_matrix_indicators_advanced_keymap(uint8_t led_min
     return;
 }
 
-#ifdef SMART_CASE_ENABLE
-    void rgb_matrix_set_smart_case_color() {
-        if ((has_smart_case(CAMEL_CASE)) && (has_smart_case(WORD_CASE))) {
-                    rgb_matrix_set_color(13, RGB_PINK);
-        } else if ((has_smart_case(KEBAB_CASE)) && (has_smart_case(WORD_CASE))) {
-                    rgb_matrix_set_color(13, RGB_GREEN);
-        } else if ((has_smart_case(SNAKE_CASE)) && (has_smart_case(WORD_CASE))) {
-                    rgb_matrix_set_color(13, RGB_BLUE);
-        } else if ((has_smart_case(CAMEL_CASE)) && !(has_smart_case(WORD_CASE))) {
-                    rgb_matrix_set_color(13, RGB_ORANGE);
-        } else if ((has_smart_case(KEBAB_CASE)) && !(has_smart_case(WORD_CASE))) {
-                    rgb_matrix_set_color(13, RGB_CYAN);
-        } else if ((has_smart_case(SNAKE_CASE)) && !(has_smart_case(WORD_CASE))) {
-                    rgb_matrix_set_color(13, RGB_TURQUOISE);
-        } else if ((has_smart_case(WORD_CASE)) && !(has_smart_case(KEBAB_CASE)) && !(has_smart_case(SNAKE_CASE)) && !(has_smart_case(CAMEL_CASE))) {
-                    rgb_matrix_set_color(13, RGB_RED);
+void rgb_matrix_set_custom_indicators(uint8_t led_min, uint8_t led_max, int led_type, uint8_t hue, uint8_t sat, uint8_t val) {
+    if ((get_highest_layer(layer_state | default_layer_state)) == _BASE) {
+        uint8_t val = rgb_matrix_get_val();
+        for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+            HSV hsv = {
+                .h = hue,
+                .s = sat,
+                .v = val,
+            };
+		    rgb_matrix_sethsv_noeeprom(hsv.h, hsv.s, hsv.v);
+                if (HAS_ANY_FLAGS(g_led_config.flags[i], led_type)) {
+                    RGB rgb = hsv_to_rgb(hsv);
+                    RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
+               }
         }
     }
-#endif
+}
 
-#ifdef CASEMODE_ENABLE
-    void rgb_matrix_set_casemode_color() {
-        if ((xcase_state == XCASE_ON) && (host_keyboard_led_state().caps_lock)) {
-                    rgb_matrix_set_color(13, RGB_ORANGE);
-        } else if ((xcase_state == XCASE_WAIT)) {
-                    rgb_matrix_set_color(13, RGB_BLUE);
-        } else if ((xcase_state == XCASE_ON)) {
-                    rgb_matrix_set_color(13, RGB_GREEN);
-        } else if (host_keyboard_led_state().caps_lock) {
-                    rgb_matrix_set_color(13, RGB_CYAN);
-        }
-    }
-#endif
+// #ifdef SMART_CASE_ENABLE
+//     void rgb_matrix_set_smart_case_color() {
+//         if ((has_smart_case(CAMEL_CASE)) && (has_smart_case(WORD_CASE))) {
+//                     rgb_matrix_set_color(13, RGB_PINK);
+//         } else if ((has_smart_case(KEBAB_CASE)) && (has_smart_case(WORD_CASE))) {
+//                     rgb_matrix_set_color(13, RGB_GREEN);
+//         } else if ((has_smart_case(SNAKE_CASE)) && (has_smart_case(WORD_CASE))) {
+//                     rgb_matrix_set_color(13, RGB_BLUE);
+//         } else if ((has_smart_case(CAMEL_CASE)) && !(has_smart_case(WORD_CASE))) {
+//                     rgb_matrix_set_color(13, RGB_ORANGE);
+//         } else if ((has_smart_case(KEBAB_CASE)) && !(has_smart_case(WORD_CASE))) {
+//                     rgb_matrix_set_color(13, RGB_CYAN);
+//         } else if ((has_smart_case(SNAKE_CASE)) && !(has_smart_case(WORD_CASE))) {
+//                     rgb_matrix_set_color(13, RGB_TURQUOISE);
+//         } else if ((has_smart_case(WORD_CASE)) && !(has_smart_case(KEBAB_CASE)) && !(has_smart_case(SNAKE_CASE)) && !(has_smart_case(CAMEL_CASE))) {
+//                     rgb_matrix_set_color(13, RGB_RED);
+//         }
+//     }
+// #endif
+
+// #ifdef CASEMODE_ENABLE
+//     void rgb_matrix_set_casemode_color() {
+//         if ((xcase_state == XCASE_ON) && (host_keyboard_led_state().caps_lock)) {
+//                     rgb_matrix_set_color(13, RGB_ORANGE);
+//         } else if ((xcase_state == XCASE_WAIT)) {
+//                     rgb_matrix_set_color(13, RGB_BLUE);
+//         } else if ((xcase_state == XCASE_ON)) {
+//                     rgb_matrix_set_color(13, RGB_GREEN);
+//         } else if (host_keyboard_led_state().caps_lock) {
+//                     rgb_matrix_set_color(13, RGB_CYAN);
+//         }
+//     }
+// #endif
 
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED
 
@@ -142,17 +160,29 @@ void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_t
                             }
                         }
                     }
-        #ifdef SMART_CASE_ENABLE
-            if (has_any_smart_case()) {
-                rgb_matrix_set_smart_case_color();
-            }
-        #endif
+        // #ifdef SMART_CASE_ENABLE
+        //     if (has_any_smart_case()) {
+        //         rgb_matrix_set_smart_case_color();
+        //     }
+        // #endif
         #ifdef CASEMODE_ENABLE
             //  if ((xcase_state == XCASE_ON) || (xcase_state == XCASE_WAIT)) {
-                rgb_matrix_set_casemode_color();
+                // rgb_matrix_set_casemode_color();
+         if ((xcase_state == XCASE_ON) && (host_keyboard_led_state().caps_lock)) {
+                    rgb_matrix_set_custom_indicators(led_min, led_max, LED_FLAG_KEYLIGHT, HSV_PURPLE);
+        } else if ((xcase_state == XCASE_WAIT) && (host_keyboard_led_state().caps_lock)) {
+                    rgb_matrix_set_custom_indicators(led_min, led_max, LED_FLAG_KEYLIGHT, HSV_ORANGE);
+        } else if ((xcase_state == XCASE_WAIT)) {
+                    rgb_matrix_set_custom_indicators(led_min, led_max, LED_FLAG_KEYLIGHT, HSV_YELLOW);
+        } else if ((xcase_state == XCASE_ON)) {
+                    rgb_matrix_set_custom_indicators(led_min, led_max, LED_FLAG_KEYLIGHT, HSV_BLUE);
+        } else if (host_keyboard_led_state().caps_lock) {
+                    rgb_matrix_set_custom_indicators(led_min, led_max, LED_FLAG_KEYLIGHT, HSV_RED);
+        }
         #endif
             if ((get_mods()|get_oneshot_mods()) & MOD_MASK_SHIFT) {
-                rgb_matrix_set_color(13, RGB_RED);
+                rgb_matrix_set_color(6, RGB_RED);
+                rgb_matrix_set_color(33, RGB_RED);
                 }
         }
     }

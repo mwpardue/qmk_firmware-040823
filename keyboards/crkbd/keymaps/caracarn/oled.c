@@ -262,10 +262,14 @@ void render_smart_case(void) {
                 oled_write_P(PSTR("XCASE"), false);
             } else if ((xcase_state == XCASE_ON)) {
                 oled_write_P(PSTR("xcase"), false);
-            } else if ((xcase_state == XCASE_WAIT)) {
+            } else if ((host_keyboard_led_state().caps_lock) && (xcase_state == XCASE_WAIT)) {
                 oled_write_P(PSTR("XWAIT"), false);
-            } else if (host_keyboard_led_state().caps_lock) {
+            } else if ((xcase_state == XCASE_WAIT)) {
+                oled_write_P(PSTR("xwait"), false);
+            } else if (caps_word_on) {
                 oled_write_P(PSTR("CPSWD"), false);
+            } else if (host_keyboard_led_state().caps_lock) {
+                oled_write_P(PSTR("CPSLK"), false);
         #endif
             } else {
                 oled_write_P(PSTR("     "), false);

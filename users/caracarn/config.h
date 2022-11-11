@@ -39,7 +39,7 @@
 
 // Configure combos
 #ifdef COMBO_ENABLE
-    #define COMBO_COUNT 6
+    #define COMBO_COUNT 11
     #define COMBO_TERM 60
     #define EXTRA_SHORT_COMBOS
     #define COMBO_STRICT_TIMER

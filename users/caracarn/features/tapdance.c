@@ -205,6 +205,58 @@ void td_vimq(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void td_copy(qk_tap_dance_state_t *state, void *user_data) {
+    tap_state.state = dance_state(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+            tap_code16(G(KC_C));
+            break;
+        case TD_DOUBLE_TAP:
+            tap_code16(G(KC_X));
+            break;
+        default: break;
+    }
+}
+
+void td_paste(qk_tap_dance_state_t *state, void *user_data) {
+    tap_state.state = dance_state(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+            tap_code16(G(KC_V));
+            break;
+        case TD_DOUBLE_TAP:
+            tap_code16(G(A(S(KC_V))));
+            break;
+        default: break;
+    }
+}
+
+void td_jumpleft(qk_tap_dance_state_t *state, void *user_data) {
+    tap_state.state = dance_state(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+            tap_code16(A(KC_LEFT));
+            break;
+        case TD_DOUBLE_TAP:
+            tap_code16(G(KC_LEFT));
+            break;
+        default: break;
+    }
+}
+
+void td_jumpright(qk_tap_dance_state_t *state, void *user_data) {
+    tap_state.state = dance_state(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+            tap_code16(A(KC_RIGHT));
+            break;
+        case TD_DOUBLE_TAP:
+            tap_code16(G(KC_RIGHT));
+            break;
+        default: break;
+    }
+}
+
 void td_screenshot_full(qk_tap_dance_state_t *state, void *user_data) {
     tap_state.state = dance_state(state);
     switch (tap_state.state) {
@@ -273,6 +325,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [SEC7_8] = ACTION_TAP_DANCE_FN(td_secret78),
     [SEC11_9] = ACTION_TAP_DANCE_FN(td_secret119),
     [SEC3_10] = ACTION_TAP_DANCE_FN(td_secret310),
+    [TDCOPY] = ACTION_TAP_DANCE_FN(td_copy),
+    [TDPASTE] = ACTION_TAP_DANCE_FN(td_paste),
+    [TDJLEFT] = ACTION_TAP_DANCE_FN(td_jumpleft),
+    [TDJRIGHT] = ACTION_TAP_DANCE_FN(td_jumpright),
     // [BRT_CUR] = ACTION_TAP_DANCE_FN(td_curly_braces),
     // [BRT_SQR] = ACTION_TAP_DANCE_FN(td_square_brackets),
     // [BRT_PAR] = ACTION_TAP_DANCE_FN(td_parentesis),

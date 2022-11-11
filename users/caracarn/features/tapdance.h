@@ -11,6 +11,10 @@ enum {
     SEC7_8,
     SEC11_9,
     SEC3_10,
+    TDCOPY,
+    TDPASTE,
+    TDJLEFT,
+    TDJRIGHT,
     // BRT_CUR,
     // BRT_SQR,
     // BRT_PAR,
@@ -25,6 +29,10 @@ enum {
 #define TD_S78 TD(SEC7_8)
 #define TD_S119 TD(SEC11_9)
 #define TD_S310 TD(SEC3_10)
+#define TD_COPY TD(TDCOPY)
+#define TD_PAST TD(TDPASTE)
+#define TD_JLFT TD(TDJLEFT)
+#define TD_JRGT TD(TDJRIGHT)
 // #define TD_CURB TD(BRT_CUR)
 // #define TD_SQRB TD(BRT_SQR)
 // #define TD_PARB TD(BRT_PAR)

@@ -5,16 +5,19 @@
 
 uint16_t get_tapping_term_result(uint16_t keycode) {
     switch (keycode) {
-        case CAP_NUM:
-        case BSP_MSE:
+        case BSP_NUM:
+        case DEL_MSE:
         case ESC_FUN:
         case ENT_MED:
         case ENT_HYP:
         case SPC_MEH:
+        case ESC_MEH:
         case ENT_NUM:
         case TAB_SYM:
         case BSP_MEH:
-        case SPC_SYM:
+        case SPC_MAC:
+        case TD_COPY:
+        case TD_PAST:
             return g_tapping_term + 40;
         case GUI_4:
         case SFT_5:
@@ -36,7 +39,7 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         case TD_QUOT:
         case TD_SSFL:
         case TD_SNIP:
-            return g_tapping_term + 100;
+        case FUN_Z:
         // case SFT_D:
         case CTL_D:
         case GUI_F:
@@ -70,21 +73,26 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
 
 bool get_tapping_force_hold_result(uint16_t keycode) {
     switch (keycode) {
-        case BSP_MSE:
-        case CAP_NUM:
+        case DEL_MSE:
+        case BSP_NUM:
         case ENT_MED:
         case ESC_FUN:
+        case FUN_Z:
         case ENT_HYP:
         case SPC_MEH:
         case BSP_MEH:
         case ENT_NUM:
-        case TAB_SYM:
+        case ESC_MEH:
+        // case TAB_SYM:
         case CTL_AT:
         case ALT_BSL:
         case SFT_MNS:
         case GUI_PIP:
         case SFT_BSP:
         case SPC_SYM:
+        case GUI_J:
+        case SFT_K:
+        case ALT_L:
             return false;
     }
     switch (keycode) {
@@ -99,9 +107,10 @@ bool get_tapping_force_hold_result(uint16_t keycode) {
 
 bool get_hold_on_other_key_press_result(uint16_t keycode) {
     switch (keycode) {
-        case CAP_NUM:
-        case BSP_MSE:
+        case BSP_NUM:
+        case DEL_MSE:
         case ESC_FUN:
+        case FUN_Z:
         case ENT_MED:
         case ENT_HYP:
         case ENT_NUM:

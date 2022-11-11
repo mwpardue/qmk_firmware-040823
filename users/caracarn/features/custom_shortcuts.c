@@ -4,7 +4,7 @@
 
 extern os_t os;
 
-uint16_t sft_tapping_term = TAPPING_TERM;
+uint16_t sft_tapping_term = 150;
 
 uint16_t get_sft_tapping_term(void) {
     return sft_tapping_term;
@@ -29,6 +29,7 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
                 }
             }
             return PROCESS_RECORD_RETURN_FALSE;
+
         case SS_MODM:
             if (record->event.pressed) {
                 if (should_send_ctrl(isWindowsOrLinux, isOneShotShift)) {
@@ -267,6 +268,50 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
                 return PROCESS_RECORD_RETURN_FALSE;
             }
 
+        case BSP_WRD:
+            if (record->event.pressed) {
+                smart_mods = get_mods();
+                unregister_mods(smart_mods);
+                register_mods(MOD_BIT(KC_LALT));
+                    if (smart_mods & MOD_MASK_SHIFT) {
+                        register_code(KC_DELETE);
+                    }
+                    else {
+                        register_code(KC_BACKSPACE);
+                    }
+                    return PROCESS_RECORD_RETURN_FALSE;
+            }
+            else {
+                unregister_mods(MOD_BIT(KC_LALT));
+                    if (smart_mods & MOD_MASK_SHIFT) {
+                        unregister_code(KC_DELETE);
+                    }
+                    else{
+                        unregister_code(KC_BACKSPACE);
+                    }
+                register_mods(smart_mods);
+                return PROCESS_RECORD_RETURN_FALSE;
+            }
+
+        case BSP_LIN:
+            if (record->event.pressed) {
+                if ((get_oneshot_mods() & MOD_MASK_SHIFT) || get_mods() & MOD_MASK_SHIFT) {
+                    smart_mods = get_mods();
+                    unregister_mods(smart_mods);
+                    tap_code16(G(KC_RIGHT));
+                    tap_code16(KC_BSPC);
+                    register_mods(smart_mods);
+                    return PROCESS_RECORD_RETURN_FALSE;
+                } else {
+                    smart_mods = get_mods();
+                    unregister_mods(smart_mods);
+                    tap_code16(G(KC_BSPC));
+                    register_mods(smart_mods);
+                    return PROCESS_RECORD_RETURN_FALSE;
+                }
+                return PROCESS_RECORD_RETURN_FALSE;
+            }
+
         case SFT_TTP:
             if (record->event.pressed) {
                 sft_tapping_term = sft_tapping_term + 5;
@@ -280,6 +325,55 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
                 dprintf("Shift Tapping Term = %d\n", sft_tapping_term);
                 return PROCESS_RECORD_RETURN_FALSE;
             }
+
+         case SS_LTE:
+            if (record->event.pressed) {
+                    SEND_STRING("<=");
+            return PROCESS_RECORD_RETURN_FALSE;
+            }
+
+         case SS_GTE:
+            if (record->event.pressed) {
+                    SEND_STRING("=>");
+            return PROCESS_RECORD_RETURN_FALSE;
+            }
+
+         case SS_EQE:
+            if (record->event.pressed) {
+                    SEND_STRING("==");
+            return PROCESS_RECORD_RETURN_FALSE;
+            }
+
+         case SS_PHO:
+            if (record->event.pressed) {
+                    SEND_STRING("<!--");
+            return PROCESS_RECORD_RETURN_FALSE;
+            }
+
+         case SS_PHC:
+            if (record->event.pressed) {
+                    SEND_STRING("-->");
+            return PROCESS_RECORD_RETURN_FALSE;
+            }
+
+         case SS_PCO:
+            if (record->event.pressed) {
+                    SEND_STRING("/*");
+            return PROCESS_RECORD_RETURN_FALSE;
+            }
+
+         case SS_PCC:
+            if (record->event.pressed) {
+                    SEND_STRING("*/");
+            return PROCESS_RECORD_RETURN_FALSE;
+            }
+
+         case SS_ARR:
+            if (record->event.pressed) {
+                    SEND_STRING("->");
+            return PROCESS_RECORD_RETURN_FALSE;
+            }
+
         return PROCESS_RECORD_RETURN_FALSE;
     }
     return PROCESS_RECORD_CONTINUE;
