@@ -43,6 +43,16 @@
 #define DEFAULT_DELIMITERS_TERMINATE_COUNT 2
 #endif
 
+#if CAPS_WORD_IDLE_TIMEOUT > 0
+  #if CAPS_WORD_IDLE_TIMEOUT < 100 || CAPS_WORD_IDLE_TIMEOUT > 30000
+    // Constrain timeout to a sensible range. With the 16-bit timer, the longest
+    // representable timeout is 32768 ms, rounded here to 30000 ms = half a minute.
+  #error "caps_word: CAPS_WORD_IDLE_TIMEOUT must be between 100 and 30000 ms"
+  #endif
+#endif
+
+uint16_t idle_timer = 0;
+
 #define IS_OSM(keycode) (keycode >= QK_ONE_SHOT_MOD && keycode <= QK_ONE_SHOT_MOD_MAX)
 
 // bool to keep track of the caps word state
@@ -65,6 +75,7 @@ bool caps_word_enabled(void) {
 // Enable caps word
 void enable_caps_word(void) {
     caps_word_on = true;
+    idle_timer = timer_read();
 #ifndef CAPSWORD_USE_SHIFT
     if (!host_keyboard_led_state().caps_lock) {
         tap_code(KC_CAPS);
@@ -92,6 +103,16 @@ void toggle_caps_word(void) {
     else {
         enable_caps_word();
     }
+}
+
+void caps_word_idle_timer(void) {
+  if (xcase_state != XCASE_ON && (timer_read() > idle_timer + CAPS_WORD_IDLE_TIMEOUT)) {
+    if (host_keyboard_led_state().caps_lock) {
+      tap_code(KC_CAPS);
+    } else if (caps_word_on) {
+      disable_caps_word();
+    }
+  }
 }
 
 // Get xcase state
@@ -150,7 +171,7 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
             case KC_MINS:
             case KC_UNDS:
             case KC_BSPC:
-            case BSP_NUM:
+            case ESC_NUM:
             case (XCASE & 0xff):
             case KC_UP:
             case KC_DOWN:
@@ -184,7 +205,7 @@ bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
     //      case KC_1 ... KC_0:
     //          return true;
     //      case (XCASE & 0xff):
-    //      case TAB_NUM:
+    //      case ESC_NUM:
     //      default:
     //         return false;
     //  }
@@ -194,7 +215,7 @@ bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
 
 // process_record_result_t process_case_modes(uint16_t keycode, keyrecord_t *record) {
 bool process_case_modes(uint16_t keycode, const keyrecord_t *record) {
-    if (caps_word_on || xcase_state) {
+    if (caps_word_on || xcase_state || host_keyboard_led_state().caps_lock) {
         if ((QK_MOD_TAP <= keycode && keycode <= QK_MOD_TAP_MAX)
             || (QK_LAYER_TAP <= keycode && keycode <= QK_LAYER_TAP_MAX)) {
             // Earlier return if this has not been considered tapped yet
@@ -291,6 +312,10 @@ bool process_case_modes(uint16_t keycode, const keyrecord_t *record) {
             if (terminate_case_modes(keycode, record)) {
                 disable_caps_word();
                 disable_xcase();
+            } 
+          
+            if (caps_word_on || host_keyboard_led_state().caps_lock) {
+              idle_timer = timer_read();
             }
 
 #ifdef CAPSWORD_USE_SHIFT

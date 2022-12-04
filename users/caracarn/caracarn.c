@@ -17,20 +17,9 @@ void keyboard_pre_init_user(void) {
 }
 
 void                       keyboard_post_init_user(void) {
-    // oled_clear();
-    // user_config.raw = eeconfig_read_user();
-    // user_config.rgb_matrix_heatmap_area = eeconfig_read_user();
-    // user_config.rgb_matrix_heatmap_spread = eeconfig_read_user();
-    // user_config.raw              = 0;
-    // user_config.rgb_matrix_ledmap_active = false;
-    // user_config.rgb_matrix_heatmap_area = 16;
-    // user_config.rgb_matrix_heatmap_spread = 40;
-    // eeconfig_update_user(user_config.raw);
-    // test_var = test_var + 1;
 #if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
     keyboard_post_init_transport_sync();
 #endif
-    // keyboard_post_init_keymap();
 }
 
 __attribute__((weak)) void eeconfig_init_keymap(void) {}
@@ -73,6 +62,10 @@ void matrix_scan_user(void) {
     check_disable_capslock();
 #endif
 
+#ifdef CASEMODE_ENABLE
+  caps_word_idle_timer();
+#endif
+
 #if LAYER_LOCK_IDLE_TIMEOUT > 0
     layer_lock_task();
 #endif
@@ -85,9 +78,6 @@ void matrix_scan_user(void) {
     check_oneshot_mods_timeout();
 #endif
 
-#ifdef LEADER_ENABLE
-    process_leader_dictionary();
-#endif
     matrix_scan_keymap();
 }
 
@@ -119,8 +109,8 @@ void matrix_scan_user(void) {
   uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
    switch (tap_hold_keycode) {
      case XCS_SFT:
-     case BSP_NUM:
-     case DEL_MSE:
+     case ESC_NUM:
+     case BSP_MSE:
      case SPCSFT:
      case ENT_FUN:
      case SYM_LL:
@@ -130,12 +120,13 @@ void matrix_scan_user(void) {
      case ENT_HYP:
      case SPC_MEH:
      case SPC_MAC:
-     case ESC_MEH:
+     case DEL_MEH:
      case ENT_NUM:
      case BSP_MEH:
      case KC0_MEH:
      case SPC_SYM:
      case CAP_FUN:
+     case ALT_BSL:
     //  case CTL_AT:
        return 0;  // Bypass Achordion for these keys.
        dprintf("Bypassing achordion for timeout\n");
@@ -157,7 +148,7 @@ bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
          case (XCASE & 0xff):
          case XCASE:
          case TAB_SYM:
-         case DEL_MSE:
+         case BSP_MSE:
          default:
             return false;
      }
@@ -166,6 +157,18 @@ bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef CUSTOM_LEADER_ENABLE
+//   switch (process_custom_leader(keycode, record)) {
+//         case PROCESS_RECORD_RETURN_TRUE:
+//             return true;
+//         case PROCESS_RECORD_RETURN_FALSE:
+//             return false;
+//         default:
+//             break;
+//     };
+  if (!process_leader(keycode, record)) { return false; }
+#endif
+
 #ifdef ACHORDION_ENABLE
     if (!process_achordion(keycode, record)) { return false; }
 #endif
@@ -177,6 +180,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef LAYER_LOCK_ENABLE
       if (!process_layer_lock(keycode, record, LLOCK)) { return false; }
     #endif
+
 
 // #ifdef CASEMODE_ENABLE
 //     // Process case modes
@@ -330,6 +334,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         default:
             break;
     };
+#endif
+
+#ifdef EOS_ENABLE
+    process_eos(keycode, record);
 #endif
 
 #ifdef DEFAULT_MOD_ENABLE

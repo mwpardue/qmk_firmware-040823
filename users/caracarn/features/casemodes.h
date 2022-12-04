@@ -26,6 +26,8 @@ void enable_caps_word(void);
 void disable_caps_word(void);
 // Toggle caps word
 void toggle_caps_word(void);
+// Caps Word Idle Timer
+void caps_word_idle_timer(void);
 
 // enum for the xcase states
 enum xcase_state {

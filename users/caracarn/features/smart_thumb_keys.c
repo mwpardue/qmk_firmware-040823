@@ -10,6 +10,7 @@ extern os_t           os;
 uint8_t smart_mods = 0;
 extern enum xcase_state xcase_state;
 extern bool caps_word_on;
+extern uint16_t idle_timer;
 
 bool should_send_ctrl(bool isWindowsOrLinux, bool isOneShotShift) {
     return (isWindowsOrLinux && !isOneShotShift) || (!isWindowsOrLinux && isOneShotShift);
@@ -60,6 +61,7 @@ process_record_result_t process_smart_thumb_keys(uint16_t keycode, keyrecord_t *
                       if (caps_word_on) {
                         disable_caps_word();
                         tap_code(KC_CAPS);
+                        idle_timer = timer_read();
                       }
                       else if (host_keyboard_led_state().caps_lock) {
                         disable_caps_word();

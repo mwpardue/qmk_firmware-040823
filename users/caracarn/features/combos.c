@@ -8,10 +8,10 @@ const uint16_t PROGMEM sleep_combo[] = {TAB_SYM, KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM playpause_combo[] = {TAB_SYM, ALT_S, SFT_D, COMBO_END};
 const uint16_t PROGMEM previous_combo[] = {TAB_SYM, CTL_A, ALT_S, COMBO_END};
 const uint16_t PROGMEM next_combo[] = {TAB_SYM, SFT_D, GUI_F, COMBO_END};
-const uint16_t PROGMEM login_combo[] = {DEL_MSE, KC_O, KC_P, COMBO_END};
-const uint16_t PROGMEM copy_combo[] = {BSP_NUM, KC_X, KC_C, COMBO_END};
-const uint16_t PROGMEM cut_combo[] = {BSP_NUM, KC_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM paste_combo[] = {BSP_NUM, KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM login_combo[] = {BSP_MSE, KC_O, KC_P, COMBO_END};
+const uint16_t PROGMEM copy_combo[] = {ESC_NUM, KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM cut_combo[] = {ESC_NUM, KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM paste_combo[] = {ESC_NUM, KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM pasteplain_combo[] = {TAB_SYM, KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM function_combo[] = {KC_DOT, KC_SLSH, COMBO_END};
 
@@ -78,37 +78,6 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
                     return PROCESS_RECORD_RETURN_FALSE;
             }
             break;
-
-        // case CB_NWTB:
-        //     if (record->event.pressed) {
-        //         clear_locked_and_oneshot_mods();
-        //         if (should_send_ctrl(isWindowsOrLinux, isOneShotShift)) {
-        //             SEND_STRING(SS_LCTL("t"));
-        //             return PROCESS_RECORD_RETURN_FALSE;
-        //         }
-        //     }
-        //     break;
-
-        // case CB_OPTB:
-        //     if (record->event.pressed) {
-        //         clear_locked_and_oneshot_mods();
-        //         if (should_send_ctrl(isWindowsOrLinux, isOneShotShift)) {
-        //             SEND_STRING(SS_LCTL(SS_LSFT("t")));
-        //             return PROCESS_RECORD_RETURN_FALSE;
-        //         }
-        //     }
-        //     break;
-
-        // case CB_NCGN:
-        //     if (record->event.pressed) {
-        //         clear_locked_and_oneshot_mods();
-        //         if (should_send_ctrl(isWindowsOrLinux, isOneShotShift)) {
-        //             SEND_STRING(SS_LCTL(SS_LSFT("n")));
-        //             return PROCESS_RECORD_RETURN_FALSE;
-        //         }
-        //     }
-        //     break;
-
         }
 
     return PROCESS_RECORD_CONTINUE;

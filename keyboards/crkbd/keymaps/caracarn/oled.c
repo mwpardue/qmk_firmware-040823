@@ -270,6 +270,8 @@ void render_smart_case(void) {
                 oled_write_P(PSTR("CPSWD"), false);
             } else if (host_keyboard_led_state().caps_lock) {
                 oled_write_P(PSTR("CPSLK"), false);
+            } else if (is_leading()) {
+                oled_write_P(PSTR("LDR"), false);
         #endif
             } else {
                 oled_write_P(PSTR("     "), false);

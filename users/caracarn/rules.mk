@@ -97,12 +97,6 @@ ifeq ($(strip $(COMBO_ENABLE)), yes)
     OPT_DEFS += -DCOMBO_ENABLE
 endif
 
-LEADER_ENABLE ?= no
-ifeq ($(strip $(LEADER_ENABLE)), yes)
-    SRC += $(USER_PATH)/features/leader.c
-    OPT_DEFS += -DLEADER_ENABLE
-endif
-
 SELECT_WORD_ENABLE ?= no
 ifeq ($(strip $(SELECT_WORD_ENABLE)), yes)
     SRC += $(USER_PATH)/features/select_word.c
@@ -113,6 +107,12 @@ WINDOW_SWAPPER_ENABLE ?= no
 ifeq ($(strip $(WINDOW_SWAPPER_ENABLE)), yes)
     SRC += $(USER_PATH)/features/window_swapper.c
     OPT_DEFS += -DWINDOW_SWAPPER_ENABLE
+endif
+
+CUSTOM_LEADER_ENABLE ?= no
+ifeq ($(strip $(CUSTOM_LEADER_ENABLE)), yes)
+    SRC += $(USER_PATH)/features/leader.c
+    OPT_DEFS += -DCUSTOM_LEADER_ENABLE
 endif
 
 SHORTCUTS_ENABLE ?= no
@@ -143,6 +143,12 @@ RGB_MATRIX_LEDMAPS ?= no
 ifeq ($(strip $(RGB_MATRIX_LEDMAPS)), yes)
 	SRC += $(USER_PATH)/features/rgb_matrix_ledmaps.c
 	OPT_DEFS += -DRGB_MATRIX_LEDMAPS_ENABLED
+endif
+
+EOS_ENABLE?= no
+ifeq ($(strip $(EOS_ENABLE)), yes)
+	SRC += $(USER_PATH)/features/eos_util.c
+	OPT_DEFS += -DEOS_ENABLE
 endif
 
 CUSTOM_SPLIT_TRANSPORT_SYNC ?= yes

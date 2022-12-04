@@ -61,7 +61,7 @@ void housekeeping_task_transport_sync(void);
     #include "features/combos.h"
 #endif
 
-#ifdef LEADER_ENABLE
+#ifdef CUSTOM_LEADER_ENABLE
     #include "features/leader.h"
 #endif
 
@@ -99,6 +99,10 @@ void housekeeping_task_transport_sync(void);
 
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED
     #include "features/rgb_matrix_ledmaps.h"
+#endif
+
+#ifdef EOS_ENABLE
+  #include "features/eos_util.h"
 #endif
 
 void matrix_scan_keymap(void);

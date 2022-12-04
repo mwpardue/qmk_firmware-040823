@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 
 #include "custom_shortcuts.h"
+#include "definitions/keycodes.h"
 
 extern os_t os;
 
@@ -9,6 +10,10 @@ uint16_t sft_tapping_term = 150;
 uint16_t get_sft_tapping_term(void) {
     return sft_tapping_term;
 }
+
+#ifdef CUSTOM_LEADER_ENABLE
+  #include "leader.h"
+#endif
 
 process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *record) {
 
@@ -90,6 +95,20 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
             return PROCESS_RECORD_RETURN_FALSE;
     #endif
 
+        case LCTL_T(KC_AT):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_AT);
+                return PROCESS_RECORD_RETURN_FALSE;
+            }
+            return PROCESS_RECORD_RETURN_TRUE;
+
+        case LGUI_T(KC_PIPE):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_PIPE);
+                return PROCESS_RECORD_RETURN_FALSE;
+            }
+            return PROCESS_RECORD_RETURN_TRUE;
+
         case LGUI_T(KC_VOLD):
             if (record->tap.count && record->event.pressed) {
                 tap_code16(KC_VOLD);
@@ -118,6 +137,50 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
             }
             return PROCESS_RECORD_RETURN_TRUE;
 
+        case LCTL_T(BROWSER_BACK):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(G(KC_LEFT));
+                return PROCESS_RECORD_RETURN_FALSE;
+            }
+            return PROCESS_RECORD_RETURN_TRUE;
+
+        case LGUI_T(TAB_FORWARD):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(C(KC_TAB));
+                return PROCESS_RECORD_RETURN_FALSE;
+            }
+            return PROCESS_RECORD_RETURN_TRUE;
+
+        case LALT_T(BROWSER_FORWARD):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(G(KC_RIGHT));
+                return PROCESS_RECORD_RETURN_FALSE;
+            }
+            return PROCESS_RECORD_RETURN_TRUE;
+
+        case LSFT_T(TAB_BACK):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(C(S(KC_TAB)));
+                return PROCESS_RECORD_RETURN_FALSE;
+            }
+            return PROCESS_RECORD_RETURN_TRUE;
+
+        case TMX_LDS:
+            if (record->event.pressed) {
+                tap_code16(C(KC_SPACE));
+                wait_ms(250);
+                tap_code16(KC_S);
+                return PROCESS_RECORD_RETURN_FALSE;
+            }
+            return PROCESS_RECORD_RETURN_TRUE;
+
+       case LEADER:
+            if (record->event.pressed) {
+                dprintln("calling start_leading from LEADER");
+                start_leading();
+                return PROCESS_RECORD_RETURN_FALSE;
+            }
+            return PROCESS_RECORD_RETURN_TRUE;
         // case LALT_T(KC_MPRV):
         //     if (record->tap.count && record->event.pressed) {
         //         tap_code16(KC_MPRV);
@@ -326,51 +389,18 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
                 return PROCESS_RECORD_RETURN_FALSE;
             }
 
-         case SS_LTE:
+         case T_CLOSE:
             if (record->event.pressed) {
-                    SEND_STRING("<=");
+              tap_code16(C(KC_SPACE));
+              tap_code16(KC_X);
+              wait_ms(500);
+              tap_code16(KC_Y);
             return PROCESS_RECORD_RETURN_FALSE;
             }
 
-         case SS_GTE:
+         case S_ARRNG:
             if (record->event.pressed) {
-                    SEND_STRING("=>");
-            return PROCESS_RECORD_RETURN_FALSE;
-            }
-
-         case SS_EQE:
-            if (record->event.pressed) {
-                    SEND_STRING("==");
-            return PROCESS_RECORD_RETURN_FALSE;
-            }
-
-         case SS_PHO:
-            if (record->event.pressed) {
-                    SEND_STRING("<!--");
-            return PROCESS_RECORD_RETURN_FALSE;
-            }
-
-         case SS_PHC:
-            if (record->event.pressed) {
-                    SEND_STRING("-->");
-            return PROCESS_RECORD_RETURN_FALSE;
-            }
-
-         case SS_PCO:
-            if (record->event.pressed) {
-                    SEND_STRING("/*");
-            return PROCESS_RECORD_RETURN_FALSE;
-            }
-
-         case SS_PCC:
-            if (record->event.pressed) {
-                    SEND_STRING("*/");
-            return PROCESS_RECORD_RETURN_FALSE;
-            }
-
-         case SS_ARR:
-            if (record->event.pressed) {
-                    SEND_STRING("->");
+              tap_code16(C(A(G(S(KC_RBRC)))));
             return PROCESS_RECORD_RETURN_FALSE;
             }
 

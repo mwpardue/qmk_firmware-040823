@@ -12,6 +12,10 @@
     #define CAPS_WORD_IDLE_TIMEOUT 2000
 #endif
 
+#ifdef CASEMODE_ENABLE
+  #define CAPS_WORD_IDLE_TIMEOUT 2000
+#endif
+
 #ifdef TAPHOLD_ENABLE
     #define IGNORE_MOD_TAP_INTERRUPT
     #define TAPPING_TERM_PER_KEY
@@ -31,10 +35,11 @@
 #endif
 
 // Configure leader key
-#ifdef LEADER_ENABLE
-    #define LEADER_TIMEOUT 1000
-    #define LEADER_PER_KEY_TIMING
-    #define LEADER_NO_TIMEOUT
+#ifdef CUSTOM_LEADER_ENABLE
+    // #define LEADER_TIMEOUT 1000
+    // #define LEADER_PER_KEY_TIMING
+    // #define LEADER_NO_TIMEOUT
+    #define LEADER_DISPLAY_STR
 #endif
 
 // Configure combos
