@@ -154,7 +154,7 @@ void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_t
                         RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
                     }
                 } else {
-                    if ((get_highest_layer(layer_state | default_layer_state)) != _BASE && (get_highest_layer(layer_state | default_layer_state)) != _ADJUST ) {
+                    if ((get_highest_layer(layer_state | default_layer_state)) != _BASE && (get_highest_layer(layer_state | default_layer_state)) != _ADJUST && (get_highest_layer(layer_state | default_layer_state)) != _COLEMAK_DH ) {
                         if (HAS_ANY_FLAGS(g_led_config.flags[i], led_type)) {
                             RGB_MATRIX_INDICATOR_SET_COLOR(i, 0, 0, 0);
                             }
@@ -180,10 +180,30 @@ void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_t
                     rgb_matrix_set_custom_indicators(led_min, led_max, LED_FLAG_KEYLIGHT, HSV_RED);
         }
         #endif
-            if ((get_mods()|get_oneshot_mods()) & MOD_MASK_SHIFT) {
+          bool isHyper = get_mods() & (MOD_BIT(KC_LCTL) && get_mods() & MOD_BIT(KC_LSFT) && get_mods() & MOD_BIT(KC_LALT) && get_mods() & MOD_BIT(KC_LGUI));
+          bool isOneShotHyper = get_oneshot_mods() & (MOD_BIT(KC_LCTL) && get_oneshot_mods() & MOD_BIT(KC_LSFT) && get_oneshot_mods() & MOD_BIT(KC_LALT) && get_oneshot_mods() & MOD_BIT(KC_LGUI));
+          bool isMeh = get_mods() & (MOD_BIT(KC_LCTL) && get_mods() & MOD_BIT(KC_LSFT) && get_mods() & MOD_BIT(KC_LALT));
+          bool isOneShotMeh = get_oneshot_mods() & (MOD_BIT(KC_LCTL) && get_oneshot_mods() & MOD_BIT(KC_LSFT) && get_oneshot_mods() & MOD_BIT(KC_LALT));
+
+            if (isHyper||isOneShotHyper) {
+                rgb_matrix_set_color(6, RGB_BLUE);
+                rgb_matrix_set_color(33, RGB_BLUE);
+            } else if (isMeh||isOneShotMeh) {
+                rgb_matrix_set_color(6, RGB_YELLOW);
+                rgb_matrix_set_color(33, RGB_YELLOW);
+            } else if ((get_mods()|get_oneshot_mods()) & MOD_MASK_SHIFT) {
                 rgb_matrix_set_color(6, RGB_RED);
                 rgb_matrix_set_color(33, RGB_RED);
-                }
+            } else if ((get_mods()|get_oneshot_mods()) & MOD_MASK_GUI) {
+                rgb_matrix_set_color(6, RGB_GREEN);
+                rgb_matrix_set_color(33, RGB_GREEN);
+            } else if ((get_mods()|get_oneshot_mods()) & MOD_MASK_ALT) {
+                rgb_matrix_set_color(6, RGB_ORANGE);
+                rgb_matrix_set_color(33, RGB_ORANGE);
+            } else if ((get_mods()|get_oneshot_mods()) & MOD_MASK_CTRL) {
+                rgb_matrix_set_color(6, RGB_TURQUOISE);
+                rgb_matrix_set_color(33, RGB_TURQUOISE);
+            }
         }
     }
 }

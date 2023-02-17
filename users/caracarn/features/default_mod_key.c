@@ -36,7 +36,7 @@ process_record_result_t process_default_mod_key(uint16_t keycode, keyrecord_t *r
 
     switch (keycode) {
 
-        case MOD_CTL:
+        case MOD_SFT:
             if (record->tap.count > 0) {
                 if (record->event.pressed) {
                     if (isAnyOneShotButShift || isOneShotLockedShift) {
@@ -54,7 +54,7 @@ process_record_result_t process_default_mod_key(uint16_t keycode, keyrecord_t *r
                 }
                 return PROCESS_RECORD_RETURN_FALSE;
             }
-            return PROCESS_RECORD_RETURN_TRUE;
+            return PROCESS_RECORD_CONTINUE;
 
     }
 

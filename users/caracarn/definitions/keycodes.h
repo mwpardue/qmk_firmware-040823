@@ -43,7 +43,7 @@ enum {
 #endif
 
 #ifdef SMART_THUMB_KEYS_ENABLE
-    CAP_KEY, SP_CAP, SP_MOD, DEF_MOD, XCASE,
+    CAP_KEY, SP_CAP, SP_MOD, DEF_MOD, XCASE, TS_CAP, SP_PST,
 #endif
 
 #ifdef SMART_CASE_ENABLE
@@ -52,8 +52,10 @@ enum {
 
 #ifdef SHORTCUTS_ENABLE
     SS_MODP, SS_MODM, COLEMAK, QWERTY, TG_KBAB, TG_CAML, TG_SNAK, SM_PARN,
-    SM_BRAC, SM_ANGB, SM_CURB, SFT_TTP, SFT_TTM, BSP_WRD, BSP_LIN, T_CLOSE, S_ARRNG,
-    BROWSER_BACK, BROWSER_FORWARD, TAB_BACK, TAB_FORWARD, TMX_LDS,
+    SFT_TTP, SFT_TTM, BSP_WRD, BSP_LIN, T_CLOSE, SP_RGT,
+    S_ARRNG, BROWSER_BACK, BROWSER_FORWARD, TAB_BACK, TAB_FORWARD, TMX_LDS,
+    PASSPAL, TMX_VIS, NAV_LFT, NAV_RGT, SEL_WRD, SEL_LIN, VIM_TRE, TMX_VSP,
+    TMX_HSP, MDT_TTP, MDT_TTM, ACH_TTM, ACH_TTP,
 #endif
 
 #ifdef SELECT_WORD_ENABLE
@@ -61,7 +63,7 @@ enum {
 #endif
 
 #ifdef WINDOW_SWAPPER_ENABLE
-    MC_SWLE, MC_SWRI, MC_SWAP,
+    MC_SWLE, MC_SWRI, MC_SWAP, MC_MODM, MC_MODP, SF_MODP,
 #endif
 
 #ifdef COMBO_ENABLE
@@ -84,136 +86,110 @@ enum {
 };
 
 // Mod-taps
+#define CTL_A LCTL_T(KC_A)
+#define CTL_S LCTL_T(KC_S)
+#define ALT_V LALT_T(KC_V)
+#define ALT_S LALT_T(KC_S)
+#define SFT_D LSFT_T(KC_D)
+#define GUI_F LGUI_T(KC_F)
+#define CTL_QUO RCTL_T(KC_QUOT)
+#define CTL_L RCTL_T(KC_L)
+#define ALT_M RALT_T(KC_M)
+#define ALT_L RALT_T(KC_L)
+#define SFT_K RSFT_T(KC_K)
+#define GUI_J RGUI_T(KC_J)
+#define OPT_PST LALT_T(SP_PST)
+#define ALT_RGT LALT_T(SP_RGT)
 
 // One-shot mods
 
 #define OSMLSFT OSM(MOD_LSFT)
+#define OSMRSFT OSM(MOD_RSFT)
 #define OSMLCTL OSM(MOD_LCTL)
 #define OSMLALT OSM(MOD_LALT)
 #define OSMRALT OSM(MOD_RALT)
 #define OSMLGUI OSM(MOD_LGUI)
+#define OSMRGUI OSM(MOD_RGUI)
 #define OSMRCTL OSM(MOD_RCTL)
-
-// Left-hand home row mods
-#define SFT_D LSFT_T(KC_D)
-#define ALT_D LALT_T(KC_D)
-#define ALT_S LALT_T(KC_S)
-#define CTL_F LCTL_T(KC_F)
-#define CTL_A LCTL_T(KC_A)
-#define CTL_CA LCTL_T(KC_A)
-#define ALT_CR LALT_T(KC_R)
-#define SFT_CS LSFT_T(KC_S)
-#define GUI_CT LGUI_T(KC_T)
-#define CTL_S LCTL_T(KC_S)
-#define CTL_D LCTL_T(KC_D)
-#define GUI_F LGUI_T(KC_F)
-#define ALT_BSL LALT_T(KC_BSLS)
-#define GUI_PIP LGUI_T(KC_PIPE)
-// #define ALT_BRC LALT_T(SM_BRAC)
-#define CTL_AT LCTL_T(KC_AT)
-#define SFT_MNS LSFT_T(KC_MINS)
-
-// // Right-hand home row mods
-#define CTL_J RCTL_T(KC_J)
-#define ALT_K RALT_T(KC_K)
-#define SFT_K RSFT_T(KC_K)
-#define CTL_QUO RCTL_T(KC_QUOT)
-#define CTL_CO RCTL_T(KC_O)
-#define ALT_CI RALT_T(KC_I)
-#define SFT_CE RSFT_T(KC_E)
-#define GUI_CN RGUI_T(KC_N)
-#define ALT_L RALT_T(KC_L)
-#define CTL_K RCTL_T(KC_K)
-#define GUI_J RGUI_T(KC_J)
-#define GUI_4 RGUI_T(KC_4)
-#define ALT_5 RALT_T(KC_5)
-#define SFT_5 RSFT_T(KC_5)
-#define ALT_6 RALT_T(KC_6)
-#define ALT_4 RALT_T(KC_4)
-#define ALT_1 RALT_T(KC_1)
-#define CTL_PLS RCTL_T(KC_PLUS)
-#define CTL_SCL RCTL_T(KC_SCLN)
+#define OSMHYPR OSM(MOD_HYPR)
+#define OSMMEH  OSM(MOD_MEH)
 
 // Layer-taps
 
-#define MOD_KEY LGUI_T(SP_MOD)
-#define MOD_CTL LCTL_T(SP_MOD)
-#define SPC_SYM LT(_SYMBOL, KC_SPC)
+#define MOD_KEY LSFT_T(SP_MOD)
+#define MOD_SFT LSFT_T(SP_MOD)
 #define BSP_SYM LT(_SYMBOL, KC_BSPC)
-#define BSP_MSE LT(_MOUSE, KC_BSPC)
-#define ESC_MAC LT(_MACROS, KC_ESC)
 #define SPC_MAC LT(_MACROS, KC_SPACE)
-#define ESC_NUM LT(_NUMPAD, KC_ESC)
-#define ENT_FUN LT(_FUNCTION, KC_ENT)
-#define ENT_MED LT(_MEDIA, KC_ENT)
-#define ENT_SYM LT(_SYMBOL, KC_ENT)
-#define ENT_NUM LT(_NUMPAD, KC_ENT)
-#define KC0_MEH MEH_T(KC_0)
-#define SYM_LL LT(_SYMBOL, LLOCK)
-#define XCS_SFT LSFT_T(XCASE)
-#define CAP_FUN LT(_FUNCTION, SP_CAP)
-#define CAP_MSE LT(_MOUSE, SP_CAP)
-#define TAB_SYM LT(_SYMBOL, KC_TAB)
-#define ESC_FUN LT(_FUNCTION, KC_ESC)
-#define FUN_Z LT(_FUNCTION, KC_Z)
-#define SPC_MEH MEH_T(KC_SPACE)
-#define DEL_MEH MEH_T(KC_DEL)
-#define BSP_MEH MEH_T(KC_BACKSPACE)
+#define SFT_NUM LT(_NUMPAD, SP_CAP)
+#define SFT_FUN LT(_FUNCTION, SP_CAP)
+#define TAB_NAV LT(_NAVIGATION, KC_TAB)
+#define TAB_SFT LSFT_T(KC_TAB)
+#define FUN_XCS LT(_FUNCTION, XCASE)
+#define ESC_CTL LCTL_T(KC_ESC)
 #define ENT_HYP HYPR_T(KC_ENT)
+#define ENT_MEH MEH_T(KC_ENT)
+#define ENT_SYM LT(_SYMBOL, KC_ENT)
+#define SPC_HYP HYPR_T(KC_SPACE)
 #define MC_SWAP LGUI(KC_GRV)
 
 // Layer transitions
 
 #define MOFUN MO(_FUNCTION)
 #define TOBAS TO(_BASE)
-#define TONUM TO(_NUMPAD)
+#define TONAV TO(_NAVIGATION)
 #define TOSYM TO(_SYMBOL)
 #define TOMAC TO(_MACROS)
 #define TOHEX TO(_HEX)
 #define TOFUN TO(_FUNCTION)
 #define TOADJ TO(_ADJUST)
 #define TOCMK TO(_COLEMAK_DH)
-// #define TONAV TO(_NAVIGATION)
 #define OSL_MAC OSL(_MACROS)
 
 // Custom Shortcuts
 
 #define SS3 LGUI(LSFT(KC_3))
 #define SS4 LGUI(LSFT(KC_4))
-#define LCTLC LCTL(KC_C)
 #define SELALL LGUI(KC_A)
 #define CUT LGUI(KC_X)
 #define COPY LGUI(KC_C)
-#define PASTE LGUI(KC_V)
+// #define PASTE LGUI(KC_V)
 #define SAVE LGUI(KC_S)
-#define FIND LGUI(KC_F)
-// #define PRVTAB LCTL(LSFT(KC_TAB))
-// #define NXTTAB LCTL(KC_TAB)
-// #define BRBACK LGUI(KC_LEFT)
-// #define BRFWD LGUI(KC_RIGHT)
-#define ZOOMIN LGUI(KC_PPLS)
-#define ZOOMOUT LGUI(KC_PMNS)
+#define UNDO LGUI(KC_Z)
+#define ESC_MEH MEH_T(KC_ESC)
 #define ESC_CTL LCTL_T(KC_ESC)
-#define GUI_ENT LGUI_T(KC_ENT)
-#define HOME LGUI(KC_UP)
-#define END LGUI(KC_DOWN)
-#define WORD_LE LALT(KC_LEFT)
-#define WORD_RI LALT(KC_RIGHT)
-#define TMUX_LD LCTL(KC_SPACE)
-#define BEG_LIN LGUI(KC_LEFT)
-#define END_LIN LGUI(KC_RIGHT)
+#define SPC_CTL LCTL_T(KC_SPACE)
+#define ENT_MAC LT(_MACROS, KC_ENT)
+#define BSP_SYM LT(_SYMBOL, KC_BSPC)
+#define DEL_SFT LSFT_T(KC_DEL)
+#define DEL_NUM LT(_NUMPAD, KC_DEL)
+#define BSP_CTL LCTL_T(KC_BSPC)
+#define ESC_NUM LT(_NUMPAD, KC_ESC)
+#define ESC_NAV LT(_NAVIGATION, KC_ESC)
+#define SPC_SYM LT(_SYMBOL, KC_SPACE)
 #define SPCSFT LSFT_T(KC_SPC)
-#define DOTSFT LSFT_T(KC_DOT)
 #define MACSLEP LSFT(LCTL(KC_POWER))
-#define GUI_VD LGUI_T(KC_VOLD)
-#define SFT_MUT LSFT_T(KC_MUTE)
-#define ALT_VU ALT_T(KC_VOLU)
-#define ALT_PRV LALT_T(KC_MPRV)
-#define SFT_BSP LSFT_T(KC_BSPC)
-#define CTL_BRB LCTL_T(BROWSER_BACK)
-#define GUI_TFW LGUI_T(TAB_FORWARD)
-#define ALT_BRF LALT_T(BROWSER_FORWARD)
-#define SFT_TBK LSFT_T(TAB_BACK)
+#define MON_L LCTL(LALT(LSFT(KC_4)))
+#define MON_M LCTL(LALT(LSFT(KC_5)))
+#define MON_R LCTL(LALT(LSFT(KC_6)))
+#define MON_BL LCTL(LALT(LSFT(KC_1)))
+#define MAX_SCR LGUI(LCTL(LALT(LSFT(KC_M))))
+#define MOV_LFT LCTL(KC_LEFT)
+#define MOV_RGT LCTL(KC_RIGHT)
+#define TAB_LFT LCTL(LSFT(KC_TAB))
+#define TAB_RGT LCTL(KC_TAB)
+#define BRWS_FW LGUI(KC_RBRC)
+#define BRWS_BK LGUI(KC_LBRC)
+#define KM_HYPC LGUI(LCTL(LALT(LSFT(KC_C))))
+#define GUI_KW LGUI(KC_W)
+#define GUI_KR LGUI(KC_R)
+#define GUI_KT LGUI(KC_T)
+#define WD_LEFT LALT(KC_LEFT)
+#define WD_RGHT LALT(KC_RIGHT)
+#define LN_LEFT LGUI(KC_LEFT)
+#define LN_RGHT LGUI(KC_RIGHT)
+#define PG_UP LGUI(KC_UP)
+#define PG_DOWN LGUI(KC_DOWN)
+#define CAD LCTL(LALT(KC_DEL))
 
 uint16_t extract_base_tapping_keycode(uint16_t keycode);
 

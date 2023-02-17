@@ -91,8 +91,8 @@ void matrix_scan_user(void) {
   switch (tap_hold_keycode) {
     case GUI_F: //F   + W, Q
       if (other_keycode == KC_W || other_keycode == KC_Q) {return true;}
-    case SFT_5: //Shift + XCS_SFT
-      if (other_keycode == XCASE || other_keycode == XCS_SFT || other_keycode == (XCASE & 0xff)) {return true;}
+    // case SFT_5: //Shift + XCS_SFT
+    //   if (other_keycode == XCASE || other_keycode == XCS_SFT || other_keycode == (XCASE & 0xff)) {return true;}
       break;
   }
 
@@ -108,32 +108,25 @@ void matrix_scan_user(void) {
 
   uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
    switch (tap_hold_keycode) {
-     case XCS_SFT:
-     case ESC_NUM:
-     case BSP_MSE:
+     case FUN_XCS:
+     case ESC_CTL:
+     case ESC_MEH:
+     case BSP_SYM:
      case SPCSFT:
-     case ENT_FUN:
-     case SYM_LL:
-     case TAB_SYM:
-     case ESC_FUN:
-     case ENT_MED:
+     case TAB_NAV:
+     case ENT_MEH:
      case ENT_HYP:
-     case SPC_MEH:
+     case SPC_HYP:
+     case SFT_NUM:
      case SPC_MAC:
-     case DEL_MEH:
-     case ENT_NUM:
-     case BSP_MEH:
-     case KC0_MEH:
+     case SFT_FUN:
      case SPC_SYM:
-     case CAP_FUN:
-     case ALT_BSL:
-    //  case CTL_AT:
        return 0;  // Bypass Achordion for these keys.
-       dprintf("Bypassing achordion for timeout\n");
+       dprintln("Bypassing achordion for timeout");
    }
 
-   return 800;  // Otherwise use a timeout of 800 ms.
-   dprintf("Using achordion 800ms timeout\n");
+   return get_achordion_tapping_term();  // Otherwise use a timeout of 800 ms.
+   dprintln("Using achordion 800ms timeout");
  }
 #endif
 
@@ -147,8 +140,8 @@ bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
              return true;
          case (XCASE & 0xff):
          case XCASE:
-         case TAB_SYM:
-         case BSP_MSE:
+         case TAB_NAV:
+         case BSP_SYM:
          default:
             return false;
      }
@@ -187,6 +180,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //     if (!process_case_modes(keycode, record)) { return false; }
 // #endif
 
+#ifdef SMART_THUMB_KEYS_ENABLE
+  // Process smart thumb keys
+  switch (process_smart_thumb_keys(keycode, record)) {
+    case PROCESS_RECORD_RETURN_TRUE:
+      return true;
+    case PROCESS_RECORD_RETURN_FALSE:
+      return false;
+    default:
+      break;
+  };
+#endif
+
 #ifdef SMART_CASE_ENABLE
         // Process smart case
     switch (process_smart_case(keycode, record)) {
@@ -210,18 +215,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //             break;
 //     };
 // #endif
-
-#ifdef SMART_THUMB_KEYS_ENABLE
-        // Process smart thumb keys
-    switch (process_smart_thumb_keys(keycode, record)) {
-        case PROCESS_RECORD_RETURN_TRUE:
-            return true;
-        case PROCESS_RECORD_RETURN_FALSE:
-            return false;
-        default:
-            break;
-    };
-#endif
 
 #ifdef CASEMODE_ENABLE
     // Process case modes

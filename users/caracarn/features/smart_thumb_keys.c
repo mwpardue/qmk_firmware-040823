@@ -29,7 +29,7 @@ process_record_result_t process_smart_thumb_keys(uint16_t keycode, keyrecord_t *
 
 
     switch (keycode) {
-        case XCS_SFT:
+        case FUN_XCS:
             if (record->tap.count > 0) {
                 if (record->event.pressed) {
                     if (xcase_state == XCASE_WAIT && host_keyboard_led_state().caps_lock) {
@@ -55,31 +55,34 @@ process_record_result_t process_smart_thumb_keys(uint16_t keycode, keyrecord_t *
                 return PROCESS_RECORD_RETURN_FALSE;
             }
 
-            case CAP_FUN:
-                if (record->tap.count > 0) {
-                    if (record->event.pressed) {
-                      if (caps_word_on) {
-                        disable_caps_word();
-                        tap_code(KC_CAPS);
-                        idle_timer = timer_read();
-                      }
-                      else if (host_keyboard_led_state().caps_lock) {
-                        disable_caps_word();
-                        // tap_code(KC_CAPS);
-                      }
-                      else {
-                        enable_caps_word();
-                      }
-                        // if (host_keyboard_led_state().caps_lock) {
-                        //     disable_caps_word();
-                        //     dprintln("CAP_FUN disabling caps word");
-                        // } else {
-                        //     enable_caps_word();
-                        //     dprintln("CAP_FUN enabled caps word");
-                        // }
+          case SFT_NUM:
+      if (record->event.pressed) {
+        if (record->tap.count > 0) {
+                  if (isAnyOneShotButShift || isOneShotLockedShift) {
+                      clear_locked_and_oneshot_mods();
+                    } else if (isOneShotShift) {
+                      clear_locked_and_oneshot_mods();
+                      enable_caps_word();
+                    } else if (caps_word_on) {
+                      clear_locked_and_oneshot_mods();
+                      disable_caps_word();
+                      disable_xcase();
+                    } else {
+                      add_oneshot_mods(MOD_LSFT);
                     }
-                    return PROCESS_RECORD_RETURN_FALSE;
                 }
+                return PROCESS_RECORD_RETURN_TRUE;
+                }
+              return PROCESS_RECORD_CONTINUE;
+
+    case OPT_PST:
+      if (record->tap.count > 0) {
+        if (record->event.pressed) {
+          tap_code16(G(KC_V));
+        }
+        return PROCESS_RECORD_RETURN_FALSE;
+      }
+      return PROCESS_RECORD_RETURN_TRUE;
 
                 case MOD_KEY:
             if (record->tap.count > 0) {
@@ -100,7 +103,10 @@ process_record_result_t process_smart_thumb_keys(uint16_t keycode, keyrecord_t *
                 return PROCESS_RECORD_RETURN_FALSE;
             }
             return PROCESS_RECORD_RETURN_TRUE;
-    }
+
+
+}
+
 // } Remove quotes and fix curly brackets, if thumb keys don't work.
     return PROCESS_RECORD_CONTINUE;
 }

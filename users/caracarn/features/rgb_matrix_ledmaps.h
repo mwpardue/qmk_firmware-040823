@@ -90,8 +90,8 @@ void rgb_matrix_layers_disable(void);
         { BASE_UNDERGLOW }
 #    define NUM_UGL \
         { NUMPAD_UNDERGLOW }
-#    define MSE_UGL \
-        { MOUSE_UNDERGLOW }
+#    define NAV_UGL \
+        { NAVIGATION_UNDERGLOW }
 #    define HEX_UGL \
         { HEX_UNDERGLOW }
 #    define MAC_UGL \

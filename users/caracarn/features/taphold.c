@@ -5,64 +5,37 @@
 
 uint16_t get_tapping_term_result(uint16_t keycode) {
     switch (keycode) {
-        case ESC_NUM:
-        case BSP_MSE:
-        case ESC_FUN:
-        case ENT_MED:
+        case TAB_NAV:
+        case BSP_SYM:
         case ENT_HYP:
-        case SPC_MEH:
-        case DEL_MEH:
-        case ENT_NUM:
-        case TAB_SYM:
-        case BSP_MEH:
+        case SPC_HYP:
+        case ESC_MEH:
+        case SFT_NUM:
         case SPC_MAC:
-        case TD_COPY:
-        case TD_PAST:
             return g_tapping_term + 40;
-        case GUI_4:
-        case SFT_5:
-        case ALT_6:
-        case ALT_4:
-        case CTL_PLS:
-        case CTL_SCL:
-        case KC0_MEH:
-        // case ALT_BRF:
-        // case GUI_TFW:
-        // case SFT_TBK:
-        // case CTL_BRB:
-            return g_tapping_term + 115;
-        case TD_S15:
-        case TD_S78:
-        case TD_S119:
-        case TD_S310:
-        case TD_QUOT:
-        case TD_SSFL:
-        case TD_SNIP:
-        case FUN_Z:
-        case CTL_D:
-        case GUI_F:
+        case FUN_XCS:
+        case OSMLSFT:
+        case OSMRSFT:
+        case OSMLCTL:
+        case OSMRCTL:
+        case OSMLALT:
+        case OSMRALT:
+        case OSMLGUI:
+        case OSMRGUI:
+          return g_tapping_term + 100;
         case CTL_A:
         case ALT_S:
-        case ALT_K:
+        case GUI_F:
         case GUI_J:
-        case CTL_QUO:
-        case ALT_CR:
-        case GUI_CT:
-        case GUI_CN:
-        case ALT_CI:
-        case CTL_CO:
-        case CTL_S:
         case ALT_L:
-        case XCS_SFT:
-        case CTL_BRB:
-        case ALT_BRF:
-        case SFT_TBK:
-        case GUI_TFW:
-            return g_tapping_term + 100;
-        case SFT_D:
+        case CTL_QUO:
+        case CTL_L:
+        case CTL_S:
+        case ALT_V:
+        case ALT_M:
+          return get_modtap_tapping_term();
         case SFT_K:
-        case SFT_CS:
-        case SFT_CE:
+        case SFT_D:
             return get_sft_tapping_term();
         default:
             return g_tapping_term;
@@ -71,25 +44,24 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
 
 bool get_tapping_force_hold_result(uint16_t keycode) {
     switch (keycode) {
-        case BSP_MSE:
-        case ESC_NUM:
-        case ENT_MED:
-        case ESC_FUN:
-        case FUN_Z:
+        case BSP_SYM:
+        case TAB_NAV:
+        case SPC_HYP:
         case ENT_HYP:
-        case SPC_MEH:
-        case BSP_MEH:
-        case ENT_NUM:
-        case DEL_MEH:
-        case CTL_AT:
-        case ALT_BSL:
-        case SFT_MNS:
-        case GUI_PIP:
-        case SFT_BSP:
-        case SPC_SYM:
+        case ESC_MEH:
+        case SPC_MAC:
+        case CTL_A:
+        case ALT_S:
+        case SFT_D:
+        case GUI_F:
         case GUI_J:
         case SFT_K:
         case ALT_L:
+        case CTL_QUO:
+        case CTL_S:
+        case CTL_L:
+        case ALT_V:
+        case ALT_M:
             return false;
     }
     switch (keycode) {
@@ -104,19 +76,11 @@ bool get_tapping_force_hold_result(uint16_t keycode) {
 
 bool get_hold_on_other_key_press_result(uint16_t keycode) {
     switch (keycode) {
-        case ESC_NUM:
-        case BSP_MSE:
-        case ESC_FUN:
-        case FUN_Z:
-        case ENT_MED:
+        case TAB_NAV:
+        case BSP_SYM:
         case ENT_HYP:
-        case ENT_NUM:
-        case TAB_SYM:
+        case SPC_HYP:
         case SPC_SYM:
-        case ALT_BRF:
-        case GUI_TFW:
-        case SFT_TBK:
-        case CTL_BRB:
             // Immediately select the hold action when another key is pressed.
             return true;
         default:
@@ -126,14 +90,22 @@ bool get_hold_on_other_key_press_result(uint16_t keycode) {
 
 bool get_permissive_hold_result(uint16_t keycode) {
     switch (keycode) {
-        case GUI_4:
-        case SFT_5:
-        case ALT_6:
-        case CTL_PLS:
-        case CTL_SCL:
-        case KC0_MEH:
         case SPCSFT:
-        case TAB_SYM:
+        case SFT_NUM:
+        case BSP_SYM:
+        case CTL_A:
+        case ALT_S:
+        case SFT_D:
+        case GUI_F:
+        case GUI_J:
+        case SFT_K:
+        case ALT_L:
+        case CTL_QUO:
+        case CTL_S:
+        case CTL_L:
+        case ALT_V:
+        case ALT_M:
+        case SPC_SYM:
             // Immediately select the hold action when another key is tapped.
             return true;
         default:

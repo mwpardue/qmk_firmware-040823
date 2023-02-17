@@ -5,10 +5,22 @@
 
 extern os_t os;
 
-uint16_t sft_tapping_term = 150;
+uint16_t sft_tapping_term = SHIFT_TAPPING_TERM;
 
 uint16_t get_sft_tapping_term(void) {
     return sft_tapping_term;
+}
+
+uint16_t modtap_tapping_term = MODTAP_TAPPING_TERM;
+
+uint16_t get_modtap_tapping_term(void) {
+    return modtap_tapping_term;
+}
+
+uint16_t achordion_tapping_term = ACHORDION_TAPPING_TERM;
+
+uint16_t get_achordion_tapping_term(void) {
+    return achordion_tapping_term;
 }
 
 #ifdef CUSTOM_LEADER_ENABLE
@@ -19,6 +31,7 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
 
     bool isWindowsOrLinux = os.type == WINDOWS || os.type == LINUX;
     bool isOneShotShift = get_oneshot_mods() & MOD_MASK_SHIFT || get_oneshot_locked_mods() & MOD_MASK_SHIFT;
+    bool isOneShotCtrl = get_oneshot_mods() & MOD_MASK_CTRL || get_oneshot_locked_mods() & MOD_MASK_CTRL;
     uint8_t smart_mods = 0;
 
     switch (keycode) {
@@ -95,84 +108,45 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
             return PROCESS_RECORD_RETURN_FALSE;
     #endif
 
-        case LCTL_T(KC_AT):
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(KC_AT);
-                return PROCESS_RECORD_RETURN_FALSE;
-            }
-            return PROCESS_RECORD_RETURN_TRUE;
+        case NAV_LFT:
+          if (record->event.pressed) {
+            smart_mods = get_mods();
+            if ((smart_mods & MOD_MASK_CTRL) || isOneShotCtrl) {
+              unregister_mods(smart_mods);
+              del_oneshot_mods(MOD_MASK_CTRL);
+              tap_code16(G(KC_LBRC));
+              register_mods(smart_mods);
+            } else {
+              tap_code16(C(S(KC_TAB)));
+        }
+          return PROCESS_RECORD_RETURN_FALSE;
+      }
+        return PROCESS_RECORD_RETURN_TRUE;
 
-        case LGUI_T(KC_PIPE):
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(KC_PIPE);
-                return PROCESS_RECORD_RETURN_FALSE;
-            }
-            return PROCESS_RECORD_RETURN_TRUE;
 
-        case LGUI_T(KC_VOLD):
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(KC_VOLD);
-                return PROCESS_RECORD_RETURN_FALSE;
-            }
-            return PROCESS_RECORD_RETURN_TRUE;
+        case NAV_RGT:
+          if (record->event.pressed) {
+            smart_mods = get_mods();
+            if ((smart_mods & MOD_MASK_CTRL) || isOneShotCtrl) {
+              unregister_mods(smart_mods);
+              del_oneshot_mods(MOD_MASK_CTRL);
+              tap_code16(G(KC_RBRC));
+              register_mods(smart_mods);
+            } else {
+              tap_code16(C(KC_TAB));
+        }
+          return PROCESS_RECORD_RETURN_FALSE;
+      }
+        return PROCESS_RECORD_RETURN_TRUE;
 
-        case LSFT_T(KC_MUTE):
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(KC_MUTE);
-                return PROCESS_RECORD_RETURN_FALSE;
-            }
-            return PROCESS_RECORD_RETURN_TRUE;
-
-        case LALT_T(KC_VOLU):
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(KC_VOLU);
-                return PROCESS_RECORD_RETURN_FALSE;
-            }
-            return PROCESS_RECORD_RETURN_TRUE;
-
-        case RCTL_T(KC_PLUS):
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(KC_PLUS);
-                return PROCESS_RECORD_RETURN_FALSE;
-            }
-            return PROCESS_RECORD_RETURN_TRUE;
-
-        case LCTL_T(BROWSER_BACK):
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(G(KC_LEFT));
-                return PROCESS_RECORD_RETURN_FALSE;
-            }
-            return PROCESS_RECORD_RETURN_TRUE;
-
-        case LGUI_T(TAB_FORWARD):
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(C(KC_TAB));
-                return PROCESS_RECORD_RETURN_FALSE;
-            }
-            return PROCESS_RECORD_RETURN_TRUE;
-
-        case LALT_T(BROWSER_FORWARD):
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(G(KC_RIGHT));
-                return PROCESS_RECORD_RETURN_FALSE;
-            }
-            return PROCESS_RECORD_RETURN_TRUE;
-
-        case LSFT_T(TAB_BACK):
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(C(S(KC_TAB)));
-                return PROCESS_RECORD_RETURN_FALSE;
-            }
-            return PROCESS_RECORD_RETURN_TRUE;
-
-        case TMX_LDS:
+        case ALT_RGT:
+          if (record->tap.count > 0) {
             if (record->event.pressed) {
-                tap_code16(C(KC_SPACE));
-                wait_ms(250);
-                tap_code16(KC_S);
-                return PROCESS_RECORD_RETURN_FALSE;
+              tap_code16(C(KC_RIGHT));
             }
-            return PROCESS_RECORD_RETURN_TRUE;
+            return PROCESS_RECORD_RETURN_FALSE;
+          }
+          return PROCESS_RECORD_RETURN_TRUE;
 
        case LEADER:
             if (record->event.pressed) {
@@ -181,199 +155,14 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
                 return PROCESS_RECORD_RETURN_FALSE;
             }
             return PROCESS_RECORD_RETURN_TRUE;
-        // case LALT_T(KC_MPRV):
-        //     if (record->tap.count && record->event.pressed) {
-        //         tap_code16(KC_MPRV);
-        //         return PROCESS_RECORD_RETURN_FALSE;
-        //     }
-        //     return PROCESS_RECORD_RETURN_TRUE;
 
-        //     case LGUI_T(KC_PIPE):
-        //     if (record->tap.count && record->event.pressed) {
-        //         tap_code16(KC_PIPE);
-        //         return PROCESS_RECORD_RETURN_FALSE;
-        //     }
-        //     return PROCESS_RECORD_RETURN_TRUE;
-
-        //     case LCTL_T(KC_AT):
-        //     if (record->tap.count && record->event.pressed) {
-        //         tap_code16(KC_AT);
-        //         return PROCESS_RECORD_RETURN_FALSE;
-        //     }
-
-        //     case LSFT_T(KC_BSPC):
-        //     if (record->tap.count && record->event.pressed) {
-        //         tap_code16(KC_BSPC);
-        //         return PROCESS_RECORD_RETURN_FALSE;
-        //     }
-        //     return PROCESS_RECORD_RETURN_TRUE;
-
-            // case LSFT_T(KC_AT):
-            // if (record->tap.count && record->event.pressed) {
-            //     tap_code16(KC_AT);
-            //     return PROCESS_RECORD_RETURN_FALSE;
-            // }
-            // return PROCESS_RECORD_RETURN_TRUE;
-
-            // case LALT_T(SM_BRAC):
-            // if (record->tap.count && record->event.pressed) {
-            //     if ((get_oneshot_mods() & MOD_MASK_SHIFT) || get_mods() & MOD_MASK_SHIFT) {
-            //         smart_mods = get_mods();
-            //         unregister_mods(smart_mods);
-            //         tap_code16(KC_LBRC);
-            //         register_mods(smart_mods);
-            //         return PROCESS_RECORD_RETURN_FALSE;
-            //     } else if ((get_oneshot_mods() & MOD_MASK_CTRL) || get_mods() & MOD_MASK_CTRL) {
-            //         smart_mods = get_mods();
-            //         unregister_mods(smart_mods);
-            //         tap_code16(KC_RBRC);
-            //         register_mods(smart_mods);
-            //         return PROCESS_RECORD_RETURN_FALSE;
-            //     } else {
-            //         tap_code16(KC_LBRC);
-            //         tap_code16(KC_RBRC);
-            //         tap_code16(KC_LEFT);
-            //         return PROCESS_RECORD_RETURN_FALSE;
-            //     }
-            //     return PROCESS_RECORD_RETURN_FALSE;
-            // }
-            // return PROCESS_RECORD_RETURN_TRUE;
-
-        case SM_PARN:
+       case PASSPAL:
             if (record->event.pressed) {
-                if ((get_oneshot_mods() & MOD_MASK_GUI) || get_mods() & MOD_MASK_GUI) {
-                    smart_mods = get_mods();
-                    unregister_mods(smart_mods);
-                    tap_code16(KC_LPRN);
-                    register_mods(smart_mods);
-                    return PROCESS_RECORD_RETURN_FALSE;
-                } else if ((get_oneshot_mods() & MOD_MASK_CTRL) || get_mods() & MOD_MASK_CTRL) {
-                    smart_mods = get_mods();
-                    unregister_mods(smart_mods);
-                    tap_code16(KC_RPRN);
-                    register_mods(smart_mods);
-                    return PROCESS_RECORD_RETURN_FALSE;
-                } else {
-                    tap_code16(KC_LPRN);
-                    tap_code16(KC_RPRN);
-                    tap_code16(KC_LEFT);
-                    return PROCESS_RECORD_RETURN_FALSE;
-                }
-                return PROCESS_RECORD_RETURN_FALSE;
-            }
-
-        case SM_CURB:
-            if (record->event.pressed) {
-                if ((get_oneshot_mods() & MOD_MASK_GUI) || get_mods() & MOD_MASK_GUI) {
-                    smart_mods = get_mods();
-                    unregister_mods(smart_mods);
-                    tap_code16(KC_LCBR);
-                    register_mods(smart_mods);
-                    return PROCESS_RECORD_RETURN_FALSE;
-                } else if ((get_oneshot_mods() & MOD_MASK_CTRL) || get_mods() & MOD_MASK_CTRL) {
-                    smart_mods = get_mods();
-                    unregister_mods(smart_mods);
-                    tap_code16(KC_RCBR);
-                    register_mods(smart_mods);
-                    return PROCESS_RECORD_RETURN_FALSE;
-                } else {
-                    tap_code16(KC_LCBR);
-                    tap_code16(KC_RCBR);
-                    tap_code16(KC_LEFT);
-                    return PROCESS_RECORD_RETURN_FALSE;
-                }
-                return PROCESS_RECORD_RETURN_FALSE;
-            }
-
-        case SM_BRAC:
-            if (record->event.pressed) {
-                if ((get_oneshot_mods() & MOD_MASK_GUI) || get_mods() & MOD_MASK_GUI) {
-                    smart_mods = get_mods();
-                    unregister_mods(smart_mods);
-                    tap_code16(KC_LBRC);
-                    register_mods(smart_mods);
-                    return PROCESS_RECORD_RETURN_FALSE;
-                } else if ((get_oneshot_mods() & MOD_MASK_CTRL) || get_mods() & MOD_MASK_CTRL) {
-                    smart_mods = get_mods();
-                    unregister_mods(smart_mods);
-                    tap_code16(KC_RBRC);
-                    register_mods(smart_mods);
-                    return PROCESS_RECORD_RETURN_FALSE;
-                } else {
-                    tap_code16(KC_LBRC);
-                    tap_code16(KC_RBRC);
-                    tap_code16(KC_LEFT);
-                    return PROCESS_RECORD_RETURN_FALSE;
-                }
-                return PROCESS_RECORD_RETURN_FALSE;
-            }
-
-        case SM_ANGB:
-            if (record->event.pressed) {
-                if ((get_oneshot_mods() & MOD_MASK_GUI) || get_mods() & MOD_MASK_GUI) {
-                    smart_mods = get_mods();
-                    unregister_mods(smart_mods);
-                    tap_code16(KC_LT);
-                    register_mods(smart_mods);
-                    return PROCESS_RECORD_RETURN_FALSE;
-                } else if ((get_oneshot_mods() & MOD_MASK_CTRL) || get_mods() & MOD_MASK_CTRL) {
-                    smart_mods = get_mods();
-                    unregister_mods(smart_mods);
-                    tap_code16(KC_GT);
-                    register_mods(smart_mods);
-                    return PROCESS_RECORD_RETURN_FALSE;
-                } else {
-                    tap_code16(KC_LT);
-                    tap_code16(KC_GT);
-                    tap_code16(KC_LEFT);
-                    return PROCESS_RECORD_RETURN_FALSE;
-                }
-                return PROCESS_RECORD_RETURN_FALSE;
-            }
-
-        case BSP_WRD:
-            if (record->event.pressed) {
-                smart_mods = get_mods();
-                unregister_mods(smart_mods);
-                register_mods(MOD_BIT(KC_LALT));
-                    if (smart_mods & MOD_MASK_SHIFT) {
-                        register_code(KC_DELETE);
-                    }
-                    else {
-                        register_code(KC_BACKSPACE);
-                    }
-                    return PROCESS_RECORD_RETURN_FALSE;
-            }
-            else {
-                unregister_mods(MOD_BIT(KC_LALT));
-                    if (smart_mods & MOD_MASK_SHIFT) {
-                        unregister_code(KC_DELETE);
-                    }
-                    else{
-                        unregister_code(KC_BACKSPACE);
-                    }
-                register_mods(smart_mods);
-                return PROCESS_RECORD_RETURN_FALSE;
-            }
-
-        case BSP_LIN:
-            if (record->event.pressed) {
-                if ((get_oneshot_mods() & MOD_MASK_SHIFT) || get_mods() & MOD_MASK_SHIFT) {
-                    smart_mods = get_mods();
-                    unregister_mods(smart_mods);
-                    tap_code16(G(KC_RIGHT));
-                    tap_code16(KC_BSPC);
-                    register_mods(smart_mods);
-                    return PROCESS_RECORD_RETURN_FALSE;
-                } else {
-                    smart_mods = get_mods();
-                    unregister_mods(smart_mods);
-                    tap_code16(G(KC_BSPC));
-                    register_mods(smart_mods);
-                    return PROCESS_RECORD_RETURN_FALSE;
-                }
-                return PROCESS_RECORD_RETURN_FALSE;
-            }
+              tap_code16(C(A(G(S(KC_P)))));
+              add_oneshot_mods(MOD_LCTL);
+              return PROCESS_RECORD_RETURN_FALSE;
+             }
+             return PROCESS_RECORD_RETURN_TRUE;
 
         case SFT_TTP:
             if (record->event.pressed) {
@@ -389,12 +178,45 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
                 return PROCESS_RECORD_RETURN_FALSE;
             }
 
-         case T_CLOSE:
+        case MDT_TTP:
             if (record->event.pressed) {
-              tap_code16(C(KC_SPACE));
-              tap_code16(KC_X);
-              wait_ms(500);
-              tap_code16(KC_Y);
+                modtap_tapping_term = modtap_tapping_term + 5;
+                dprintf("Mod-Tap Tapping Term = %d\n", modtap_tapping_term);
+                return PROCESS_RECORD_RETURN_FALSE;
+            }
+
+        case MDT_TTM:
+            if (record->event.pressed) {
+                modtap_tapping_term = modtap_tapping_term - 5;
+                dprintf("Mod-Tap Tapping Term = %d\n", modtap_tapping_term);
+                return PROCESS_RECORD_RETURN_FALSE;
+            }
+
+        case ACH_TTP:
+            if (record->event.pressed) {
+                achordion_tapping_term = achordion_tapping_term + 50;
+                dprintf("Mod-Tap Tapping Term = %d\n", achordion_tapping_term);
+                return PROCESS_RECORD_RETURN_FALSE;
+            }
+
+        case ACH_TTM:
+            if (record->event.pressed) {
+                achordion_tapping_term = achordion_tapping_term - 50;
+                dprintf("Mod-Tap Tapping Term = %d\n", achordion_tapping_term);
+                return PROCESS_RECORD_RETURN_FALSE;
+            }
+
+         case SEL_WRD:
+            if (record->event.pressed) {
+              tap_code16(A(KC_LEFT));
+              tap_code16(A(S(KC_RIGHT)));
+            return PROCESS_RECORD_RETURN_FALSE;
+            }
+
+         case SEL_LIN:
+            if (record->event.pressed) {
+              tap_code16(G(KC_LEFT));
+              tap_code16(G(S(KC_RIGHT)));
             return PROCESS_RECORD_RETURN_FALSE;
             }
 

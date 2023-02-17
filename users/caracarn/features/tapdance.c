@@ -224,7 +224,7 @@ void td_paste(qk_tap_dance_state_t *state, void *user_data) {
         case TD_SINGLE_TAP:
             tap_code16(G(KC_V));
             break;
-        case TD_DOUBLE_TAP:
+        case TD_SINGLE_HOLD:
             tap_code16(G(A(S(KC_V))));
             break;
         default: break;

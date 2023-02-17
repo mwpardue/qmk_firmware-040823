@@ -44,10 +44,10 @@ void                       rgb_matrix_indicators_advanced_user(uint8_t led_min, 
             case _BASE:
                 rgb_matrix_layer_helper(HSV_AQUA, led_min, led_max);
                 break;
-            case _NUMPAD:
+            case _NAVIGATION:
                 rgb_matrix_layer_helper(HSV_CYAN, led_min, led_max);
                 break;
-            case _MOUSE:
+            case _NUMPAD:
                 rgb_matrix_layer_helper(HSV_ORANGE, led_min, led_max);
                 break;
             case _MACROS:

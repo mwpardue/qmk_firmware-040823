@@ -171,16 +171,16 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
             case KC_MINS:
             case KC_UNDS:
             case KC_BSPC:
-            case ESC_NUM:
+            case TAB_NAV:
+            case SFT_NUM:
+            case BSP_SYM:
+            case SPC_MAC:
+            case SPC_HYP:
             case (XCASE & 0xff):
             case KC_UP:
             case KC_DOWN:
             case KC_RIGHT:
             case KC_LEFT:
-            // case SFT_D:
-            // case SFT_K:
-            // case LSFT(KC_D):
-            // case RSFT(KC_K):
                 // If mod chording disable the mods
                 if (record->event.pressed && (get_mods() != 0)) {
                     return true;
@@ -205,7 +205,7 @@ bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
     //      case KC_1 ... KC_0:
     //          return true;
     //      case (XCASE & 0xff):
-    //      case ESC_NUM:
+    //      case TAB_NAV:
     //      default:
     //         return false;
     //  }
@@ -246,7 +246,7 @@ bool process_case_modes(uint16_t keycode, const keyrecord_t *record) {
                     keycode = RALT(keycode);
                 }
                 switch (keycode) {
-                    case XCS_SFT:
+                    case FUN_XCS:
                     case XCASE:
                     case (XCASE & 0xff):
                         return false;

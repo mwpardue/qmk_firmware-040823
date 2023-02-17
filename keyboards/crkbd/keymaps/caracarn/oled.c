@@ -8,6 +8,10 @@ extern uint32_t transport_user_state;
 
 extern uint16_t sft_tapping_term;
 
+extern uint16_t modtap_tapping_term;
+
+extern uint16_t achordion_tapping_term;
+
 #ifdef CASEMODE_ENABLE
     extern enum xcase_state xcase_state;
     extern bool caps_word_on;
@@ -189,8 +193,8 @@ void render_layer_state(void) {
         0xb4, 0x48, 0x45, 0x58, 0xb8, 0};
     static const char PROGMEM function_layer[] = {
         0xb4, 0x46, 0x55, 0x4e, 0xb8, 0};
-    static const char PROGMEM mouse_layer[] = {
-        0xb4, 0x4d, 0x53, 0x45, 0xb8, 0};
+    static const char PROGMEM navigation_layer[] = {
+        0xb4, 0x4e, 0x41, 0x56, 0xb8, 0};
     static const char PROGMEM colemak_layer[] = {
         0xb4, 0x43, 0x4d, 0x4b, 0xb8, 0};
     static const char PROGMEM media_layer[] = {
@@ -213,8 +217,8 @@ void render_layer_state(void) {
         case _FUNCTION:
             oled_write_P(function_layer, false);
             break;
-        case _MOUSE:
-            oled_write_P(mouse_layer, false);
+        case _NAVIGATION:
+            oled_write_P(navigation_layer, false);
             break;
         case _BASE:
             oled_write_P(base_layer, false);
@@ -295,27 +299,45 @@ uint16_t get_tapping_term_str(void) {
     return g_tapping_term;
 }
 
+uint16_t get_modtap_tapping_term_str(void) {
+    return modtap_tapping_term;
+}
+
+uint16_t get_achordion_tapping_term_str(void) {
+    return achordion_tapping_term;
+}
+
 char heatmap_area_str[8];
 char heatmap_spread_str[8];
 char shift_tapping_term_str[16];
 char g_tapping_term_str[16];
+char modtap_tapping_term_str[16];
+char achordion_tapping_term_str[16];
 
 void render_heatmap_specs(void) {
     sprintf(heatmap_area_str, "%03d", get_heatmap_area());
     sprintf(heatmap_spread_str, "%03d", get_heatmap_spread());
     sprintf(shift_tapping_term_str, "%03d", get_shift_tapping_term_str());
     sprintf(g_tapping_term_str, "%03d", get_tapping_term_str());
-    if (get_highest_layer(layer_state | default_layer_state) == _ADJUST) {
+    sprintf(modtap_tapping_term_str, "%03d", get_modtap_tapping_term_str());
+    sprintf(achordion_tapping_term_str, "%03d", get_achordion_tapping_term_str());
+    if ((get_highest_layer(layer_state | default_layer_state) == _ADJUST) && is_keyboard_master()) {
         oled_write_P(PSTR("ST"), false);
         oled_write_P(shift_tapping_term_str, false);
         oled_write_P(PSTR("\n"), false);
         oled_write_P(PSTR("TT"), false);
         oled_write_P(g_tapping_term_str, false);
         oled_write_P(PSTR("\n"), false);
-        render_space();
+        oled_write_P(PSTR("MT"), false);
+        oled_write_P(modtap_tapping_term_str, false);
+        oled_write_P(PSTR("\n"), false);
+        oled_write_P(PSTR("AT"), false);
+        oled_write_P(achordion_tapping_term_str, false);
+        oled_write_P(PSTR("\n"), false);
         render_smart_case();
     }
     else {
+        render_space();
         oled_write_P(PSTR("A:"), false);
         oled_write_P(heatmap_area_str, false);
         oled_write_P(PSTR("\nS:"), false);
@@ -343,7 +365,7 @@ bool oled_task_user(void) {
     render_layer_box_top();
     render_layer_state();
     render_layer_box_bottom();
-    render_space();
+    // render_space();
     render_heatmap_specs();
     // render_space();
     // render_smart_case();
