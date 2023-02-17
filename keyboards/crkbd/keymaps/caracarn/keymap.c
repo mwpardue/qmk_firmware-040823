@@ -80,8 +80,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = LAYOUT_split_3x6_3( \
-  _______, TOBAS,   TOCMK,   EEP_RST, QK_RBT,  _______,                      _______, RGB_MDT, MDT_TTM, MDT_TTP, TOBAS,   _______,  \
-  RGB_ALP, RGB_ALP, RGB_SPP, DEBUG,   DT_PRNT, DT_UP,                        RGB_CHG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______,\
+  _______, TOBAS,   TOCMK,   EE_CLR,  QK_RBT,  _______,                      _______, RGB_MDT, MDT_TTM, MDT_TTP, TOBAS,   _______,  \
+  RGB_ALP, RGB_ALP, RGB_SPP, DB_TOGG, DT_PRNT, DT_UP,                        RGB_CHG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______,\
   RGB_ALM, RGB_ALM, RGB_SPM, SFT_TTM, SFT_TTP, DT_DOWN,                      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______,\
                                       ACH_TTM, _______, _______,    _______, _______, ACH_TTP \
 )

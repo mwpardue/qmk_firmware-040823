@@ -25,9 +25,9 @@ uint8_t rgb_matrix_get_heatmap_area_limit(void) {
     return user_config.rgb_matrix_heatmap_area;
 }
 
-__attribute__((weak)) void rgb_matrix_indicators_keymap(void) { return; }
-__attribute__((weak)) void rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
-    return;
+__attribute__((weak)) bool rgb_matrix_indicators_keymap(void) { return false; }
+__attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
+    return false;
 }
 
 void rgb_matrix_set_custom_indicators(uint8_t led_min, uint8_t led_max, int led_type, uint8_t hue, uint8_t sat, uint8_t val) {
@@ -88,8 +88,8 @@ static bool enabled = true;
 
 #endif  // RGB_MATRIX_LEDMAPS_ENABLED
 
-void rgb_matrix_indicators_user(void) { rgb_matrix_indicators_keymap(); }
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_user(void) { rgb_matrix_indicators_keymap(); return true; }
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED
     if (rgb_matrix_is_enabled() && enabled) {
         switch (rgb_matrix_get_flags()) {
@@ -114,6 +114,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
 #endif  // RGB_MATRIX_LEDMAPS_ENABLED
     rgb_matrix_indicators_advanced_keymap(led_min, led_max);
+  return true;
 }
 
 void rgb_matrix_base_underglow(void) {
