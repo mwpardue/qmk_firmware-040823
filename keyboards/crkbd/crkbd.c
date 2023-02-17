@@ -17,6 +17,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "crkbd.h"
+#include "eeprom_driver.h"
+#include <stdbool.h>
+#include <print.h>
+#include "flash/flash_spi.h"
+#include "flash/flash_spi.c"
+#include "ws2812.h"
+
+
+void keyboard_post_init_kb(void) {
+    #ifdef EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN
+	    setPinOutput(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
+		writePinHigh(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
+        keyboard_post_init_user();
+	#endif
+}
+
+void eeconfig_init_kb(void) {
+    // set default config
+    eeconfig_init_user();
+}
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
@@ -33,3 +53,12 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 	{{0, 3}, {1, 3}, {2, 3}, {3, 3}, {4, 3}, {5, 3}}
 };
 #endif
+
+
+void board_init(void) {
+    // B9 is configured as I2C1_SDA in the board file; that function must be
+    // disabled before using B9 as I2C1_SDA
+    setPinInputHigh(B9);
+    // setPinOutput(B0);
+    // writePinHigh(B0);
+}

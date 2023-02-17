@@ -176,7 +176,7 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
             case BSP_SYM:
             case SPC_MAC:
             case SPC_HYP:
-            case (XCASE & 0xff):
+            // case (XCASE & 0xff):
             case KC_UP:
             case KC_DOWN:
             case KC_RIGHT:

@@ -138,8 +138,8 @@ bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
          case KC_A ... KC_Z:
          case KC_1 ... KC_0:
              return true;
-         case (XCASE & 0xff):
-         case XCASE:
+         // case (XCASE & 0xff):
+         // case XCASE:
          case TAB_NAV:
          case BSP_SYM:
          default:
