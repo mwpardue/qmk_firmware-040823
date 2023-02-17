@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define USE_SERIAL
 #define SOFT_SERIAL_PIN A15
 #define SELECT_SOFT_SERIAL_SPEED 1
 #define SERIAL_USART_DRIVER SD1

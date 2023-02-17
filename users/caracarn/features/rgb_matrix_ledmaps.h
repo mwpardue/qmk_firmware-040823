@@ -30,7 +30,7 @@
     R30, R31, R32 \
   }
 // clang-format on
-typedef uint8_t ledmap[DRIVER_LED_TOTAL][3];
+typedef uint8_t ledmap[RGB_MATRIX_LED_COUNT][3];
 extern const ledmap ledmaps[];
 extern bool ledmap_active;
 
