@@ -34,11 +34,11 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_
             }
         }
 
-__attribute__((weak)) void rgb_matrix_indicator_keymap(void) {}
+__attribute__((weak)) bool rgb_matrix_indicator_keymap(void) { return true; }
 
 __attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) { return true; }
-void                       rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (!rgb_matrix_indicators_advanced_keymap(led_min, led_max)) { return; }
+bool                       rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (!rgb_matrix_indicators_advanced_keymap(led_min, led_max)) { return true; }
     {
         switch (get_highest_layer(layer_state | default_layer_state)) {
             case _BASE:
@@ -64,7 +64,8 @@ void                       rgb_matrix_indicators_advanced_user(uint8_t led_min, 
                 break;
         }
     }
+  return true;
 }
 
 __attribute__((weak)) bool rgb_matrix_indicators_keymap(void) { return true; }
-void                       rgb_matrix_indicators_user(void) { rgb_matrix_indicators_keymap(); }
+bool                       rgb_matrix_indicators_user(void) { rgb_matrix_indicators_keymap(); return true; }

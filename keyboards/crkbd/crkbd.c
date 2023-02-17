@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "eeprom_driver.h"
 #include <stdbool.h>
 #include <print.h>
-#include "flash/flash_spi.h"
-#include "flash/flash_spi.c"
+// #include "flash/flash_spi.h"
+// #include "flash/flash_spi.c"
 #include "ws2812.h"
 
 
@@ -58,7 +58,12 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 void board_init(void) {
     // B9 is configured as I2C1_SDA in the board file; that function must be
     // disabled before using B9 as I2C1_SDA
+  #ifdef CONVERT_TO_BONSAI_C4
+    setPinInputHigh(F4);
+  #else
     setPinInputHigh(B9);
+  #endif
+
     // setPinOutput(B0);
     // writePinHigh(B0);
 }

@@ -33,7 +33,7 @@ __attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min
 void rgb_matrix_set_custom_indicators(uint8_t led_min, uint8_t led_max, int led_type, uint8_t hue, uint8_t sat, uint8_t val) {
     if ((get_highest_layer(layer_state | default_layer_state)) == _BASE) {
         uint8_t val = rgb_matrix_get_val();
-        for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+        for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
             HSV hsv = {
                 .h = hue,
                 .s = sat,
@@ -126,7 +126,7 @@ void rgb_matrix_base_underglow(void) {
 void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_type) {
     const ledmap *l = &(ledmaps[layer]);
     uint8_t val = rgb_matrix_get_val();
-        for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+        for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
             if (!user_config.rgb_matrix_ledmap_active) {
                 HSV hsv = {
                     .h = (*l)[0][0],

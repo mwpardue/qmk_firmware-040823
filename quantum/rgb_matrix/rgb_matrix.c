@@ -25,6 +25,9 @@
 
 #include <lib/lib8tion/lib8tion.h>
 
+extern uint8_t rgb_matrix_get_heatmap_spread(void);
+extern uint8_t rgb_matrix_get_heatmap_area_limit(void);
+
 #ifndef RGB_MATRIX_CENTER
 const led_point_t k_rgb_matrix_center = {112, 32};
 #else
