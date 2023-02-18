@@ -4,7 +4,7 @@
 
 /* Select hand configuration */
 
-#define MASTER_LEFT
+// #define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
@@ -21,7 +21,7 @@
 
 #define KEYBOARD_SHARED_EP
 
-#define SPLIT_USB_DETECT
+// #define SPLIT_USB_DETECT
 
 #ifdef SMART_CASE_ENABLE
     #define CUSTOM_ONESHOT_TIMEOUT 2000
