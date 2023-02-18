@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_NUMPAD] = LAYOUT_split_3x6_3(
-  _______, KC_TAB,  _______, _______, _______, SS3,                          KC_BSLS, KC_7,    KC_8,    KC_9,    KC_SLSH, _______,
+  _______, KC_TAB,  _______, EE_CLR,  _______, SS3,                          KC_BSLS, KC_7,    KC_8,    KC_9,    KC_SLSH, _______,
   _______, KC_BSPC, OSMLCTL, OSMLSFT, OSMLGUI, SS4,                          KC_MINS, KC_4,    KC_5,    KC_6,    KC_SCLN, _______,
   _______, UNDO,    CUT,     COPY,    OPT_PST, _______,                      KC_EQL,  KC_1,    KC_2,    KC_3,    KC_DOT,  _______,
                                       _______, _______, _______,    SPC_SYM, KC_0,    ENT_HYP
