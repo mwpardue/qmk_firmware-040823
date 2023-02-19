@@ -25,9 +25,9 @@ uint8_t rgb_matrix_get_heatmap_area_limit(void) {
     return user_config.rgb_matrix_heatmap_area;
 }
 
-__attribute__((weak)) bool rgb_matrix_indicators_keymap(void) { return false; }
+__attribute__((weak)) bool rgb_matrix_indicators_keymap(void) { return true; }
 __attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
-    return false;
+    return true;
 }
 
 void rgb_matrix_set_custom_indicators(uint8_t led_min, uint8_t led_max, int led_type, uint8_t hue, uint8_t sat, uint8_t val) {

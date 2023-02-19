@@ -10,8 +10,10 @@
 #endif
 
 void keyboard_pre_init_user(void) {
-    setPinOutput(B0);
-    writePinHigh(B0);
+    setPinOutput(PAL_LINE(GPIOB, 0));
+    writePinHigh(PAL_LINE(GPIOB, 0));
+    // setPinOutput(B0);
+    // writePinHigh(B0);
     user_config.raw = eeconfig_read_user();
     oled_clear();
 }
