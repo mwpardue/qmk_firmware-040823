@@ -67,7 +67,6 @@
 
 // WS2812-style LED control on pin A10
 #ifdef WS2812_DRIVER_PWM
-#   undef RGB_DI_PIN
 #    ifndef RGB_DI_PIN
 #        define RGB_DI_PIN PAL_LINE(GPIOA, 10)
 #    endif
@@ -88,6 +87,8 @@
 #    endif
 #endif
 
-#ifndef USB_VBUS_PIN
+#ifndef SPLIT_USB_DETECT
+# ifndef USB_VBUS_PIN
 #    define USB_VBUS_PIN PAL_LINE(GPIOA, 9)
+# endif
 #endif
