@@ -30,6 +30,7 @@ process_record_result_t process_window_swapper(uint16_t keycode, keyrecord_t *re
             clear_mods();
             clear_locked_and_oneshot_mods();
             swapper.state = NONE;
+            send_keyboard_report();
         }
         return PROCESS_RECORD_CONTINUE;
     }

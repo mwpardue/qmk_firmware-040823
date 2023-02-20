@@ -12,6 +12,7 @@
 void keyboard_pre_init_user(void) {
     setPinOutput(PAL_LINE(GPIOB, 0));
     writePinHigh(PAL_LINE(GPIOB, 0));
+    // setPinInput(PAL_LINE(GPIOA, 9));
     // setPinOutput(B0);
     // writePinHigh(B0);
     user_config.raw = eeconfig_read_user();
@@ -28,8 +29,8 @@ __attribute__((weak)) void eeconfig_init_keymap(void) {}
 void                       eeconfig_init_user(void) {
     user_config.raw              = 0;
     user_config.rgb_matrix_ledmap_active = true;
-    user_config.rgb_matrix_heatmap_area = 16;
-    user_config.rgb_matrix_heatmap_spread = 40;
+    user_config.rgb_matrix_heatmap_area = 40;
+    user_config.rgb_matrix_heatmap_spread = 35;
     eeconfig_update_user(user_config.raw);
     eeconfig_init_keymap();
 }
