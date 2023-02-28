@@ -19,7 +19,7 @@
 #include "layer_lock.h"
 
 // The current lock state. The kth bit is on if layer k is locked.
-static layer_state_t locked_layers = 0;
+layer_state_t locked_layers = 0;
 
 // Layer Lock timer to disable layer lock after X seconds inactivity
 #if LAYER_LOCK_IDLE_TIMEOUT > 0

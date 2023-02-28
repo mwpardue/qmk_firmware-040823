@@ -9,11 +9,11 @@
 
 // Make it easier to work with tap hold
 #ifdef CAPSWORD_ENABLE
-    #define CAPS_WORD_IDLE_TIMEOUT 2000
+    #define CAPS_WORD_IDLE_TIMEOUT 5000
 #endif
 
 #ifdef CASEMODE_ENABLE
-  #define CAPS_WORD_IDLE_TIMEOUT 2000
+  #define CAPS_WORD_IDLE_TIMEOUT 5000
 #endif
 
 #ifdef TAPHOLD_ENABLE

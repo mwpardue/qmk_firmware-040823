@@ -107,9 +107,11 @@ void toggle_caps_word(void) {
 
 void caps_word_idle_timer(void) {
   if (xcase_state != XCASE_ON && (timer_read() > idle_timer + CAPS_WORD_IDLE_TIMEOUT)) {
-    if (host_keyboard_led_state().caps_lock) {
-      tap_code(KC_CAPS);
-    } else if (caps_word_on) {
+    // if (host_keyboard_led_state().caps_lock) {
+    //   tap_code(KC_CAPS);
+    // } else if (caps_word_on) {
+    //   disable_caps_word();
+    if (caps_word_on) {
       disable_caps_word();
     }
   }
@@ -309,7 +311,7 @@ bool process_case_modes(uint16_t keycode, const keyrecord_t *record) {
             } // end XCASE_ON
 
             // check if the case modes have been terminated
-            if (terminate_case_modes(keycode, record)) {
+            if ((terminate_case_modes(keycode, record)) && caps_word_on) {
                 disable_caps_word();
                 disable_xcase();
             } 
