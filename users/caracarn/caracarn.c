@@ -42,7 +42,8 @@ void matrix_init_user(void) {
 
 #ifdef RAW_ENABLE
 void raw_hid_receive(uint8_t *data, uint8_t length) {
-    // Your code goes here. data is the packet received from host.
+  raw_hid_send(data, length);
+  // Your code goes here. data is the packet received from host.
 }
 #endif
 
@@ -94,6 +95,8 @@ void matrix_scan_user(void) {
   switch (tap_hold_keycode) {
     case GUI_F: //F   + W, Q
       if (other_keycode == KC_W || other_keycode == KC_Q) {return true;}
+    case CTL_S:
+      if (other_keycode == SFT_NUM) {return true;}
     // case SFT_5: //Shift + XCS_SFT
     //   if (other_keycode == XCASE || other_keycode == XCS_SFT || other_keycode == (XCASE & 0xff)) {return true;}
       break;

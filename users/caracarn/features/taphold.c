@@ -12,6 +12,10 @@ uint16_t get_tapping_term_result(uint16_t keycode) {
         case ESC_MEH:
         case SFT_NUM:
         case SPC_MAC:
+        case TD_SNIP:
+        case TD_SSFL:
+        case TD_COPY:
+        case TD_PAST:
             return g_tapping_term + 40;
         case FUN_XCS:
         case OSMLSFT:

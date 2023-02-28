@@ -57,14 +57,18 @@ process_record_result_t process_smart_thumb_keys(uint16_t keycode, keyrecord_t *
 
           case SFT_NUM:
       if (record->event.pressed) {
-        dprintln("SFT_NUM pressed");
         if (record->tap.count > 0) {
-          dprintln("SFT_NUM tapped");
-                  if (isAnyOneShotButShift || isOneShotLockedShift) {
+          if (get_mods() & MOD_MASK_CTRL) {
+            tap_code16(KC_CAPS);
+            return PROCESS_RECORD_RETURN_FALSE;
+          } else {
+                    if (isAnyOneShotButShift || isOneShotLockedShift) {
                       clear_locked_and_oneshot_mods();
                     } else if (isOneShotShift) {
                       clear_locked_and_oneshot_mods();
                       enable_caps_word();
+                    } else if ((!caps_word_on) && host_keyboard_led_state().caps_lock) {
+                      tap_code16(KC_CAPS);
                     } else if (caps_word_on) {
                       clear_locked_and_oneshot_mods();
                       disable_caps_word();
@@ -72,6 +76,8 @@ process_record_result_t process_smart_thumb_keys(uint16_t keycode, keyrecord_t *
                     } else {
                       add_oneshot_mods(MOD_MASK_SHIFT);
                     }
+                return PROCESS_RECORD_RETURN_FALSE;
+                }
                 return PROCESS_RECORD_RETURN_FALSE;
                 }
                 return PROCESS_RECORD_RETURN_TRUE;

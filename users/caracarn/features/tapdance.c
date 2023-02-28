@@ -211,7 +211,7 @@ void td_copy(qk_tap_dance_state_t *state, void *user_data) {
         case TD_SINGLE_TAP:
             tap_code16(G(KC_C));
             break;
-        case TD_DOUBLE_TAP:
+        case TD_SINGLE_HOLD:
             tap_code16(G(KC_X));
             break;
         default: break;
@@ -225,7 +225,10 @@ void td_paste(qk_tap_dance_state_t *state, void *user_data) {
             tap_code16(G(KC_V));
             break;
         case TD_SINGLE_HOLD:
-            tap_code16(G(A(S(KC_V))));
+            tap_code16(G(A(KC_V)));
+            break;
+        case TD_DOUBLE_TAP:
+            tap_code16(G(C(KC_V)));
             break;
         default: break;
     }
@@ -261,63 +264,27 @@ void td_screenshot_full(qk_tap_dance_state_t *state, void *user_data) {
     tap_state.state = dance_state(state);
     switch (tap_state.state) {
         case TD_SINGLE_TAP:
-            tap_code16(LGUI(LSFT(LCTL(KC_3))));
-            break;
-        case TD_DOUBLE_TAP:
             tap_code16(LGUI(LSFT(KC_3)));
+            break;
+        case TD_SINGLE_HOLD:
+            tap_code16(LGUI(LSFT(LCTL(KC_3))));
             break;
         default: break;
     }
 }
 
-void td_sssnippet_finished (qk_tap_dance_state_t *state, void *user_data) {
-  tap_state.state = dance_state(state);
-  switch (tap_state.state) {
-    case TD_SINGLE_TAP:
-        register_code(KC_LGUI);
-        register_code(KC_LSFT);
-        register_code(KC_LCTL);
-        register_code(KC_4);
-        break;
-    case TD_SINGLE_HOLD:
-        register_code(KC_LGUI);
-        register_code(KC_LSFT);
-        register_code(KC_4);
-        register_code(KC_SPC);
-        break;
-    case TD_DOUBLE_TAP:
-        register_code(KC_LGUI);
-        register_code(KC_LSFT);
-        register_code(KC_4);
-        break;
-    default: break;
-  }
+void td_screenshot_snippet(qk_tap_dance_state_t *state, void *user_data) {
+    tap_state.state = dance_state(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+            tap_code16(LGUI(LSFT(KC_4)));
+            break;
+        case TD_SINGLE_HOLD:
+            tap_code16(LGUI(LSFT(LCTL(KC_4))));
+            break;
+        default: break;
+    }
 }
-
-void td_sssnippet_reset (qk_tap_dance_state_t *state, void *user_data) {
-  switch (tap_state.state) {
-    case TD_SINGLE_TAP:
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LCTL);
-        unregister_code(KC_4);
-        break;
-    case TD_SINGLE_HOLD:
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_4);
-        unregister_code(KC_SPC);
-        break;
-    case TD_DOUBLE_TAP:
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_4);
-        break;
-    default: break;
-  }
-  tap_state.state = 0;
-}
-
 // Tap dance declarations
 
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -336,5 +303,5 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [SDB_QUO] = ACTION_TAP_DANCE_FN(td_quotes),
     [SS_FULL] = ACTION_TAP_DANCE_FN(td_screenshot_full),
     [VIMQ] = ACTION_TAP_DANCE_FN(td_vimq),
-    [SS_SNIP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,td_sssnippet_finished, td_sssnippet_reset)
+    [SS_SNIP] = ACTION_TAP_DANCE_FN(td_screenshot_snippet),
 };
