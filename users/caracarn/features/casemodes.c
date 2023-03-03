@@ -144,10 +144,12 @@ void disable_xcase(void) {
 static void place_delimiter(void) {
     if (IS_OSM(xcase_delimiter)) {
         // apparently set_oneshot_mods() is dumb and doesn't deal with handedness for you
-        uint8_t mods = xcase_delimiter & 0x10 ? (xcase_delimiter & 0x0F) << 4 : xcase_delimiter & 0xFF;
+        uint8_t mods = xcase_delimiter & 0x10 ? (xcase_delimiter & 0x0F) << 4 : xcase_delimiter & 0x0F;
         set_oneshot_mods(mods);
+        dprintf("xcase_delimiter modifier=%d\n",xcase_delimiter);
     } else {
         tap_code16(xcase_delimiter);
+        dprintf("xcase_delimiter=%d\n",xcase_delimiter);
     }
 }
 
@@ -155,6 +157,7 @@ static void place_delimiter(void) {
 static void remove_delimiter(void) {
     if (IS_OSM(xcase_delimiter)) {
         clear_oneshot_mods();
+        dprintln("clear_oneshot_mods in xcase");
     } else {
         for (int8_t i = 0; i < DEFAULT_DELIMITERS_TERMINATE_COUNT - 1; i++) {
             tap_code(KC_BSPC);
@@ -178,11 +181,14 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
             case BSP_SYM:
             case SPC_MAC:
             case SPC_HYP:
+            case ALT_M:
+            case ALT_V:
             // case (XCASE & 0xff):
             case KC_UP:
             case KC_DOWN:
             case KC_RIGHT:
             case KC_LEFT:
+            dprintln("terminate_case_modes");
                 // If mod chording disable the mods
                 if (record->event.pressed && (get_mods() != 0)) {
                     return true;
@@ -223,7 +229,8 @@ bool process_case_modes(uint16_t keycode, const keyrecord_t *record) {
             // Earlier return if this has not been considered tapped yet
             if (record->tap.count == 0)
                 return true;
-            keycode = keycode & 0xFF;
+            // keycode = keycode & 0xFF;
+            keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
             dprintln("base tapping keycode");
             // keycode = extract_base_tapping_keycode(keycode);
         }
@@ -251,6 +258,9 @@ bool process_case_modes(uint16_t keycode, const keyrecord_t *record) {
                     case FUN_XCS:
                     case XCASE:
                     case (XCASE & 0xff):
+                    case SFT_NUM:
+                    case SP_CAP:
+                    case (SP_CAP & 0xFF):
                         return false;
                         dprintln("xcase pcm met first switch condition");
                     default:
