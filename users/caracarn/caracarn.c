@@ -143,15 +143,19 @@ bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
     switch (keycode) {
          case KC_A ... KC_Z:
          case KC_1 ... KC_0:
+          dprintf("default xcase separator from caracarn\n");
              return true;
          // case (XCASE & 0xff):
          // case XCASE:
          case TAB_NAV:
          case BSP_SYM:
+         case SFT_NUM:
+         case SP_CAP:
+         case ALT_M:
+         case ALT_V:
          default:
             return false;
      }
-     dprintf("default xcase separator\n");
     return false;
 }
 
