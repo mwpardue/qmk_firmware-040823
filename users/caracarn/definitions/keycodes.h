@@ -5,7 +5,7 @@
 // Custom keycodes
 
 enum {
-    CUSTOM_KEYCODE_START = SAFE_RANGE,
+    CUSTOM_KEYCODE_START = QK_USER,
 
 #ifdef MACRO_ENABLE
     DDS,
