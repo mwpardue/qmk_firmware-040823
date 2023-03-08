@@ -100,10 +100,12 @@ void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_t
                     .v = val,
                 };
 			    rgb_matrix_sethsv_noeeprom(hsv.h, hsv.s, hsv.v);
-                if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
+              if ((get_highest_layer(layer_state | default_layer_state)) != _BASE && (get_highest_layer(layer_state | default_layer_state)) != _ADJUST && (get_highest_layer(layer_state | default_layer_state)) != _COLEMAK_DH ) {
+                if (HAS_ANY_FLAGS(g_led_config.flags[i], led_type)) {
                     RGB rgb = hsv_to_rgb(hsv);
                     RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
-            }
+                }
+              }
             } else {
                 HSV hsv = {
                     .h = (*l)[i][0],
@@ -122,6 +124,7 @@ void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_t
                             }
                         }
                     }
+            }
         #ifdef CASEMODE_ENABLE
          if ((xcase_state == XCASE_ON) && (host_keyboard_led_state().caps_lock)) {
                     rgb_matrix_set_custom_indicators(led_min, led_max, LED_FLAG_KEYLIGHT, HSV_PURPLE);
@@ -159,7 +162,7 @@ void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_t
                 rgb_matrix_set_color(6, RGB_TURQUOISE);
                 rgb_matrix_set_color(33, RGB_TURQUOISE);
             }
-        }
+        // }
     }
 }
 

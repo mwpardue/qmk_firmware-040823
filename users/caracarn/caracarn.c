@@ -22,13 +22,15 @@ void keyboard_pre_init_user(void) {
 void                       keyboard_post_init_user(void) {
 #if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
     keyboard_post_init_transport_sync();
+    rgb_matrix_mode(RGB_MATRIX_TYPING_HEATMAP);
+    rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
 #endif
 }
 
 __attribute__((weak)) void eeconfig_init_keymap(void) {}
 void                       eeconfig_init_user(void) {
     user_config.raw              = 0;
-    user_config.rgb_matrix_ledmap_active = true;
+    user_config.rgb_matrix_ledmap_active = false;
     user_config.rgb_matrix_heatmap_area = 40;
     user_config.rgb_matrix_heatmap_spread = 35;
     eeconfig_update_user(user_config.raw);
