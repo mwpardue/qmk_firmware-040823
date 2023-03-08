@@ -223,7 +223,7 @@ bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
 
 // process_record_result_t process_case_modes(uint16_t keycode, keyrecord_t *record) {
 bool process_case_modes(uint16_t keycode, const keyrecord_t *record) {
-    if (caps_word_on || xcase_state || host_keyboard_led_state().caps_lock) {
+    if (caps_word_on || xcase_state) {
         if ((QK_MOD_TAP <= keycode && keycode <= QK_MOD_TAP_MAX)
             || (QK_LAYER_TAP <= keycode && keycode <= QK_LAYER_TAP_MAX)) {
             // Earlier return if this has not been considered tapped yet
@@ -321,7 +321,7 @@ bool process_case_modes(uint16_t keycode, const keyrecord_t *record) {
             } // end XCASE_ON
 
             // check if the case modes have been terminated
-            if ((terminate_case_modes(keycode, record)) && caps_word_on) {
+            if (terminate_case_modes(keycode, record)) {
                 disable_caps_word();
                 disable_xcase();
             } 
