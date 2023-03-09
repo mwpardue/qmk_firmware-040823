@@ -13,6 +13,12 @@ ifeq ($(strip $(SECRETS_ENABLE)), yes)
     OPT_DEFS += -DSECRETS_ENABLE
 endif
 
+GQT_ENABLE ?= no
+ifeq ($(strip $(GQT_ENABLE)), yes)
+    SRC += $(USER_PATH)/features/global_quick_tap.c
+    OPT_DEFS += -DGQT_ENABLE
+endif
+
 ACHORDION_ENABLE ?= no
 ifeq ($(strip $(ACHORDION_ENABLE)), yes)
     SRC += $(USER_PATH)/features/achordion.c

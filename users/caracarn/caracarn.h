@@ -13,6 +13,10 @@ void housekeeping_task_transport_sync(void);
     #include "features/tapdance.h"
 #endif
 
+#ifdef GQT_ENABLE
+  #include "features/global_quick_tap.h"
+#endif
+
 #ifdef ACHORDION_ENABLE
     #include "features/achordion.h"
 #endif

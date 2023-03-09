@@ -174,6 +174,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_leader(keycode, record)) { return false; }
 #endif
 
+#ifdef GQT_ENABLE
+  if (!process_global_quick_tap(keycode, record)) { return false; }
+#endif
+
 #ifdef ACHORDION_ENABLE
     if (!process_achordion(keycode, record)) { return false; }
 #endif

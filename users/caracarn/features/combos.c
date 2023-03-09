@@ -12,10 +12,7 @@ const uint16_t PROGMEM login_combo[] = {BSP_SYM, KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM copy_combo[] = {TAB_NAV, KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM cut_combo[] = {TAB_NAV, KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM paste_combo[] = {TAB_NAV, KC_C, ALT_V, COMBO_END};
-const uint16_t PROGMEM browback_combo[] = {TAB_NAV, KC_A, CTL_S, COMBO_END};
-const uint16_t PROGMEM browfwd_combo[] = {TAB_NAV, SFT_D, GUI_F, COMBO_END};
-const uint16_t PROGMEM pasteplain_combo[] = {SFT_NUM, KC_C, ALT_V, COMBO_END};
-const uint16_t PROGMEM function_combo[] = {KC_DOT, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM debug_combo[] = {TAB_NAV, SFT_D, KC_G, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
 
@@ -28,10 +25,7 @@ combo_t key_combos[COMBO_COUNT] = {
   COMBO(copy_combo, LGUI(KC_C)),
   COMBO(cut_combo, LGUI(KC_X)),
   COMBO(paste_combo, LGUI(KC_V)),
-  COMBO(browback_combo, LGUI(KC_LBRC)),
-  COMBO(browfwd_combo, LGUI(KC_RBRC)),
-  COMBO(pasteplain_combo, LGUI(LALT(LSFT(KC_V)))),
-  COMBO(function_combo, MO(_FUNCTION))
+  COMBO(debug_combo, DB_TOGG)
 
 };
 

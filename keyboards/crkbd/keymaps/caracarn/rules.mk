@@ -21,6 +21,7 @@ MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes # Audio control and System control
 TAP_DANCE_ENABLE = yes
 SECRETS_ENABLE = yes
+GQT_ENABLE = yes
 ACHORDION_ENABLE = yes
 CAPSWORD_ENABLE = no
 TAPHOLD_ENABLE = yes
