@@ -305,10 +305,6 @@ void render_smart_case(void) {
                 render_layer_box_top();
                 oled_write_P(capslock, false);
                 render_layer_box_bottom();
-            } else if (is_leading()) {
-                render_layer_box_top();
-                oled_write_P(PSTR("LDR"), false);
-                render_layer_box_bottom();
         #endif
             } else {
                 // oled_write_P(blank, false);
