@@ -100,6 +100,7 @@ enum {
 #define GUI_J RGUI_T(KC_J)
 #define OPT_PST LALT_T(SP_PST)
 #define ALT_RGT LALT_T(SP_RGT)
+#define CTL_SCN LCTL_T(KC_SCLN)
 
 // One-shot mods
 

@@ -31,9 +31,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_NUMPAD] = LAYOUT_split_3x6_3(
-  _______, KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, TIPS,                         KC_BSLS, KC_7,    KC_8,    KC_9,    KC_SLSH, _______,
-  _______, KC_AT,   OSMLCTL, OSMLSFT, OSMLGUI, KC_PIPE,                      KC_MINS, KC_4,    KC_5,    KC_6,    KC_COLN, _______,
-  _______, KC_LBRC, KC_RBRC, KC_UNDS, OSMLALT, KC_SCLN,                      KC_EQL,  KC_1,    KC_2,    KC_3,    KC_DOT,  _______,
+  _______, KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, TIPS,                         KC_GRV,  KC_7,    KC_8,    KC_9,    KC_SLSH, _______,
+  _______, KC_AT,   CTL_SCN, OSMLSFT, OSMLGUI, KC_PIPE,                      KC_MINS, KC_4,    KC_5,    KC_6,    KC_COLN, _______,
+  _______, KC_LBRC, KC_RBRC, KC_UNDS, OSMLALT, KC_BSLS,                      KC_EQL,  KC_1,    KC_2,    KC_3,    KC_DOT,  _______,
                                       _______, _______, _______,    SPC_SYM, KC_0,    ENT_HYP
 ),
 
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NAVIGATION] = LAYOUT_split_3x6_3(
   _______, MC_SWAP, MOV_LFT, MC_SWRI, MOV_RGT, TD_SSFL,  		             WD_LEFT, SEL_WRD,  SEL_LIN, WD_RGHT, PASSPAL, _______,
   _______, _______, OSMLCTL, OSMLSFT, OSMLGUI, TD_SNIP,                  KC_LEFT, KC_DOWN,  KC_UP,   KC_RGHT, _______, _______,
-  _______, _______, TD_PAST, TD_COPY, OSMLALT, KC_ENT,  		             _______, _______,  _______, _______, _______, _______,
+  _______, LLOCK,   TD_PAST, TD_COPY, OSMLALT, KC_ENT,  		             _______, _______,  _______, _______, _______, _______,
 							                        _______, _______, _______,    KC_BSPC, KC_SPC,  KC_ENT
 ),
 

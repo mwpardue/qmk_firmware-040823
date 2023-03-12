@@ -13,6 +13,8 @@ const uint16_t PROGMEM copy_combo[] = {TAB_NAV, KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM cut_combo[] = {TAB_NAV, KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM paste_combo[] = {TAB_NAV, KC_C, ALT_V, COMBO_END};
 const uint16_t PROGMEM debug_combo[] = {TAB_NAV, SFT_D, KC_G, COMBO_END};
+const uint16_t PROGMEM delete_combo[] = {ESC_MEH, CTL_S, KC_A, COMBO_END};
+const uint16_t PROGMEM enter_combo[] = {ESC_MEH, CTL_S, SFT_D, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
 
@@ -25,7 +27,9 @@ combo_t key_combos[COMBO_COUNT] = {
   COMBO(copy_combo, LGUI(KC_C)),
   COMBO(cut_combo, LGUI(KC_X)),
   COMBO(paste_combo, LGUI(KC_V)),
-  COMBO(debug_combo, DB_TOGG)
+  COMBO(debug_combo, DB_TOGG),
+  COMBO(delete_combo, KC_BACKSPACE),
+  COMBO(enter_combo, KC_ENTER)
 
 };
 

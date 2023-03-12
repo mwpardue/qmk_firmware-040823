@@ -85,6 +85,7 @@ bool get_hold_on_other_key_press_result(uint16_t keycode) {
         case ENT_HYP:
         case SPC_HYP:
         case SPC_SYM:
+        case SFT_NUM:
             // Immediately select the hold action when another key is pressed.
             return true;
         default:
@@ -95,7 +96,6 @@ bool get_hold_on_other_key_press_result(uint16_t keycode) {
 bool get_permissive_hold_result(uint16_t keycode) {
     switch (keycode) {
         case SPCSFT:
-        case SFT_NUM:
         case BSP_SYM:
         case CTL_A:
         case ALT_S:
