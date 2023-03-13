@@ -22,6 +22,9 @@
 #define KEYBOARD_SHARED_EP
 
 #undef RGB_DI_PIN
+#ifdef CONVERT_TO_HELIOS
+  #define RGB_DI_PIN 25U
+#endif
 
 #define SPLIT_USB_DETECT
 #define SPLIT_WATCHDOG_ENABLE

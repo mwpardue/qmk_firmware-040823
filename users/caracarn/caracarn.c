@@ -10,8 +10,10 @@
 #endif
 
 void keyboard_pre_init_user(void) {
+  #ifdef CONVERT_TO_BONSAI_C4
     setPinOutput(PAL_LINE(GPIOB, 0));
     writePinHigh(PAL_LINE(GPIOB, 0));
+  #endif
     // setPinInput(PAL_LINE(GPIOA, 9));
     // setPinOutput(B0);
     // writePinHigh(B0);
