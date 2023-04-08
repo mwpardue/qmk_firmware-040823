@@ -177,8 +177,10 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
             case KC_UNDS:
             case KC_BSPC:
             case TAB_NAV:
+            case ENT_NAV:
             case SFT_NUM:
             case BSP_SYM:
+            case SFT_BSP:
             case SPC_MAC:
             case SPC_HYP:
             case ALT_M:

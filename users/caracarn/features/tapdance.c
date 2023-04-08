@@ -207,6 +207,103 @@ void td_screenshot_snippet(tap_dance_state_t *state, void *user_data) {
         default: break;
     }
 }
+
+void td_monitor_left(tap_dance_state_t *state, void *user_data) {
+    tap_state.state = dance_state(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+          tap_code16(LALT(LSFT(LCTL(KC_4))));
+          break;
+        case TD_SINGLE_HOLD:
+          tap_code16(LGUI(LALT(LSFT(LCTL(KC_4)))));
+          break;
+        default: break;
+    }
+}
+
+void td_monitor_middle(tap_dance_state_t *state, void *user_data) {
+    tap_state.state = dance_state(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+          tap_code16(LALT(LSFT(LCTL(KC_5))));
+          break;
+        case TD_SINGLE_HOLD:
+          tap_code16(LGUI(LALT(LSFT(LCTL(KC_5)))));
+          break;
+        default: break;
+    }
+}
+
+void td_monitor_right(tap_dance_state_t *state, void *user_data) {
+    tap_state.state = dance_state(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+          tap_code16(LALT(LSFT(LCTL(KC_6))));
+          break;
+        case TD_SINGLE_HOLD:
+          tap_code16(LGUI(LALT(LSFT(LCTL(KC_6)))));
+          break;
+        default: break;
+    }
+}
+
+void td_monitor_bottom(tap_dance_state_t *state, void *user_data) {
+    tap_state.state = dance_state(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+          tap_code16(LALT(LSFT(LCTL(KC_1))));
+          break;
+        case TD_SINGLE_HOLD:
+          tap_code16(LGUI(LALT(LSFT(LCTL(KC_1)))));
+          break;
+        default: break;
+    }
+}
+
+void td_curly_braces(tap_dance_state_t *state, void *user_data) {
+    tap_state.state = dance_state(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+          tap_code16(KC_LCBR);
+          break;
+        case TD_SINGLE_HOLD:
+          tap_code16(KC_LCBR);
+          tap_code16(KC_RCBR);
+          tap_code16(KC_LEFT);
+          break;
+        default: break;
+    }
+}
+
+void td_square_brackets(tap_dance_state_t *state, void *user_data) {
+    tap_state.state = dance_state(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+          tap_code16(KC_LBRC);
+          break;
+        case TD_SINGLE_HOLD:
+          tap_code16(KC_LBRC);
+          tap_code16(KC_RBRC);
+          tap_code16(KC_LEFT);
+          break;
+        default: break;
+    }
+}
+
+void td_parentesis(tap_dance_state_t *state, void *user_data) {
+    tap_state.state = dance_state(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+          tap_code16(KC_LPRN);
+          break;
+        case TD_SINGLE_HOLD:
+          tap_code16(KC_LPRN);
+          tap_code16(KC_RPRN);
+          tap_code16(KC_LEFT);
+          break;
+        default: break;
+    }
+}
 // Tap dance declarations
 
 tap_dance_action_t tap_dance_actions[] = {
@@ -218,12 +315,16 @@ tap_dance_action_t tap_dance_actions[] = {
     [TDPASTE] = ACTION_TAP_DANCE_FN(td_paste),
     [TDJLEFT] = ACTION_TAP_DANCE_FN(td_jumpleft),
     [TDJRIGHT] = ACTION_TAP_DANCE_FN(td_jumpright),
-    // [BRT_CUR] = ACTION_TAP_DANCE_FN(td_curly_braces),
-    // [BRT_SQR] = ACTION_TAP_DANCE_FN(td_square_brackets),
-    // [BRT_PAR] = ACTION_TAP_DANCE_FN(td_parentesis),
+    [BRT_CUR] = ACTION_TAP_DANCE_FN(td_curly_braces),
+    [BRT_SQR] = ACTION_TAP_DANCE_FN(td_square_brackets),
+    [BRT_PAR] = ACTION_TAP_DANCE_FN(td_parentesis),
     // [BRT_ANG] = ACTION_TAP_DANCE_FN(td_angle_brackets),
     [SDB_QUO] = ACTION_TAP_DANCE_FN(td_quotes),
     [SS_FULL] = ACTION_TAP_DANCE_FN(td_screenshot_full),
     [VIMQ] = ACTION_TAP_DANCE_FN(td_vimq),
     [SS_SNIP] = ACTION_TAP_DANCE_FN(td_screenshot_snippet),
+    [MONITOR_LEFT] = ACTION_TAP_DANCE_FN(td_monitor_left),
+    [MONITOR_RIGHT] = ACTION_TAP_DANCE_FN(td_monitor_right),
+    [MONITOR_MIDDLE] = ACTION_TAP_DANCE_FN(td_monitor_middle),
+    [MONITOR_BOTTOM] = ACTION_TAP_DANCE_FN(td_monitor_bottom),
 };

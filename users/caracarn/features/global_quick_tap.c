@@ -67,9 +67,13 @@ uint16_t get_global_quick_tap_ms(uint16_t keycode) {
         case CTL_L:
         case GUI_J:
         case ALT_M:
+        case CTL_D:
+        case CTL_SCN:
           return 150;
         case SFT_D:
         case SFT_K:
+        case SFT_A:
+        case SFT_SCN:
           return 1;
         default:
             return 0;  // global_quick_tap is not applied
