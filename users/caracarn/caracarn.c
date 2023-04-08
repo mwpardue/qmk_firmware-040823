@@ -10,8 +10,14 @@
 #endif
 
 void keyboard_pre_init_user(void) {
+  #ifdef CONVERT_TO_BONSAI_C4
     setPinOutput(PAL_LINE(GPIOB, 0));
     writePinHigh(PAL_LINE(GPIOB, 0));
+  #endif
+  #ifdef CONVERT_TO_HELIOS
+    setPinInput(23U);
+    setPinInput(21U);
+  #endif
     // setPinInput(PAL_LINE(GPIOA, 9));
     // setPinOutput(B0);
     // writePinHigh(B0);
@@ -120,8 +126,10 @@ void matrix_scan_user(void) {
      case ESC_CTL:
      case ESC_MEH:
      case BSP_SYM:
+     case SFT_BSP:
      case SPCSFT:
      case TAB_NAV:
+     case ENT_NAV:
      case ENT_MEH:
      case ENT_HYP:
      case SPC_HYP:
@@ -129,6 +137,7 @@ void matrix_scan_user(void) {
      case SPC_MAC:
      case SFT_FUN:
      case SPC_SYM:
+     case TAB_MEH:
        return 0;  // Bypass Achordion for these keys.
        dprintln("Bypassing achordion for timeout");
    }
@@ -150,7 +159,9 @@ bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
          // case (XCASE & 0xff):
          // case XCASE:
          case TAB_NAV:
+         case ENT_NAV:
          case BSP_SYM:
+         case SFT_BSP:
          case SFT_NUM:
          case SP_CAP:
          case ALT_M:
@@ -172,6 +183,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //             break;
 //     };
   if (!process_leader(keycode, record)) { return false; }
+#endif
+
+#ifdef GQT_ENABLE
+  if (!process_global_quick_tap(keycode, record)) { return false; }
 #endif
 
 #ifdef ACHORDION_ENABLE

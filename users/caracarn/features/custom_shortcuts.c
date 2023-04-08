@@ -148,6 +148,17 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
           }
           return PROCESS_RECORD_RETURN_TRUE;
 
+        case SFT_AT:
+          if (record->tap.count > 0) {
+            if (record->event.pressed) {
+              dprintln("KC_AT pressed");
+              tap_code16(KC_AT);
+            }
+            return PROCESS_RECORD_RETURN_FALSE;
+          }
+          return PROCESS_RECORD_RETURN_TRUE;
+      
+#ifdef CUSTOM_LEADER_ENABLE
        case LEADER:
             if (record->event.pressed) {
                 dprintln("calling start_leading from LEADER");
@@ -155,6 +166,7 @@ process_record_result_t process_custom_shortcuts(uint16_t keycode, keyrecord_t *
                 return PROCESS_RECORD_RETURN_FALSE;
             }
             return PROCESS_RECORD_RETURN_TRUE;
+#endif
 
        case PASSPAL:
             if (record->event.pressed) {

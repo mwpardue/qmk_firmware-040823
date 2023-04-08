@@ -99,6 +99,22 @@ process_record_result_t process_smart_thumb_keys(uint16_t keycode, keyrecord_t *
       return PROCESS_RECORD_RETURN_TRUE;
       }
 
+
+          case SFT_ENT:
+      if (record->event.pressed) {
+        if (record->tap.count > 0) {
+          if (get_mods() & MOD_MASK_CTRL) {
+            unregister_mods(MOD_MASK_CTRL);
+            tap_code16(KC_ENTER);
+          } else {
+            dprintln("That's enter now, dummy");
+          return PROCESS_RECORD_RETURN_FALSE;
+          }
+          return PROCESS_RECORD_RETURN_FALSE;
+        }
+      return PROCESS_RECORD_RETURN_TRUE;
+      }
+
       //     case CAP_SFT:
       // if (record->event.pressed) {
       //   if (record->tap.count > 0) {

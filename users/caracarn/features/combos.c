@@ -5,17 +5,16 @@
 //Shortcuts
 const uint16_t PROGMEM bootloader_combo[] = {SFT_NUM, KC_Q, KC_T, COMBO_END};
 const uint16_t PROGMEM sleep_combo[] = {SFT_NUM, KC_Q, KC_W, COMBO_END};
-const uint16_t PROGMEM playpause_combo[] = {SFT_NUM, CTL_S, SFT_D, COMBO_END};
-const uint16_t PROGMEM previous_combo[] = {SFT_NUM, KC_A, CTL_S, COMBO_END};
-const uint16_t PROGMEM next_combo[] = {SFT_NUM, SFT_D, GUI_F, COMBO_END};
-const uint16_t PROGMEM login_combo[] = {BSP_SYM, KC_O, KC_P, COMBO_END};
-const uint16_t PROGMEM copy_combo[] = {TAB_NAV, KC_X, KC_C, COMBO_END};
-const uint16_t PROGMEM cut_combo[] = {TAB_NAV, KC_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM paste_combo[] = {TAB_NAV, KC_C, ALT_V, COMBO_END};
-const uint16_t PROGMEM browback_combo[] = {TAB_NAV, KC_A, CTL_S, COMBO_END};
-const uint16_t PROGMEM browfwd_combo[] = {TAB_NAV, SFT_D, GUI_F, COMBO_END};
-const uint16_t PROGMEM pasteplain_combo[] = {SFT_NUM, KC_C, ALT_V, COMBO_END};
-const uint16_t PROGMEM function_combo[] = {KC_DOT, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM playpause_combo[] = {SFT_NUM, ALT_S, CTL_D, COMBO_END};
+const uint16_t PROGMEM previous_combo[] = {SFT_NUM, SFT_A, ALT_S, COMBO_END};
+const uint16_t PROGMEM next_combo[] = {SFT_NUM, CTL_D, GUI_F, COMBO_END};
+const uint16_t PROGMEM login_combo[] = {SFT_BSP, KC_O, KC_P, COMBO_END};
+const uint16_t PROGMEM copy_combo[] = {ENT_NAV, KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM cut_combo[] = {ENT_NAV, KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM paste_combo[] = {ENT_NAV, KC_C, ALT_V, COMBO_END};
+const uint16_t PROGMEM debug_combo[] = {ENT_NAV, CTL_D, KC_G, COMBO_END};
+const uint16_t PROGMEM delete_combo[] = {ESC_MEH, ALT_S, SFT_A, COMBO_END};
+const uint16_t PROGMEM enter_combo[] = {ESC_MEH, ALT_S, CTL_D, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
 
@@ -28,10 +27,9 @@ combo_t key_combos[COMBO_COUNT] = {
   COMBO(copy_combo, LGUI(KC_C)),
   COMBO(cut_combo, LGUI(KC_X)),
   COMBO(paste_combo, LGUI(KC_V)),
-  COMBO(browback_combo, LGUI(KC_LBRC)),
-  COMBO(browfwd_combo, LGUI(KC_RBRC)),
-  COMBO(pasteplain_combo, LGUI(LALT(LSFT(KC_V)))),
-  COMBO(function_combo, MO(_FUNCTION))
+  COMBO(debug_combo, DB_TOGG),
+  COMBO(delete_combo, KC_BACKSPACE),
+  COMBO(enter_combo, KC_ENTER)
 
 };
 

@@ -100,12 +100,12 @@ void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_t
                     .v = val,
                 };
 			    rgb_matrix_sethsv_noeeprom(hsv.h, hsv.s, hsv.v);
-              if ((get_highest_layer(layer_state | default_layer_state)) != _BASE && (get_highest_layer(layer_state | default_layer_state)) != _ADJUST && (get_highest_layer(layer_state | default_layer_state)) != _COLEMAK_DH ) {
-                if (HAS_ANY_FLAGS(g_led_config.flags[i], led_type)) {
+              // if ((get_highest_layer(layer_state | default_layer_state)) != _BASE && (get_highest_layer(layer_state | default_layer_state)) != _ADJUST && (get_highest_layer(layer_state | default_layer_state)) != _COLEMAK_DH ) {
+                if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
                     RGB rgb = hsv_to_rgb(hsv);
                     RGB_MATRIX_INDICATOR_SET_COLOR(i, rgb.r, rgb.g, rgb.b);
                 }
-              }
+              // }
             } else {
                 HSV hsv = {
                     .h = (*l)[i][0],
@@ -144,23 +144,29 @@ void set_layer_rgb_matrix(uint8_t led_min, uint8_t led_max, int layer, int led_t
           bool isOneShotMeh = get_oneshot_mods() & (MOD_BIT(KC_LCTL) && get_oneshot_mods() & MOD_BIT(KC_LSFT) && get_oneshot_mods() & MOD_BIT(KC_LALT));
 
             if (isHyper||isOneShotHyper) {
-                rgb_matrix_set_color(6, RGB_BLUE);
-                rgb_matrix_set_color(33, RGB_BLUE);
+              if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
+                rgb_matrix_set_color(i, RGB_BLUE);
+              }
             } else if (isMeh||isOneShotMeh) {
-                rgb_matrix_set_color(6, RGB_YELLOW);
-                rgb_matrix_set_color(33, RGB_YELLOW);
+              if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
+                rgb_matrix_set_color(i, RGB_YELLOW);
+              }
             } else if ((get_mods()|get_oneshot_mods()) & MOD_MASK_SHIFT) {
-                rgb_matrix_set_color(6, RGB_RED);
-                rgb_matrix_set_color(33, RGB_RED);
+              if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
+                rgb_matrix_set_color(i, RGB_RED);
+              }
             } else if ((get_mods()|get_oneshot_mods()) & MOD_MASK_GUI) {
-                rgb_matrix_set_color(6, RGB_GREEN);
-                rgb_matrix_set_color(33, RGB_GREEN);
+              if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
+                rgb_matrix_set_color(i, RGB_GREEN);
+              }
             } else if ((get_mods()|get_oneshot_mods()) & MOD_MASK_ALT) {
-                rgb_matrix_set_color(6, RGB_ORANGE);
-                rgb_matrix_set_color(33, RGB_ORANGE);
+              if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
+                rgb_matrix_set_color(i, RGB_ORANGE);
+              }
             } else if ((get_mods()|get_oneshot_mods()) & MOD_MASK_CTRL) {
-                rgb_matrix_set_color(6, RGB_TURQUOISE);
-                rgb_matrix_set_color(33, RGB_TURQUOISE);
+              if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
+                rgb_matrix_set_color(i, RGB_TURQUOISE);
+              }
             }
         // }
     }

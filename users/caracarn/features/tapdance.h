@@ -15,14 +15,18 @@ enum {
     TDPASTE,
     TDJLEFT,
     TDJRIGHT,
-    // BRT_CUR,
-    // BRT_SQR,
-    // BRT_PAR,
+    BRT_CUR,
+    BRT_SQR,
+    BRT_PAR,
     // BRT_ANG,
     SDB_QUO,
     SS_FULL,
     VIMQ,
-    SS_SNIP
+    SS_SNIP,
+    MONITOR_LEFT,
+    MONITOR_MIDDLE,
+    MONITOR_RIGHT,
+    MONITOR_BOTTOM
 };
 
 #define TD_S15 TD(SEC1_5)
@@ -33,14 +37,18 @@ enum {
 #define TD_PAST TD(TDPASTE)
 #define TD_JLFT TD(TDJLEFT)
 #define TD_JRGT TD(TDJRIGHT)
-// #define TD_CURB TD(BRT_CUR)
-// #define TD_SQRB TD(BRT_SQR)
-// #define TD_PARB TD(BRT_PAR)
+#define TD_CURB TD(BRT_CUR)
+#define TD_SQRB TD(BRT_SQR)
+#define TD_PARB TD(BRT_PAR)
 // #define TD_ANGB TD(BRT_ANG)
 #define TD_QUOT TD(SDB_QUO)
 #define TD_SSFL TD(SS_FULL)
 #define TD_SNIP TD(SS_SNIP)
 #define TD_VIMQ TD(VIMQ)
+#define TD_MONL TD(MONITOR_LEFT)
+#define TD_MONR TD(MONITOR_RIGHT)
+#define TD_MONM TD(MONITOR_MIDDLE)
+#define TD_MONB TD(MONITOR_BOTTOM)
 typedef enum {
     TD_NONE,
     TD_UNKNOWN,
@@ -58,4 +66,4 @@ typedef struct {
     bool recording;
 } td_tap_t;
 
-td_state_t dance_state(qk_tap_dance_state_t *state);
+td_state_t dance_state(tap_dance_state_t *state);

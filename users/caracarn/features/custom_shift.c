@@ -41,15 +41,13 @@ process_record_result_t process_custom_shift(uint16_t keycode, keyrecord_t *reco
             // return PROCESS_RECORD_RETURN_TRUE;
 
             if (isShifted && !isOneShotShift) {
-                if (record->event.pressed) {
-                    dprintln("Custom Shift Invoked");
-                    register_code(KC_DEL);
-                } else {
-                    unregister_code(KC_DEL);
+                if (record->event.pressed && record->tap.count>0) {
+                  tap_code16(KC_DEL);
+                  return PROCESS_RECORD_RETURN_FALSE;
                 }
-                return PROCESS_RECORD_RETURN_FALSE;
+                return PROCESS_RECORD_RETURN_TRUE;
             }
-            return PROCESS_RECORD_RETURN_TRUE;
+            return PROCESS_RECORD_CONTINUE;
 
     }
 
